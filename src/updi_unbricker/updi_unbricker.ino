@@ -35,8 +35,8 @@ void setup()
   attachInterrupt(digitalPinToInterrupt(PIN_INPUT), buttonPushed, FALLING);
 }
 
-unsigned long pushed_time = 0;
-bool button_pushed = false;
+volatile unsigned long pushed_time = 0;
+volatile bool button_pushed = false;
 
 void buttonPushed()
 {
@@ -63,16 +63,28 @@ bool checkButtonStatus()
   return ret;
 }
 
+static bool wait_for_pin_state(uint8_t pin, int8_t expected, uint32_t timeoutUs)
+{
+  const uint32_t start = micros();
+  while ((micros() - start) < timeoutUs) {
+    if (digitalReadFast(pin) == expected) {
+      return true;
+    }
+  }
+  return false;
+}
+
 const uint8_t UPDI_SYNCH = 0x55;
 const uint8_t UPDI_KEY_64 = 0xe0;
 const uint8_t nvmprog_key[] = {0x20, 0x67, 0x6f, 0x72, 0x50, 0x4d, 0x56, 0x4e}; // 0x4E564D50726F6720
 
 void reset_target()
 {
-  // This is required only for ATtiny.
-  // However, it should be acceptable for AVR Dx/Ex series.
+  // This is required for ATtiny devices to satisfy the POR timing window.
+  // It is also acceptable for AVR Dx/Ex devices, where it simply ensures a clean reset
+  // before the HV pulse is applied.
 
-  // Keep reset while the START button is pressed.
+  // Keep the target reset while the START button is pressed.
   openDrainFast(PIN_PWR, FLOATING); // Off
   do {
     delay(50);
@@ -82,22 +94,27 @@ void reset_target()
   delay(1);   // < 8.8 ms
 }
 
+constexpr uint32_t hv_pulse_12_us = 100;
+constexpr uint32_t hv_pulse_75_us = 50;
+constexpr uint32_t hv_pulse_gap_us = 10;
+
 void send_hv_pulse()
 {
   // Recommended pulse widths (t_HV) are:
   //   ATtiny: > 100 us, < 1 ms
   //   AVR Dx/Ex: > 10 us
 
-  // Can we use the same pulse width?
-
+  // Use a common pulse sequence for both device families and tune if needed.
   digitalWriteFast(PIN_HV_12, HIGH);
-  delayMicroseconds(100);
+  delayMicroseconds(hv_pulse_12_us);
   digitalWriteFast(PIN_HV_75, HIGH);
-  delayMicroseconds(50);
+  delayMicroseconds(hv_pulse_75_us);
   digitalWriteFast(PIN_HV_75, LOW);
   digitalWriteFast(PIN_HV_12, LOW);
-  delayMicroseconds(10);  // needed?
+  delayMicroseconds(hv_pulse_gap_us);
 }
+
+constexpr uint32_t updi_wait_timeout_us = 2000;
 
 void enable_updi()
 {
@@ -109,11 +126,9 @@ void enable_updi()
   __builtin_avr_delay_cycles(F_CPU * 5 / 10'000'000);  // 0.5 us (e.g. 10 cycles @ 20 MHz)
   openDrainFast(PIN_UPDI, FLOATING);
 
-  // Wait t_UPDI (10 - 200 us)
-  for (int i = 0; i < 21; ++i) {
-    delayMicroseconds(10);
-    if (digitalReadFast(PIN_UPDI) == HIGH)
-      break;
+  // Wait t_UPDI (10 - 200 us) and allow a generous timeout for real hardware variation.
+  if (!wait_for_pin_state(PIN_UPDI, HIGH, updi_wait_timeout_us)) {
+    return;
   }
 
   // Wait t_DebZ (200 us - 14 ms)
