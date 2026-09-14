@@ -192,7 +192,7 @@ SW1 selects whether HV programming is enabled. For safety, it is normally recomm
 
 SW2 selects the target supply voltage. You can select 5 V or 3.3 V.
 
-SW3 selects whether the board supplies power to the target. If the silk label is set to ON, power is supplied; if set to OFF, no power is supplied. If the target is already powered by another path, set this to OFF.
+SW3 selects whether the board supplies power to the target. If it is set to ON, power is supplied; if set to OFF, no power is supplied. If the target is already powered by another path, set this to OFF.
 
 When using this board to power the target, select the supply voltage with SW2 and set SW3 to ON. The LED color changes with the supply voltage: green at 3.3 V and orange (green + red) at 5 V. If SW3 is OFF and the target is not connected, the LED is turned off. If the target is connected and powered externally, the LED lights from the target supply.
 
@@ -224,7 +224,7 @@ Select the appropriate board and chip for the AVR mounted on U4.
 
 ATtiny402 has been used for verification, but other 8-pin ATtiny devices may also work.
 
-If the programmer is set to SerialUPDI and programming is started, the firmware is written successfully.
+Set the programmer to SerialUPDI to write the firmware.
 
 #### HV programming for firmware recovery
 
@@ -356,7 +356,7 @@ Reference: [Non-Compliant Use of CH340 V3 Pin: Deep Dive for Engineers](https://
 
 As described above, the UPDI section uses the circuit from [UPDI Adapter for AE-CH9102F (Rev. 2)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F), which includes automatic mode switching using the RTS signal.
 
-In general, a two-pole, double-throw switch is often used to switch between UPDI mode and serial communication mode. Here, the TxD line remains connected, allowing switching with a single-pole, double-throw switch. In addition, to keep the switching circuit compact, an analog switch IC such as 4052 is not used; a discrete-component implementation is used instead.
+In general, a two-pole, double-throw switch is often used to switch between UPDI mode and serial communication mode. Here, the TxD line remains connected, allowing switching with a single-pole, double-throw switch. In addition, to keep the switching circuit compact, a discrete-component implementation is used instead of an analog switch IC such as 4052.
 
 ### VDD voltage indicator
 
