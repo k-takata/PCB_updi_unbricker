@@ -346,6 +346,20 @@ $$
 
 Here, $R_{top}$ is the equivalent resistance of R10 and R11, and $R_{bottom}$ is R12. In practice, the divider ratio is adjusted to be close to 8.6 so that TP2 is around 12 V.
 
+Example combinations:
+
+| R10 | R11 | R12  | $V_{out}$ | Note |
+|-----|-----|------|-----------|------|
+| 56 k | 39 k | 2.7 k | 11.89     | E12 series |
+| 13 k | -    | 1.5 k | 12.08     | E24 series |
+| 11 k | -    | 1.3 k | 11.83     | E24 series |
+| 33 k | -    | 3.9 k | 11.83     | E12 series |
+| 18 k |100 k | 1.8 k | 11.84     | E12 series |
+| 51 k | 51 k | 3.0 k | 11.88     | E24 series |
+| 43 k |680 k | 4.7 k | 12.01     | E24 series |
+| 75 k |470 k | 7.5 k | 12.03     | E24 series |
+
+
 ### CH340K 3.3 V operation
 
 When using CH340K at 3.3 V, the datasheet says to connect the V3 pin to the VCC pin. However, if current is not drawn from the V3 pin, it appears to work fine to connect only a 0.1 μF capacitor.
