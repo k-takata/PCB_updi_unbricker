@@ -91,14 +91,14 @@ See “Usage” for detailed procedures.
 | J4 | 1 |  | 1 × 3 pin header for RTS/DTR switching |
 | J6 | 1 |  | 1 × 4 pin socket for AVR Dx/Ex UPDI connection |
 | J7 | 1 |  | 1 × 4 pin header for firmware programming (\*2) |
-| L1 | 1 | 330 μH | 100 μH to 1.5 mH, ≥ 100 mA, e.g. [AL0307-331K](https://akizukidenshi.com/catalog/g/g103968/) |
+| L1 | 1 | 330 μH | 100 μH to 330 μH, ≥ 100 mA, e.g. [AL0307-331K](https://akizukidenshi.com/catalog/g/g103968/) |
 | Q1, Q3, Q6, Q8 | 4 | [BSS138](https://akizukidenshi.com/catalog/g/g104232/) | N-ch MOSFET |
 | Q2, Q4, Q5, Q7 | 4 | [BSS84](https://akizukidenshi.com/catalog/g/g104269/) | P-ch MOSFET |
-| R1 | 1 | 470 Ω | 1/4 W, yellow-violet-brown-gold |
+| R1, R15 | 2 | 470 Ω | 1/4 W, yellow-violet-brown-gold |
 | R2, R3 | 2 | 5.1 kΩ | 1608M |
 | R4, R17, R19 | 3 | 100 kΩ | 1/4 W, brown-black-gold-gold (10 kΩ to 100 kΩ) |
-| R5, R15 | 2 | 4.7 kΩ | 1/4 W, yellow-violet-red-gold |
-| R6 | 1 | 5.1 Ω | 1/4 W, green-brown-gold-gold |
+| R5 | 1 | 4.7 kΩ | 1/4 W, yellow-violet-red-gold |
+| R6 | 1 | 1.0 Ω | 1/4 W, brown-black-gold-gold |
 | R7, R8, R16, R18 | 4 | 10 kΩ | 1/4 W, brown-black-orange-gold |
 | R9 | 1 | 200 Ω | 1/4 W, red-black-brown-gold (150 Ω to 220 Ω) |
 | R10 | 1 | 56 kΩ 1% | 1/4 W, green-blue-black-red-brown (\*3) |

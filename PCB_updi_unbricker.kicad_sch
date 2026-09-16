@@ -17393,7 +17393,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7k"
+		(property "Value" "470"
 			(at 224.79 20.32 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17885,7 +17885,7 @@
 				)
 			)
 		)
-		(property "Value" "5.1"
+		(property "Value" "1.0"
 			(at 137.16 59.69 90)
 			(show_name no)
 			(do_not_autoplace no)
