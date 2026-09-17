@@ -334,7 +334,7 @@ The function of pin 6 on J3 can be selected as RTS or DTR by inserting a jumper 
 
 ### 12 V generation circuit
 
-A MC34063A is used to generate 12 V. This IC can output up to 1.5 A, but we do not need that much current here, so the design is configured to output roughly 10 mA.
+A MC34063A is used to generate 12 V. This IC can switch up to 1.5 A, but we do not need that much current here, so the design is configured to output roughly 20 mA.
 
 In the R10, R11, and R12 divider circuit, the ratio of the equivalent resistance of R10 + R11 to R12 is adjusted to be close to 8.6. We used the combination 56 kΩ, 39 kΩ, and 2.7 kΩ because it was the closest match available with the 1% resistor kit we had, but a typical combination is 13 kΩ and 1.5 kΩ.
 
