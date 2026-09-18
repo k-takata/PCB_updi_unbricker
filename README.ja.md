@@ -84,7 +84,7 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |C4         |   1|100μF|≧47μF, ≧10V |
 |C5         |   1|47μF |≧47μF, ≧25V |
 |C6         |   1|220pF |150pF - 470pF|
-|D1,D3,D4,D5,D6|5|[BAT43](https://akizukidenshi.com/catalog/g/g113907/) |適当なショットキーバリアダイオード (他の例: [SD103A](https://akizukidenshi.com/catalog/g/g104271), [11EQS03L](https://akizukidenshi.com/catalog/g/g108997/))|
+|D1,D3-D6   |   5|[BAT43](https://akizukidenshi.com/catalog/g/g113907/) |適当なショットキーバリアダイオード (他の例: [SD103A](https://akizukidenshi.com/catalog/g/g104271), [11EQS03L](https://akizukidenshi.com/catalog/g/g108997/))|
 |D2         |   1|      |5.6Vツェナーダイオード、過電圧保護用|
 |D7         |   1|      |3.6Vツェナーダイオード、LEDに合わせて値は適宜調整 (3.0 - 3.6V)|
 |D8         |   1|[OSRGHC5B32A](https://akizukidenshi.com/catalog/g/g106314/)|2色LED (赤・緑) カソードコモン、φ5mm、VDD電圧インジケーター|
@@ -101,7 +101,8 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |J7         |   1|      |ピンヘッダー 1x4、ファームウェア書き込み用 (\*2)|
 |L1         |   1|330μH|100μH - 330μH, ≧100mA, [AL0307-331K](https://akizukidenshi.com/catalog/g/g103968/)等|
 |Q1,Q3,Q6,Q8|   4|[BSS138](https://akizukidenshi.com/catalog/g/g104232/)|Nch MOSFET|
-|Q2,Q4,Q5,Q7|   4|[BSS84](https://akizukidenshi.com/catalog/g/g104269/) |Pch MOSFET|
+|Q2,Q5,Q7   |   3|[BSS84](https://akizukidenshi.com/catalog/g/g104269/) |Pch MOSFET|
+|Q4         |   1|[SSM3J332R](https://akizukidenshi.com/catalog/g/g115985/)|Pch MOSFET|
 |R1,R15     |   2|470Ω |黄紫茶金、1/4Wサイズ|
 |R2,R3      |   2|5.1kΩ|1608M|
 |R4,R17,R19 |   3|100kΩ|茶黒黄金、1/4Wサイズ (10kΩ - 100kΩ)|
@@ -114,7 +115,8 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |R12        |   1|2.7kΩ 1%|赤紫黒茶茶、1/4Wサイズ (\*3)|
 |R13        |   1|200Ω |赤黒茶金、1/4Wサイズ、LEDに合わせて値は適宜調整 (47 - 220Ω)|
 |R14        |   1|470Ω |黄紫茶金、1/4Wサイズ、LEDに合わせて値は適宜調整|
-|SW1,SW2,SW3|   3|[SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/)|スライドスイッチ 1回路2接点 基板用|
+|R20        | (1)|10kΩ |未実装 (茶黒橙金、1/6Wサイズ)|
+|SW1-SW3    |   3|[SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/)|スライドスイッチ 1回路2接点 基板用|
 |SW4        |   1|      |プッシュスイッチ|
 |U1         |   1|[LM1117GS-3.3](https://akizukidenshi.com/catalog/g/g116989/)||
 |U2         |   1|[CH340K](https://akizukidenshi.com/catalog/g/g116306/)||

@@ -76,7 +76,7 @@ See “Usage” for detailed procedures.
 | C4 | 1 | 100 μF | ≥ 47 μF, ≥ 10 V |
 | C5 | 1 | 47 μF | ≥ 47 μF, ≥ 25 V |
 | C6 | 1 | 220 pF | 150 pF to 470 pF |
-| D1, D3, D4, D5, D6 | 5 | [BAT43](https://akizukidenshi.com/catalog/g/g113907/) | Schottky barrier diode; other examples: [SD103A](https://akizukidenshi.com/catalog/g/g104271), [11EQS03L](https://akizukidenshi.com/catalog/g/g108997/) |
+| D1, D3-D6 | 5 | [BAT43](https://akizukidenshi.com/catalog/g/g113907/) | Schottky barrier diode; other examples: [SD103A](https://akizukidenshi.com/catalog/g/g104271), [11EQS03L](https://akizukidenshi.com/catalog/g/g108997/) |
 | D2 | 1 |  | 5.6 V zener diode for overvoltage protection |
 | D7 | 1 |  | 3.6 V zener diode; adjust value as needed for LED (3.0 V to 3.6 V) |
 | D8 | 1 | [OSRGHC5B32A](https://akizukidenshi.com/catalog/g/g106314/) | 2-color LED (red/green), common cathode, φ 5 mm, VDD voltage indicator |
@@ -93,7 +93,8 @@ See “Usage” for detailed procedures.
 | J7 | 1 |  | 1 × 4 pin header for firmware programming (\*2) |
 | L1 | 1 | 330 μH | 100 μH to 330 μH, ≥ 100 mA, e.g. [AL0307-331K](https://akizukidenshi.com/catalog/g/g103968/) |
 | Q1, Q3, Q6, Q8 | 4 | [BSS138](https://akizukidenshi.com/catalog/g/g104232/) | N-ch MOSFET |
-| Q2, Q4, Q5, Q7 | 4 | [BSS84](https://akizukidenshi.com/catalog/g/g104269/) | P-ch MOSFET |
+| Q2, Q5, Q7 | 3 | [BSS84](https://akizukidenshi.com/catalog/g/g104269/) | P-ch MOSFET |
+| Q4 | 1 |[SSM3J332R](https://akizukidenshi.com/catalog/g/g115985/)| P-ch MOSFET |
 | R1, R15 | 2 | 470 Ω | 1/4 W, yellow-violet-brown-gold |
 | R2, R3 | 2 | 5.1 kΩ | 1608M |
 | R4, R17, R19 | 3 | 100 kΩ | 1/4 W, brown-black-gold-gold (10 kΩ to 100 kΩ) |
@@ -106,7 +107,8 @@ See “Usage” for detailed procedures.
 | R12 | 1 | 2.7 kΩ 1% | 1/4 W, red-violet-black-brown-brown (\*3) |
 | R13 | 1 | 200 Ω | 1/4 W, red-black-brown-gold; adjust according to LED (47 Ω to 220 Ω) |
 | R14 | 1 | 470 Ω | 1/4 W, yellow-violet-brown-gold; adjust according to LED |
-| SW1, SW2, SW3 | 3 | [SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/) | Slide switch, SPDT, PCB mount |
+| R20 | (1) | 10 kΩ | Do not install (1/6 W, brown-black-orange-gold)|
+| SW1-SW3 | 3 | [SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/) | Slide switch, SPDT, PCB mount |
 | SW4 | 1 |  | Push button switch |
 | U1 | 1 | [LM1117GS-3.3](https://akizukidenshi.com/catalog/g/g116989/) | |
 | U2 | 1 | [CH340K](https://akizukidenshi.com/catalog/g/g116306/) | |
