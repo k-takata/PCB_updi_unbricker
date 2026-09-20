@@ -98,7 +98,7 @@ See “Usage” for detailed procedures.
 | R1, R15 | 2 | 470 Ω | 1/4 W, yellow-violet-brown-gold |
 | R2, R3 | 2 | 5.1 kΩ | 1608M |
 | R4, R17, R19 | 3 | 100 kΩ | 1/4 W, brown-black-gold-gold (10 kΩ to 100 kΩ) |
-| R5 | 1 | 4.7 kΩ | 1/4 W, yellow-violet-red-gold |
+| R5 | 1 | 220 Ω | 1/4 W, red-red-brown-gold |
 | R6 | 1 | 2.2 Ω | 1/4 W, red-red-gold-gold |
 | R7, R8, R16, R18 | 4 | 10 kΩ | 1/4 W, brown-black-orange-gold |
 | R9 | 1 | 200 Ω | 1/4 W, red-black-brown-gold (150 Ω to 220 Ω) |
