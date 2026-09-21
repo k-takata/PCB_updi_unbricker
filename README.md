@@ -718,10 +718,7 @@ One of the most significant appears to be that `analogReference()` does not work
 
 ## Finished product
 
-T.B.D.
-<!--
 [![Finished product](images/unbricker-thumb.jpg)](images/unbricker.jpg)
--->
 
 ## License
 

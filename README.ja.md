@@ -744,10 +744,7 @@ DxCore 1.6.2には、書き込みができない致命的な問題の他にも�
 
 ## 完成品
 
-T.B.D.
-<!--
 [![完成品](images/unbricker-thumb.jpg)](images/unbricker.jpg)
--->
 
 
 ## License
