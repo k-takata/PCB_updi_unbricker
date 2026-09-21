@@ -330,6 +330,293 @@ J5/J6は接続されていても問題ありません。UPDIモードとシリ�
 J3の6番ピンの機能はJ4にジャンパーピンを挿すことでRTSかDTRのどちらかを選択できます。
 
 
+## AVRDUDEの使用例
+
+[AVRDUDE](https://github.com/avrdudes/avrdude/)でヒューズを設定する例を示します。AVRDUDEは、SerialUPDIに対応したv7.0以降が必要です。
+
+書き込み装置は `-c serialupdi` を指定します。
+
+
+### AVR64DD28
+
+AVR64DD28のUPDIピンの設定は、SYSCFG0ヒューズのUPDIPINCFGビットで行います。
+
+デバイス名は `-p 64dd28` を指定します。
+
+#### ヒューズ読み込み
+
+SYSCFG0を読むには `-U fuse5:r:-:h` を指定します。
+`fuse5` がSYSCFG0を示し、`r` は読み込み、`-` は標準出力、`h` は16進数を意味します。
+
+```
+>avrdude -c serialupdi -p 64dd28 -P COM8 -b 115200 -v -U fuse5:r:-:h
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : AVR64DD28
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+NVM type 2: 24-bit, word oriented write
+Entering NVM programming mode
+Chip silicon revision: 1.3
+
+AVR device initialized and ready to accept instructions
+Device signature = 1E 96 1B (AVR64DD28)
+Reading fuse5/syscfg0 memory ...
+Writing 1 byte to output file <stdout>
+0xd9
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+SYSCFG0のデフォルト値は0xd0ですが、現在は0xd9が設定されていることが分かります。
+
+#### UPDIピンをGPIOに変更
+
+UPDIPINCFGビットを0に変更し、UPDIピンをGPIOに変更してみます。
+`-U fuse5:w:0xc9:m` でSYSCFG0の値を0xc9に変更します。`w` は書き込み、`m` は即値を意味します。
+
+```
+>avrdude -c serialupdi -p 64dd28 -P COM8 -b 115200 -v -U fuse5:w:0xc9:m
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : AVR64DD28
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+NVM type 2: 24-bit, word oriented write
+Entering NVM programming mode
+Chip silicon revision: 1.3
+
+AVR device initialized and ready to accept instructions
+Device signature = 1E 96 1B (AVR64DD28)
+Reading 1 byte for fuse5/syscfg0 from input file 0xc9
+in 1 section [0, 0]
+Writing 1 byte (0xC9) to fuse5/syscfg0, 1 byte written, 1 verified
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+#### ヒューズ読み込み (2回目)
+
+再度SYSCFG0ヒューズを読み込んでみます。UPDIピンがGPIOに変更されてしまったため、UPDIのリンクが確立できず、失敗してしまいます。
+
+```
+>avrdude -c serialupdi -p 64dd28 -P COM8 -b 115200 -v -U fuse5:r:-:h
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : AVR64DD28
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+Error: UPDI link initialization failed
+Error: initialization failed  (rc = -1)
+ - double check the connections and try again
+ - use -b to set lower baud rate, e.g. -b 57600
+ - use -F to override this check
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+#### STARTボタンを押下してUPDIピンを復活
+
+STARTボタンを押下すると、一時的にUPDIが使用可能になります。
+その状態でUPDIPINCFGビットを1に変更し、UPDIピンを元に戻します。
+
+`-U fuse5:w:0xd9:m` でSYSCFG0の値を0xd9に変更します。
+
+```
+>avrdude -c serialupdi -p 64dd28 -P COM8 -b 115200 -v -U fuse5:w:0xd9:m
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : AVR64DD28
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+Device in NVM programming state, leaving programming mode
+Device in reset status, trying to release it
+NVM type 2: 24-bit, word oriented write
+Entering NVM programming mode
+Chip silicon revision: 1.3
+
+AVR device initialized and ready to accept instructions
+Device signature = 1E 96 1B (AVR64DD28)
+Reading 1 byte for fuse5/syscfg0 from input file 0xd9
+in 1 section [0, 0]
+Writing 1 byte (0xD9) to fuse5/syscfg0, 1 byte written, 1 verified
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+
+### ATtiny1604
+
+ATtiny1604のUPDIピンの設定は、SYSCFG0ヒューズのRSTPINCFGビットで行います。
+
+デバイス名は `-p t1604` を指定します。
+
+#### ヒューズ読み込み
+
+SYSCFG0を読むには `-U fuse5:r:-:h` を指定します。
+`fuse5` がSYSCFG0を示し、`r` は読み込み、`-` は標準出力、`h` は16進数を意味します。
+
+```
+>avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:r:-:h
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : ATtiny1604
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+NVM type 0: 16-bit, page oriented write
+Entering NVM programming mode
+Chip silicon revision: 0.0
+
+AVR device initialized and ready to accept instructions
+Device signature = 1E 94 25 (ATtiny1604)
+Reading fuse5/syscfg0 memory ...
+Writing 1 byte to output file <stdout>
+0xf6
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+SYSCFG0のデフォルト値である0xf6が設定されていることが分かります。
+
+#### UPDIピンをGPIOに変更
+
+RSTPINCFGビットを0に変更し、UPDIピンをGPIOに変更してみます。
+`-U fuse5:w:0xf2:m` でSYSCFG0の値を0xf2に変更します。`w` は書き込み、`m` は即値を意味します。
+
+なお、RSTPINCFGビットを2に変更すれば (SYSCFG0: 0xf8)、UPDIピンはRESETピンになります。
+
+```
+>avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:w:0xf2:m
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : ATtiny1604
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+NVM type 0: 16-bit, page oriented write
+Entering NVM programming mode
+Chip silicon revision: 0.0
+
+AVR device initialized and ready to accept instructions
+Device signature = 1E 94 25 (ATtiny1604)
+Reading 1 byte for fuse5/syscfg0 from input file 0xf2
+in 1 section [0, 0]
+Writing 1 byte (0xF2) to fuse5/syscfg0, 1 byte written, 1 verified
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+#### ヒューズ読み込み (2回目)
+
+再度SYSCFG0ヒューズを読み込んでみます。UPDIピンがGPIOに変更されてしまったため、UPDIのリンクが確立できず、失敗してしまいます。
+
+```
+>avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:r:-:h
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : ATtiny1604
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+Error: UPDI link initialization failed
+Error: initialization failed  (rc = -1)
+ - double check the connections and try again
+ - use -b to set lower baud rate, e.g. -b 57600
+ - use -F to override this check
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+#### STARTボタンを押下してUPDIピンを復活
+
+STARTボタンを押下すると、一時的にUPDIが使用可能になります。
+その状態でRSTPINCFGビットを1に変更し、UPDIピンを元に戻します。
+
+`-U fuse5:w:0xf6:m` でSYSCFG0の値を0xf6に変更します。
+
+```
+>avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:w:0xf6:m
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : ATtiny1604
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+NVM type 0: 16-bit, page oriented write
+Entering NVM programming mode
+Chip silicon revision: 0.0
+
+AVR device initialized and ready to accept instructions
+Device signature = 1E 94 25 (ATtiny1604)
+Reading 1 byte for fuse5/syscfg0 from input file 0xf6
+in 1 section [0, 0]
+Writing 1 byte (0xF6) to fuse5/syscfg0, 1 byte written, 1 verified
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+
 ## トラブルシューティング
 
 ### HV後も書き込みできない
