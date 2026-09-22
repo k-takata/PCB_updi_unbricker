@@ -765,6 +765,7 @@ UPDI HVプログラミングに対応したプロジェクトや参考情報へ�
 * [UPDI HVP のための 12V を得る方法の試行 | シャポログ](https://blog.shapoco.net/2025/0308-updi-hvp-with-ae-ch340e/)
 * [Dlloydev/Updi-Key: This DIY open source hardware connects inline with any UPDI programmer to provide a HV UPDI programming solution for tinyAVR® 0/1/2 series MCUs. Compatible with UPDI programmers that operate with jtag2updi, avrdude, pyupdi, MPLAB X IDE, MPLAB X IPE, PlatformIO and Arduino IDE using any target voltage from 3 to 5V.](https://github.com/Dlloydev/Updi-Key)
 * [Create a 12V version of microUPDI · Issue #3 · MCUdude/microUPDI](https://github.com/MCUdude/microUPDI/issues/3)
+* [UPDI High-Voltage programmer](https://avdweb.nl/arduino/attiny3217/hv-programming) -- Simple UPDI high voltage pulse generator
 
 ### ATtiny / AVR Dx/Ex 両対応
 
