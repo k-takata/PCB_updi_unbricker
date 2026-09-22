@@ -730,7 +730,7 @@ Links to related projects and reference information for HV UPDI programming.
 
 ### ATtiny only
 
-There are many projects that support 12 V HV programming. The following are a few examples. (However, not many projects enforce the required timing to apply the HV pulse within the allowed time window after POR.)
+There are many projects that support 12 V HV programming. The following are a few examples. (However, not many projects enforce the required timing to apply the HV pulse within the allowed time window after POR. Someone calls it Power Cycle HV (PCHV).)
 
 * [todopapa/UPDI_HV_WRITER-w-RESET: This is a new AVR ATTINY series UPDI programmer with HV pulse injection avility on power on reset timing.](https://github.com/todopapa/UPDI_HV_WRITER-w-RESET)
 * [DIY Arduino Nano HV UPDI Programmer - Electronics-Lab](https://www.electronics-lab.com/diy-arduino-nano-hv-updi-programmer/)

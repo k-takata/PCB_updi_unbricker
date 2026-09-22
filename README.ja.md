@@ -758,7 +758,7 @@ UPDI HVプログラミングに対応したプロジェクトや参考情報へ�
 
 ### ATtiny専用
 
-12V系HVプログラミングに対応したプロジェクトはかなりたくさんあります。以下はその一部です。（ただし、POR後、規定時間内にHVパルスを与えるようになっているものはあまり多くありません。）
+12V系HVプログラミングに対応したプロジェクトはかなりたくさんあります。以下はその一部です。（ただし、POR後、規定時間内にHVパルスを与えるようになっているものはあまり多くありません。これをパワーサイクルHV (PCHV) と呼ぶ人もいます。）
 
 * [todopapa/UPDI_HV_WRITER-w-RESET: This is a new AVR ATTINY series UPDI programmer with HV pulse injection avility on power on reset timing.](https://github.com/todopapa/UPDI_HV_WRITER-w-RESET)
 * [DIY Arduino Nano HV UPDI Programmer - Electronics-Lab](https://www.electronics-lab.com/diy-arduino-nano-hv-updi-programmer/)
