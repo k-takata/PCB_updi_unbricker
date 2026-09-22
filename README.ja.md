@@ -380,7 +380,7 @@ SYSCFG0のデフォルト値は0xd0ですが、現在は0xd9が設定されて�
 
 #### UPDIピンをGPIOに変更
 
-UPDIPINCFGビットを0に変更し、UPDIピンをGPIOに変更してみます。
+UPDIPINCFGビット(Bit 4)を0に変更し、UPDIピンをGPIOに変更してみます。
 `-U fuse5:w:0xc9:m` でSYSCFG0の値を0xc9に変更します。`w` は書き込み、`m` は即値を意味します。
 
 ```
@@ -520,10 +520,10 @@ SYSCFG0のデフォルト値である0xf6が設定されていることが分か
 
 #### UPDIピンをGPIOに変更
 
-RSTPINCFGビットを0に変更し、UPDIピンをGPIOに変更してみます。
+RSTPINCFGビット(Bit 3:2)を0に変更し、UPDIピンをGPIOに変更してみます。
 `-U fuse5:w:0xf2:m` でSYSCFG0の値を0xf2に変更します。`w` は書き込み、`m` は即値を意味します。
 
-なお、RSTPINCFGビットを2に変更すれば (SYSCFG0: 0xf8)、UPDIピンはRESETピンになります。
+なお、RSTPINCFGビットを2に変更すれば (SYSCFG0: 0xfa)、UPDIピンはRESETピンになります。
 
 ```
 >avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:w:0xf2:m
