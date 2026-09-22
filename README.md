@@ -362,7 +362,7 @@ The default value of SYSCFG0 is 0xd0, but it is currently set to 0xd9.
 
 #### Change the UPDI pin to GPIO
 
-Change the UPDIPINCFG bit (Bit 4) to 0 to switch the UPDI pin to GPIO.
+Change the UPDIPINCFG bit (Bit 4) from 1 to 0 to switch the UPDI pin to GPIO.
 Use `-U fuse5:w:0xc9:m` to set SYSCFG0 to 0xc9. `w` means write, and `m` means immediate value.
 
 ```
@@ -460,7 +460,7 @@ Avrdude done.  Thank you.
 
 ### ATtiny1604
 
-For ATtiny1604, the UPDI pin setting is controlled by the RSTPINCFG bit in the SYSCFG0 fuse.
+For ATtiny1604, the UPDI pin setting is controlled by the RSTPINCFG bits in the SYSCFG0 fuse.
 
 Use `-p t1604` to specify the device name.
 
@@ -501,10 +501,10 @@ The default value of SYSCFG0 is 0xf6.
 
 #### Change the UPDI pin to GPIO
 
-Change the RSTPINCFG bit (Bit 3:2) to 0 to switch the UPDI pin to GPIO.
+Change the RSTPINCFG bits (Bit 3:2) from 1 to 0 to switch the UPDI pin to GPIO.
 Use `-U fuse5:w:0xf2:m` to set SYSCFG0 to 0xf2. `w` means write, and `m` means immediate value.
 
-Note that if the RSTPINCFG bit is changed to 2 (SYSCFG0: 0xfa), the UPDI pin becomes the RESET pin.
+Note that if the RSTPINCFG bits are changed to 2 (SYSCFG0: 0xfa), the UPDI pin becomes the RESET pin.
 
 ```
 >avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:w:0xf2:m
@@ -565,7 +565,7 @@ Avrdude done.  Thank you.
 #### Press START to restore the UPDI pin
 
 Pressing the START button temporarily makes UPDI usable again.
-With that state, change the RSTPINCFG bit back to 1 and restore the UPDI pin.
+With that state, change the RSTPINCFG bits back to 1 and restore the UPDI pin.
 
 Use `-U fuse5:w:0xf6:m` to set SYSCFG0 back to 0xf6.
 
