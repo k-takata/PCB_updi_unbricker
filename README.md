@@ -35,8 +35,8 @@ This board switches operating modes using three switches and one jumper.
 | SW3 | Enables/disables power output from this board to the target | ON = power supplied, OFF = avoids double-powering when externally powered |
 | J2 | Selects programming target | FW = firmware write, Target = target programming |
 
-J2 is set to the FW side for firmware programming and to the Target side for UPDI programming.
-In the FW state, the board is connected for programming U4. In the Target state, it is connected for UPDI communication and HV programming with the target device.
+Set J2 to the FW side for firmware programming and the Target side for UPDI programming.
+In the FW state, your PC connects to U4 to program it. In the Target state, it connects to the target device for UPDI communication and HV programming.
 
 ## Quick start
 
@@ -77,10 +77,10 @@ See “Usage” for detailed procedures.
 | C5 | 1 | 47 μF | ≥ 47 μF, ≥ 25 V |
 | C6 | 1 | 220 pF | 150 pF to 470 pF |
 | D1, D3-D6 | 5 | [BAT43](https://akizukidenshi.com/catalog/g/g113907/) | Schottky barrier diode; other examples: [SD103A](https://akizukidenshi.com/catalog/g/g104271), [11EQS03L](https://akizukidenshi.com/catalog/g/g108997/) |
-| D2 | 1 |  | 5.6 V zener diode for overvoltage protection |
-| D7 | 1 |  | 3.6 V zener diode; adjust value as needed for LED (3.0 V to 3.6 V) |
+| D2 | 1 |  | 5.6 V Zener diode for overvoltage protection |
+| D7 | 1 |  | 3.6 V Zener diode; adjust value as needed for LED (3.0 V to 3.6 V) |
 | D8 | 1 | [OSRGHC5B32A](https://akizukidenshi.com/catalog/g/g106314/) | 2-color LED (red/green), common cathode, φ 5 mm, VDD voltage indicator |
-| D9 | 1 | [1N4737A](https://www.sengoku.co.jp/mod/sgk_cart/detail.php?code=EEHD-0FMV) | 7.5 V zener diode (\*1) |
+| D9 | 1 | [1N4737A](https://www.sengoku.co.jp/mod/sgk_cart/detail.php?code=EEHD-0FMV) | 7.5 V Zener diode (\*1) |
 | D10 | 1 | Optional | Zener diode (\*1) |
 | D11 | 1 | Optional | Zener diode (\*1) |
 | F1 | 1 | [MF-NSMF050-2](https://akizukidenshi.com/catalog/g/g115300/) | Resettable fuse, 0.5 A |
@@ -125,7 +125,7 @@ See “Usage” for detailed procedures.
 
 UPDI (Unified Program and Debug Interface) is a programming method used in newer AVR devices.
 
-UPDI uses a dedicated pin, but the UPDI pin can also be reconfigured as a GPIO through fuse settings. However, if UPDI is disabled, the next programming attempt using UPDI requires a special method to re-enable it. That method is high-voltage (HV) programming.
+UPDI uses a dedicated pin, but you can reconfigure the UPDI pin as a GPIO through fuse settings. However, if UPDI is disabled, the next UPDI programming attempt requires a special method to re-enable it. That method is high-voltage (HV) programming.
 
 There are two types of HV programming. One is the 12 V pulse applied to the UPDI pin used in ATtiny devices, and the other is the 7.5 V pulse applied to the RESET pin used in AVR Dx/Ex devices.
 
@@ -135,10 +135,10 @@ There are two types of HV programming. One is the 12 V pulse applied to the UPDI
 2. AVR Dx/Ex series:  
    Apply a 7.5 V pulse to the RESET pin for at least 10 μs, then send the NVMPROG key within 65 ms.  
    If transmission of the NVMPROG key is not completed in time, a reset is triggered automatically.  
-   Unlike ATtiny devices, AVR Dx/Ex series have a separate RESET pin and do not use the same POR timing restriction from POR to HV pulse.
+   Unlike ATtiny devices, AVR Dx/Ex series have a separate RESET pin, and it cannot be used as an output pin; there are no POR-to-HV-pulse timing restrictions.
 
 For safety, this board uses separate connectors for ATtiny and AVR Dx/Ex devices.
-For simplified processing, both ATtiny and AVR Dx/Ex devices are reset with POR, then an HV pulse is applied, and finally the NVMPROG key is sent. POR is unnecessary for AVR Dx/Ex, and sending the NVMPROG key is unnecessary for ATtiny, but it should be harmless.
+For simplified processing, this board resets both ATtiny and AVR Dx/Ex devices with POR, then applies an HV pulse, and finally sends the NVMPROG key. POR is unnecessary for AVR Dx/Ex, and sending the NVMPROG key is unnecessary for ATtiny, but it should be harmless.
 
 **Reference material:**
 
@@ -180,7 +180,7 @@ J6 is the connector for AVR Dx/Ex devices and matches the UPDI v2 connector used
 
 The RESET pin outputs a 7.5 V HV pulse, so the target circuit must be designed to tolerate this voltage.
 
-J3 is a standard 6-pin TTL serial connector. Pin 6 on J3 can be selected as either RTS or DTR by inserting a jumper on J4.
+J3 is a standard 6-pin TTL serial connector. You can select pin 6 on J3 as either RTS or DTR by inserting a jumper on J4.
 
 | Pin | Function | Color |
 |-----|----------|-------|
@@ -195,9 +195,9 @@ SW1 selects whether HV programming is enabled. For safety, it is normally recomm
 
 SW2 selects the target supply voltage. You can select 5 V or 3.3 V.
 
-SW3 selects whether the board supplies power to the target. If it is set to ON, power is supplied; if set to OFF, no power is supplied. If the target is already powered by another path, set this to OFF.
+SW3 selects whether the board supplies power to the target. If set to ON, it supplies power; if set to OFF, it does not. If the target is already powered by another path, set this to OFF.
 
-When using this board to power the target, select the supply voltage with SW2 and set SW3 to ON. The LED color changes with the supply voltage: green at 3.3 V and orange (green + red) at 5 V. If SW3 is OFF and the target is not connected, the LED is turned off. If the target is connected and powered externally, the LED lights from the target supply.
+To power the target with this board, select the supply voltage with SW2 and set SW3 to ON. The LED color changes with the supply voltage: green at 3.3 V and orange (green + red) at 5 V. If SW3 is OFF and the target is not connected, the LED is turned off. If the target is connected and powered externally, the LED lights from the target supply.
 
 ### Firmware programming
 
@@ -231,7 +231,7 @@ Set the programmer to SerialUPDI to write the firmware.
 
 #### HV programming for firmware recovery
 
-If the UPDI pin of U4 has been disabled and re-enabling via HV programming is required, the board can be recovered by connecting another HV programmer to J7.
+If the UPDI pin of U4 has been disabled and you need to re-enable it via HV programming, you can recover the board by connecting another HV programmer to J7.
 
 | Part | Setting / connection |
 |------|---------------------|
@@ -258,7 +258,7 @@ Configure and connect the switches and connectors as follows.
 | Part | Setting / connection |
 |------|----------------------|
 | SW1 | OFF for safety |
-| SW2 | Select 5 V or 3.3 V according to target |
+| SW2 | Select 5 V or 3.3 V according to the target |
 | SW3 | Normally ON |
 | J1 | Connect PC |
 | J2 | **Target** |
@@ -270,7 +270,7 @@ Configure and connect the switches and connectors as follows.
 SW3 is normally set to ON, but if the target is powered from another source, set it to OFF.  
 J3 can remain connected without issue. The UPDI mode and serial communication mode are automatically switched by the RTS signal.
 
-With Arduino IDE, set the programmer to SerialUPDI and programming can proceed normally.
+In the Arduino IDE, set the programmer to SerialUPDI, and programming can proceed normally.
 
 #### HV programming
 
@@ -279,7 +279,7 @@ Configure and connect the switches and connectors as follows.
 | Part | Setting / connection |
 |------|----------------------|
 | SW1 | **ON** |
-| SW2 | Select 5 V or 3.3 V according to target |
+| SW2 | Select 5 V or 3.3 V according to the target |
 | SW3 | Normally ON |
 | J1 | Connect PC |
 | J2 | **Target** |
@@ -288,11 +288,11 @@ Configure and connect the switches and connectors as follows.
 | J5 / J6 | Connect the appropriate target connector |
 | J7 | Disconnected |
 
-SW2 is normally set to ON. For ATtiny targets in particular, it is necessary to keep it ON so this board supplies power.  
-Connect either J5 or J6 according to the target. Use J5 for ATtiny and J6 for AVR Dx/Ex. J5/J6 are not a problem as long as the target circuit supports HV, but connecting a bare chip is safer.  
+SW2 is normally set to ON. For ATtiny targets in particular, keep it ON so this board supplies power.  
+Connect either J5 or J6, depending on the target. Use J5 for ATtiny and J6 for AVR Dx/Ex. Connecting J5/J6 to the target circuit is fine as long as it supports HV, but connecting a bare chip is safer.  
 J3 should remain disconnected.
 
-With the connection set, press the START button. After target reset, the HV pulse and NVMPROG key are sent, enabling UPDI. After that, perform the usual Arduino IDE programming procedure and the device should be programmable.
+With the connection set, press the START button. The board resets the target, sends the HV pulse and NVMPROG key, enabling UPDI. Then follow the usual Arduino IDE programming procedure; the device should be ready for programming.
 
 ### Serial communication
 
@@ -301,7 +301,7 @@ Configure and connect the switches and connectors as follows.
 | Part | Setting / connection |
 |------|----------------------|
 | SW1 | OFF for safety |
-| SW2 | Select 5 V or 3.3 V according to target |
+| SW2 | Select 5 V or 3.3 V according to the target |
 | SW3 | Normally ON |
 | J1 | Connect PC |
 | J2 | **Target** |
@@ -311,7 +311,7 @@ Configure and connect the switches and connectors as follows.
 | J7 | Disconnected |
 
 J5/J6 may be connected without issue. The UPDI mode and serial communication mode are automatically switched by the RTS signal.  
-The function of pin 6 on J3 can be selected as RTS or DTR by inserting a jumper on J4.
+You can select pin 6 on J3 as RTS or DTR by inserting a jumper on J4.
 
 ## AVRDUDE usage examples
 
@@ -504,7 +504,7 @@ The default value of SYSCFG0 is 0xf6.
 Change the RSTPINCFG bits (Bit 3:2) from 1 to 0 to switch the UPDI pin to GPIO.
 Use `-U fuse5:w:0xf2:m` to set SYSCFG0 to 0xf2. `w` means write, and `m` means immediate value.
 
-Note that if the RSTPINCFG bits are changed to 2 (SYSCFG0: 0xfa), the UPDI pin becomes the RESET pin.
+Note that if you change the RSTPINCFG bits to 2 (SYSCFG0: 0xfa), the UPDI pin becomes the RESET pin.
 
 ```
 >avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:w:0xf2:m
@@ -536,7 +536,7 @@ Avrdude done.  Thank you.
 
 #### Reading the fuse again
 
-Read SYSCFG0 again. Since the UPDI pin has been changed to GPIO, the UPDI link cannot be established and the read fails.
+Read SYSCFG0 again. Since the UPDI pin has been changed to GPIO, the UPDI link cannot be established, and the read fails.
 
 ```
 >avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:r:-:h
@@ -621,9 +621,9 @@ Avrdude done.  Thank you.
 
 ### 12 V generation circuit
 
-A MC34063A is used to generate 12 V. This IC can switch up to 1.5 A, but we do not need that much current here, so the design is configured to output roughly 20 mA.
+An MC34063A generates 12 V. This IC can switch up to 1.5 A, but we don't need that much current here, so the design is configured to output roughly 20 mA.
 
-In the R10, R11, and R12 divider circuit, the ratio of the equivalent resistance of R10 + R11 to R12 is adjusted to be close to 8.6. We used the combination 56 kΩ, 39 kΩ, and 2.7 kΩ because it was the closest match available with the 1% resistor kit we had, but a typical combination is 13 kΩ and 1.5 kΩ.
+In the R10, R11, and R12 divider circuit, we adjusted the ratio of the equivalent resistance of R10 + R11 to R12 to about 8.6. We used the 56 kΩ, 39 kΩ, and 2.7 kΩ combination because it was the closest match available in the 1% resistor kit we had, but a typical combination is 13 kΩ and 1.5 kΩ.
 
 The output voltage can be approximated with this equation:
 
@@ -631,7 +631,7 @@ $$
 V_{out} = 1.25 \times \left(1 + \frac{R_{top}}{R_{bottom}}\right)
 $$
 
-Here, $R_{top}$ is the equivalent resistance of R10 and R11, and $R_{bottom}$ is R12. In practice, the divider ratio is adjusted to be close to 8.6 so that TP2 is around 12 V.
+Here, $R_{top}$ is the equivalent resistance of R10 and R11, and $R_{bottom}$ is R12. In practice, adjust the divider ratio to about 8.6 so TP2 is around 12 V.
 
 Example combinations:
 
@@ -649,7 +649,7 @@ Example combinations:
 
 ### CH340K 3.3 V operation
 
-When using CH340K at 3.3 V, the datasheet says to connect the V3 pin to the VCC pin. However, if current is not drawn from the V3 pin, it appears to work fine to connect only a 0.1 μF capacitor.
+When using CH340K at 3.3 V, the datasheet says to connect the V3 pin to the VCC pin. However, if no current is drawn from the V3 pin, it appears to work fine to connect only a 0.1 μF capacitor.
 
 Reference: [Non-Compliant Use of CH340 V3 Pin: Deep Dive for Engineers](https://www.digikey.com/en/maker/blogs/2025/non-compliant-use-of-ch340-v3-pin-deep-dive-for-engineers)
 
@@ -662,15 +662,15 @@ In general, a two-pole, double-throw switch is often used to switch between UPDI
 ### VDD voltage indicator
 
 The LED D8 color indicates the VDD voltage of the target. It is green for 3.3 V and orange (green + red) for 5.0 V.
-To reduce component count, the design uses only a zener diode and two resistors.
-If the LED is changed, the zener voltage and resistor values must be adjusted to match the LED forward voltage; otherwise the LED will not light cleanly. Another point to consider is that 3.3 V results in a slightly dimmer LED than 5.0 V.
+To reduce component count, the design uses only a Zener diode and two resistors.
+If the LED is changed, the Zener voltage and resistor values must be adjusted to match the LED forward voltage; otherwise, the LED will not light cleanly. Another point to consider is that 3.3 V results in a slightly dimmer LED than 5.0 V.
 
 ## Issues with DxCore 1.6.2
 
 ### Critical issue
 
 The latest DxCore version at the time of writing, 1.6.2, had a critical problem that made it unusable with AVR DD-series devices.
-There are two issues: one causes an error and prevents programming, and the other sets the fuse incorrectly and disables the UPDI pin.
+Two issues exist: one causes an error that prevents programming, and the other sets the fuse incorrectly and disables the UPDI pin.
 
 * [On 1.6.2 upload to AVR64DD14 fails with prog.py: error: unrecognized arguments · Issue #629 · SpenceKonde/DxCore](https://github.com/SpenceKonde/DxCore/issues/629)
 * [Add missing zero-bit in SYSCFG0 for DD-chips by felias-fogg · Pull Request #638 · SpenceKonde/DxCore](https://github.com/SpenceKonde/DxCore/pull/638)
