@@ -17,7 +17,7 @@ UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 2)](https://github.com/
 | AVR Dx/Exの7.5V HV UPDI | 対応 | RESETピンへ7.5Vパルスを印加する方式 |
 | ATtinyの12V HV UPDI | 対応 | UPDIピンへ12Vパルスを印加する方式 |
 | 通常のUPDI書き込み | 対応 | 書き込み装置はSerialUPDIを使用 |
-| 動作確認済みデバイス | AVR64DD28, ATtiny1604 | README作成時点 |
+| 動作確認済みデバイス | AVR64DD28, ATtiny1604, ATtiny402 | README作成時点 |
 
 
 ## 使用したソフトウェア
@@ -161,6 +161,7 @@ HVプログラミングには2種類あり、1つはATtinyシリーズで使用�
 
 * AVR64DD28
 * ATtiny1604
+* ATtiny402
 
 
 ## 使用方法
