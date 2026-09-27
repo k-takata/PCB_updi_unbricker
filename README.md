@@ -318,7 +318,18 @@ You can select pin 6 on J3 as RTS or DTR by inserting a jumper on J4.
 
 Here is an example of setting fuses using [AVRDUDE](https://github.com/avrdudes/avrdude/). AVRDUDE requires v7.0 or later with SerialUPDI support.
 
-The programmer is specified with `-c serialupdi`.
+The command used in this example is as follows.
+
+```
+>avrdude -c <programmer> -p <device name> -P <port name> -b <baud rate> -v -U <memory operation>
+```
+
+The programmer is specified as `serialupdi`.  
+The device name (part name) is described later.  
+The port name is something like `COM8` on Windows.  
+A baud rate such as `115200` or `230400` is recommended; it seems that higher rates do not work reliably.  
+`-v` is an option for verbose output.  
+The memory operation is described later.
 
 ### AVR64DD28
 
