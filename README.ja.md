@@ -82,27 +82,27 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |C1,C2      |   2|10μF |1608M|
 |C3,C6      |   2|0.1μF|1608M|
 |C4,C5      |   2|22μF |2012M, ≧25V|
-|D1,D3-D6   |   5|BAT43WS|SOD-323|
-|D2         |   1|BZT52C5V6|5.6Vツェナーダイオード、SOD-123、過電圧保護用 (\*1)|
-|D7         |   1|BZT52C3V6|3.6Vツェナーダイオード、SOD-123、LEDに合わせて値は適宜調整 (3.0 - 3.6V) (\*2)|
-|D8         |   1|NCD0805R1|2012M、VDD電圧インジケーター|
-|D9         |   1|KT-0805G|2012M、VDD電圧インジケーター|
-|D10        |   1|BZT52C7V5|7.5Vツェナーダイオード、SOD-123 (\*3)|
+|D1,D3-D6   |   5|[BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693)|SOD-323|
+|D2         |   1|[BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402)|5.6Vツェナーダイオード、SOD-123、過電圧保護用 (\*1)|
+|D7         |   1|[BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402)|3.6Vツェナーダイオード、SOD-123、LEDに合わせて値は適宜調整 (3.0 - 3.6V) (\*2)|
+|D8         |   1|[NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256)|2012M、VDD電圧インジケーター|
+|D9         |   1|[KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297)|2012M、VDD電圧インジケーター|
+|D10        |   1|[BZT52C7V5](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C7V5/C19077405)|7.5Vツェナーダイオード、SOD-123 (\*3)|
 |D11        |   1|任意  |5.6Vツェナーダイオード、DO-41 (\*1)|
 |D12        |   1|任意  |3.6Vツェナーダイオード、DO-35 (\*2)|
 |D13        |   1|任意  |7.5Vツェナーダイオード、DO-41 (\*3)|
-|F1         |   1||リセッタブルヒューズ 0.5A|
-|J1         |   1||USB Type-Cレセプタクル|
+|F1         |   1|[SMD1206P050TF](https://jlcpcb.com/partdetail/21511-SMD1206P050TF/C20799)|リセッタブルヒューズ 0.5A|
+|J1         |   1|[TYPE-C16PIN](https://jlcpcb.com/partdetail/SHOUHAN-TYPEC16PIN/C393939)|USB Type-Cレセプタクル|
 |J2         |   1|      |ピンヘッダー 1x3、書き込み先切り替え用|
 |J3         |   1|      |[L型ピンソケット 1x6](https://akizukidenshi.com/catalog/g/g109862/)、TTLシリアル接続用|
 |J5         |   1|      |ピンソケット 1x3、ATtiny UPDI接続用|
 |J4         |   1|      |ピンヘッダー 1x3、RTS/DTR切り替え用|
 |J6         |   1|      |ピンソケット 1x4、AVR Dx/Ex UPDI接続用|
 |J7         |   1|      |ピンヘッダー 1x4、ファームウェア書き込み用 (\*4)|
-|L1         |   1|4.7μH|4.7μH, ≧100mA|
-|Q1,Q3,Q6,Q8|   4|[BSS138](https://akizukidenshi.com/catalog/g/g104232/)|Nch MOSFET|
-|Q2,Q5,Q7   |   3|[BSS84](https://akizukidenshi.com/catalog/g/g104269/) |Pch MOSFET|
-|Q4         |   1|AO3401A|Pch MOSFET|
+|L1         |   1|[DFE322512F-4R7M=P2](https://jlcpcb.com/partdetail/MurataElectronics-DFE322512F_4R7MP2/C703083)|4.7μH, ≧100mA|
+|Q1,Q3,Q6,Q8|   4|[BSS138](https://jlcpcb.com/partdetail/hongjiacheng-BSS138/C7420339)|Nch MOSFET|
+|Q2,Q5,Q7   |   3|[BSS84](https://jlcpcb.com/partdetail/LRC-LBSS84LT1G/C8492) |Pch MOSFET|
+|Q4         |   1|[AO3401A](https://jlcpcb.com/partdetail/Alpha_OmegaSemicon-AO3401A/C15127)|Pch MOSFET|
 |R1,R15     |   2|470Ω |1608M|
 |R2,R3      |   2|5.1kΩ|1608M|
 |R4,R17,R19 |   3|100kΩ|1608M|
@@ -118,10 +118,10 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |R20        | (1)|10kΩ |未実装 (1608M)|
 |SW1-SW3    |   3|[SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/)|スライドスイッチ 1回路2接点 基板用|
 |SW4        |   1|      |プッシュスイッチ|
-|U1         |   1|[LM1117GS-3.3](https://akizukidenshi.com/catalog/g/g116989/)||
-|U2         |   1|[CH340K](https://akizukidenshi.com/catalog/g/g116306/)||
-|U3         |   1|MT3608L||
-|U4         |   1|[ATtiny402-SS](https://akizukidenshi.com/catalog/g/g130009/)||
+|U1         |   1|[AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186)||
+|U2         |   1|[CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586)||
+|U3         |   1|[MT3608L](https://jlcpcb.com/partdetail/XI_AN_AerosemiTech-MT3608L/C2932326)||
+|U4         |   1|[ATtiny402-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY402SSNR/C616056)||
 
 (\*1) D2またはD11のどちらか一方を実装する。  
 (\*2) D7またはD12のどちらか一方を実装する。  

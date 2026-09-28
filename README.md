@@ -74,27 +74,27 @@ See “Usage” for detailed procedures.
 | C1, C2 | 2 | 10 μF | 1608M |
 | C3, C6 | 2 | 0.1 μF | 1608M |
 | C4, C5 | 2 | 22 μF | 2012M, ≥ 25 V |
-| D1, D3-D6 | 5 | BAT43WS | SOD-323 |
-| D2 | 1 | BZT52C5V6 | 5.6 V Zener diode, SOD-123, for overvoltage protection (\*1) |
-| D7 | 1 | BZT52C3V6 | 3.6 V Zener diode, SOD-123; adjust value as needed for LED (3.0 V to 3.6 V) (\*2) |
-| D8 | 1 | NCD0805R | 2012M, VDD voltage indicator |
-| D9 | 1 | KT-0805G | 2012M, VDD voltage indicator |
-| D10 | 1 | BZT52C7V5 | 7.5 V Zener diode, SOD-123 (\*3) |
+| D1, D3-D6 | 5 | [BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693) | SOD-323 |
+| D2 | 1 | [BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402) | 5.6 V Zener diode, SOD-123, for overvoltage protection (\*1) |
+| D7 | 1 | [BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402) | 3.6 V Zener diode, SOD-123; adjust value as needed for LED (3.0 V to 3.6 V) (\*2) |
+| D8 | 1 | [NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256) | 2012M, VDD voltage indicator |
+| D9 | 1 | [KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297) | 2012M, VDD voltage indicator |
+| D10 | 1 | [BZT52C7V5](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C7V5/C19077405) | 7.5 V Zener diode, SOD-123 (\*3) |
 | D11 | 1 | Optional | 5.6 V Zener diode, DO-41 (\*1) |
 | D12 | 1 | Optional | 3.6 V Zener diode, DO-35 (\*2) |
 | D13 | 1 | Optional | 7.5 V Zener diode, DO-41 (\*3) |
-| F1 | 1 |  | Resettable fuse, 0.5 A |
-| J1 | 1 |  | USB Type-C receptacle |
+| F1 | 1 | [SMD1206P050TF](https://jlcpcb.com/partdetail/21511-SMD1206P050TF/C20799) | Resettable fuse, 0.5 A |
+| J1 | 1 | [TYPE-C16PIN](https://jlcpcb.com/partdetail/SHOUHAN-TYPEC16PIN/C393939) | USB Type-C receptacle |
 | J2 | 1 |  | 1 × 3 pin header for selecting the programming target |
 | J3 | 1 |  | [L-shaped 1 × 6 pin socket](https://akizukidenshi.com/catalog/g/g109862/) for TTL serial connection |
 | J5 | 1 |  | 1 × 3 pin socket for ATtiny UPDI connection |
 | J4 | 1 |  | 1 × 3 pin header for RTS/DTR switching |
 | J6 | 1 |  | 1 × 4 pin socket for AVR Dx/Ex UPDI connection |
 | J7 | 1 |  | 1 × 4 pin header for firmware programming (\*4) |
-| L1 | 1 | 4.7 μH | 4.7 μH, ≥ 100 mA |
-| Q1, Q3, Q6, Q8 | 4 | [BSS138](https://akizukidenshi.com/catalog/g/g104232/) | N-ch MOSFET |
-| Q2, Q5, Q7 | 3 | [BSS84](https://akizukidenshi.com/catalog/g/g104269/) | P-ch MOSFET |
-| Q4 | 1 | AO3401A | P-ch MOSFET |
+| L1 | 1 | [DFE322512F-4R7M=P2](https://jlcpcb.com/partdetail/MurataElectronics-DFE322512F_4R7MP2/C703083) | 4.7 μH, ≥ 100 mA |
+| Q1, Q3, Q6, Q8 | 4 | [BSS138](https://jlcpcb.com/partdetail/hongjiacheng-BSS138/C7420339) | N-ch MOSFET |
+| Q2, Q5, Q7 | 3 | [BSS84](https://jlcpcb.com/partdetail/LRC-LBSS84LT1G/C8492) | P-ch MOSFET |
+| Q4 | 1 | [AO3401A](https://jlcpcb.com/partdetail/Alpha_OmegaSemicon-AO3401A/C15127) | P-ch MOSFET |
 | R1, R15 | 2 | 470 Ω | 1608M |
 | R2, R3 | 2 | 5.1 kΩ | 1608M |
 | R4, R17, R19 | 3 | 100 kΩ | 1608M |
@@ -110,10 +110,10 @@ See “Usage” for detailed procedures.
 | R20 | (1) | 10 kΩ | Do not install (1608M) |
 | SW1-SW3 | 3 | [SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/) | Slide switch, SPDT, PCB mount |
 | SW4 | 1 |  | Push button switch |
-| U1 | 1 | [LM1117GS-3.3](https://akizukidenshi.com/catalog/g/g116989/) | |
-| U2 | 1 | [CH340K](https://akizukidenshi.com/catalog/g/g116306/) | |
-| U3 | 1 | MT3608L | |
-| U4 | 1 | [ATtiny402-SS](https://akizukidenshi.com/catalog/g/g130009/) | |
+| U1 | 1 | [AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186) | |
+| U2 | 1 | [CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586) | |
+| U3 | 1 | [MT3608L](https://jlcpcb.com/partdetail/XI_AN_AerosemiTech-MT3608L/C2932326) | |
+| U4 | 1 | [ATtiny402-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY402SSNR/C616056) | |
 
 (\*1) Install either D2 or D11.  
 (\*2) Install either D7 or D12.  
