@@ -198,7 +198,7 @@ SW2 selects the target supply voltage. You can select 5 V or 3.3 V.
 
 SW3 selects whether the board supplies power to the target. If set to ON, it supplies power; if set to OFF, it does not. If the target is already powered by another path, set this to OFF.
 
-To power the target with this board, select the supply voltage with SW2 and set SW3 to ON. The LED color changes with the supply voltage: green at 3.3 V and orange (green + red) at 5 V. If SW3 is OFF and the target is not connected, the LED is turned off. If the target is connected and powered externally, the LED lights from the target supply.
+To power the target with this board, select the supply voltage with SW2 and set SW3 to ON. The illumination of LEDs changes with the supply voltage: green at 3.3 V and green + red at 5 V. If SW3 is OFF and the target is not connected, the LED is turned off. If the target is connected and powered externally, the LED lights from the target supply.
 
 ### Firmware programming
 
@@ -673,7 +673,7 @@ In general, a two-pole, double-throw switch is often used to switch between UPDI
 
 ### VDD voltage indicator
 
-The illumination of LEDs D8 and D9 indicates the VDD voltage of the target. At 3.3 V, only D9 (green) lights up. At 5.0 V, both D8 (red) and D9 (green) light up, resulting in an orange color (red + green).
+The illumination of LEDs D8 and D9 indicates the VDD voltage of the target. At 3.3 V, only D9 (green) lights up. At 5.0 V, both D8 (red) and D9 (green) light up.
 To reduce component count, the design uses only Zener diodes and resistors.
 If the LEDs are changed, the Zener voltage and resistor values must be adjusted to match the LED forward voltages; otherwise, the LEDs will not light cleanly. Another point to consider is that 3.3 V results in a slightly dimmer LED than 5.0 V.
 
