@@ -65,7 +65,7 @@ See “Usage” for detailed procedures.
 
 ## PCB layout
 
-![PCB pattern](images/pcb-pattern.png)
+![PCB pattern](images/pcb-pattern-rev2.png)
 
 ## BOM
 

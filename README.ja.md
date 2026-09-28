@@ -72,7 +72,7 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 
 ## 基板パターン図
 
-![PCB pattern](images/pcb-pattern.png)
+![PCB pattern](images/pcb-pattern-rev2.png)
 
 
 ## 部品表
