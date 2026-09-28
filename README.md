@@ -103,8 +103,8 @@ See “Usage” for detailed procedures.
 | R7, R8, R16, R18 | 4 | 10 kΩ | 1608M |
 | (R9) | - | - | Not used |
 | R10 | 1 | 390 kΩ 1% | 1608M (\*5) |
-| R11 | 1 | 47 kΩ 1% | 1608M (\*5) |
-| R12 | 1 | 4.7 kΩ 1% | 1608M (\*5) |
+| R11 | 1 | 75 kΩ 1% | 1608M (\*5) |
+| R12 | 1 | 3.3 kΩ 1% | 1608M (\*5) |
 | R13 | 1 | 220 Ω | 1608M; adjust according to LED (47 Ω to 220 Ω) |
 | R14 | 1 | 470 Ω | 1608M; adjust according to LED |
 | R20 | (1) | 10 kΩ | Do not install (1608M) |
@@ -635,7 +635,7 @@ Avrdude done.  Thank you.
 
 An MT3608L generates 12 V. This IC can switch up to 2.5 A, but we don't need that much current here, so the design is configured to output roughly 20 mA.
 
-In the R10, R11, and R12 divider circuit, we adjusted the ratio of the equivalent resistance of R10 + R11 to R12 to about 19. We used the 390 kΩ, 47 kΩ, and 4.7 kΩ combination because it was the closest match available in the 1% resistor kit we had.
+In the R10, R11, and R12 divider circuit, we adjusted the ratio of the equivalent resistance of R10 + R11 to R12 to about 19. We used the 390 kΩ, 75 kΩ, and 3.3 kΩ combination because it was the closest match available in the 1% resistor kit we had.
 
 The output voltage can be approximated with this equation:
 
@@ -650,8 +650,8 @@ Example combinations:
 | R10 | R11 | R12  | $V_{out}$ | Note |
 |-----|-----|------|-----------|------|
 |200 k | 47 k | 2.0 k | 12.02     | E24 series |
-|390 k | 47 k | 2.2 k | 12.04     | E24 series |
-|390 k | 75 k | 4.7 k | 12.04     | E24 series |
+|390 k | 47 k | 2.2 k | 12.04     | E12 series |
+|390 k | 75 k | 3.3 k | 12.04     | E24 series |
 |  1 M |100 k | 4.7 k | 12.20     | E6 series  |
 | 39 k | -    | 2.0 k | 12.30     | E24 series |
 | 91 k | -    | 4.7 k | 12.22     | E24 series |
