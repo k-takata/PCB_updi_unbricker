@@ -766,6 +766,7 @@ Rev. 2での変更点は以下の通りです。
 
 ## 完成品
 
+Rev. 1:  
 [![完成品](images/unbricker-thumb.jpg)](images/unbricker.jpg)
 
 

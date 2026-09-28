@@ -635,7 +635,7 @@ Avrdude done.  Thank you.
 
 An MT3608L generates 12 V. This IC can switch up to 2.5 A, but we don't need that much current here, so the design is configured to output roughly 20 mA.
 
-In the R10, R11, and R12 divider circuit, we adjusted the ratio of the equivalent resistance of R10 + R11 to R12 to about 19. We used the 390 kΩ, 47 kΩ, and 4.7 kΩ combination because it was the closest match available.
+In the R10, R11, and R12 divider circuit, we adjusted the ratio of the equivalent resistance of R10 + R11 to R12 to about 19. We used the 390 kΩ, 47 kΩ, and 4.7 kΩ combination because it was the closest match available in the 1% resistor kit we had.
 
 The output voltage can be approximated with this equation:
 
@@ -739,6 +739,7 @@ The following changes were made in Rev. 2:
 
 ## Finished product
 
+Rev. 1:  
 [![Finished product](images/unbricker-thumb.jpg)](images/unbricker.jpg)
 
 ## License
