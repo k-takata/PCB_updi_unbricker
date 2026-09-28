@@ -1,6 +1,6 @@
 [English](README.md) | [日本語](README.ja.md)
 
-# UPDI Unbricker
+# UPDI Unbricker (Rev. 2)
 
 ## Overview
 
@@ -61,7 +61,7 @@ See “Usage” for detailed procedures.
 
 ## Schematic
 
-[![schema](images/schema.png)](images/schema.pdf)
+[![schema](images/schema-rev2.png)](images/schema-rev2.pdf)
 
 ## PCB layout
 
@@ -71,55 +71,55 @@ See “Usage” for detailed procedures.
 
 | Reference | Quantity | Value | Description |
 |-----------|----------|-------|-------------|
-| C1, C2 | 2 | 10 μF | 3225M or 3216M |
-| C3, C7 | 2 | 0.1 μF | |
-| C4 | 1 | 100 μF | ≥ 47 μF, ≥ 10 V |
-| C5 | 1 | 47 μF | ≥ 47 μF, ≥ 25 V |
-| C6 | 1 | 220 pF | 150 pF to 470 pF |
-| D1, D3-D6 | 5 | [BAT43](https://akizukidenshi.com/catalog/g/g113907/) | Schottky barrier diode; other examples: [SD103A](https://akizukidenshi.com/catalog/g/g104271), [11EQS03L](https://akizukidenshi.com/catalog/g/g108997/) |
-| D2 | 1 |  | 5.6 V Zener diode for overvoltage protection |
-| D7 | 1 |  | 3.6 V Zener diode; adjust value as needed for LED (3.0 V to 3.6 V) |
-| D8 | 1 | [OSRGHC5B32A](https://akizukidenshi.com/catalog/g/g106314/) | 2-color LED (red/green), common cathode, φ 5 mm, VDD voltage indicator |
-| D9 | 1 | [1N4737A](https://www.sengoku.co.jp/mod/sgk_cart/detail.php?code=EEHD-0FMV) | 7.5 V Zener diode (\*1) |
-| D10 | 1 | Optional | Zener diode (\*1) |
-| D11 | 1 | Optional | Zener diode (\*1) |
-| F1 | 1 | [MF-NSMF050-2](https://akizukidenshi.com/catalog/g/g115300/) | Resettable fuse, 0.5 A |
-| J1 | 1 | [5077CR-16-SMC2-BK-TR](https://akizukidenshi.com/catalog/g/g114356/) | USB Type-C receptacle |
+| C1, C2 | 2 | 10 μF | 1608M |
+| C3, C6 | 2 | 0.1 μF | 1608M |
+| C4, C5 | 2 | 22 μF | 2012M, ≥ 25 V |
+| D1, D3-D6 | 5 | BAT43WS | SOD-323 |
+| D2 | 1 | BZT52C5V6 | 5.6 V Zener diode, SOD-123, for overvoltage protection (\*1) |
+| D7 | 1 | BZT52C3V6 | 3.6 V Zener diode, SOD-123; adjust value as needed for LED (3.0 V to 3.6 V) (\*2) |
+| D8 | 1 | NCD0805R | 2012M, VDD voltage indicator |
+| D9 | 1 | KT-0805G | 2012M, VDD voltage indicator |
+| D10 | 1 | BZT52C7V5 | 7.5 V Zener diode, SOD-123 (\*3) |
+| D11 | 1 | Optional | 5.6 V Zener diode, DO-41 (\*1) |
+| D12 | 1 | Optional | 3.6 V Zener diode, DO-35 (\*2) |
+| D13 | 1 | Optional | 7.5 V Zener diode, DO-41 (\*3) |
+| F1 | 1 |  | Resettable fuse, 0.5 A |
+| J1 | 1 |  | USB Type-C receptacle |
 | J2 | 1 |  | 1 × 3 pin header for selecting the programming target |
 | J3 | 1 |  | [L-shaped 1 × 6 pin socket](https://akizukidenshi.com/catalog/g/g109862/) for TTL serial connection |
 | J5 | 1 |  | 1 × 3 pin socket for ATtiny UPDI connection |
 | J4 | 1 |  | 1 × 3 pin header for RTS/DTR switching |
 | J6 | 1 |  | 1 × 4 pin socket for AVR Dx/Ex UPDI connection |
-| J7 | 1 |  | 1 × 4 pin header for firmware programming (\*2) |
-| L1 | 1 | 330 μH | 100 μH to 330 μH, ≥ 100 mA, e.g. [AL0307-331K](https://akizukidenshi.com/catalog/g/g103968/) |
+| J7 | 1 |  | 1 × 4 pin header for firmware programming (\*4) |
+| L1 | 1 | 4.7 μH | 4.7 μH, ≥ 100 mA |
 | Q1, Q3, Q6, Q8 | 4 | [BSS138](https://akizukidenshi.com/catalog/g/g104232/) | N-ch MOSFET |
 | Q2, Q5, Q7 | 3 | [BSS84](https://akizukidenshi.com/catalog/g/g104269/) | P-ch MOSFET |
-| Q4 | 1 |[SSM3J332R](https://akizukidenshi.com/catalog/g/g115985/)| P-ch MOSFET |
-| R1, R15 | 2 | 470 Ω | 1/4 W, yellow-violet-brown-gold |
+| Q4 | 1 | AO3401A | P-ch MOSFET |
+| R1, R15 | 2 | 470 Ω | 1608M |
 | R2, R3 | 2 | 5.1 kΩ | 1608M |
-| R4, R17, R19 | 3 | 100 kΩ | 1/4 W, brown-black-gold-gold (10 kΩ to 100 kΩ) |
-| R5 | 1 | 220 Ω | 1/4 W, red-red-brown-gold |
-| R6 | 1 | 2.2 Ω | 1/4 W, red-red-gold-gold |
-| R7, R8, R16, R18 | 4 | 10 kΩ | 1/4 W, brown-black-orange-gold |
-| R9 | 1 | 200 Ω | 1/4 W, red-black-brown-gold (150 Ω to 220 Ω) |
-| R10 | 1 | 56 kΩ 1% | 1/4 W, green-blue-black-red-brown (\*3) |
-| R11 | 1 | 39 kΩ 1% | 1/4 W, orange-white-black-red-brown (\*3) |
-| R12 | 1 | 2.7 kΩ 1% | 1/4 W, red-violet-black-brown-brown (\*3) |
-| R13 | 1 | 200 Ω | 1/4 W, red-black-brown-gold; adjust according to LED (47 Ω to 220 Ω) |
-| R14 | 1 | 470 Ω | 1/4 W, yellow-violet-brown-gold; adjust according to LED |
-| R20 | (1) | 10 kΩ | Do not install (1/6 W, brown-black-orange-gold)|
+| R4, R17, R19 | 3 | 100 kΩ | 1608M |
+| R5 | 1 | 220 Ω | 1608M |
+| (R6) | - | - | Not used |
+| R7, R8, R16, R18 | 4 | 10 kΩ | 1608M |
+| (R9) | - | - | Not used |
+| R10 | 1 | 390 kΩ 1% | 1608M (\*5) |
+| R11 | 1 | 47 kΩ 1% | 1608M (\*5) |
+| R12 | 1 | 4.7 kΩ 1% | 1608M (\*5) |
+| R13 | 1 | 220 Ω | 1608M; adjust according to LED (47 Ω to 220 Ω) |
+| R14 | 1 | 470 Ω | 1608M; adjust according to LED |
+| R20 | (1) | 10 kΩ | Do not install (1608M) |
 | SW1-SW3 | 3 | [SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/) | Slide switch, SPDT, PCB mount |
 | SW4 | 1 |  | Push button switch |
 | U1 | 1 | [LM1117GS-3.3](https://akizukidenshi.com/catalog/g/g116989/) | |
 | U2 | 1 | [CH340K](https://akizukidenshi.com/catalog/g/g116306/) | |
-| U3 | 1 | [MC34063AN](https://akizukidenshi.com/catalog/g/g112016/) | (\*4) |
-| U4 | 1 | [ATtiny402-SS](https://akizukidenshi.com/catalog/g/g130009/) | (\*5) |
+| U3 | 1 | MT3608L | |
+| U4 | 1 | [ATtiny402-SS](https://akizukidenshi.com/catalog/g/g130009/) | |
 
-(\*1) Use D9 alone, or use D10 + D11 together. Adjust so that the TP1 voltage is 7.5 V (Vdd + 2.0 V minimum, up to 8.5 V). For example, a combination such as 3.0 V + 5.1 V is also acceptable.  
-(\*2) It is acceptable not to mount the pin header and instead use pogo pins or similar.  
-(\*3) R10 and R11 are connected in parallel. Adjust the ratio of the equivalent resistance of R10 + R11 to the value of R12 to be about 8.6. Another recommended combination is R10 = 13 kΩ, R11 unpopulated, and R12 = 1.5 kΩ.  
-(\*4) Choose one of: mount the [DIP version](https://akizukidenshi.com/catalog/g/g112016/), install the [SOP8 version](https://akizukidenshi.com/catalog/g/g117573/) directly, or mount through a [SOP8 adapter board](https://akizukidenshi.com/catalog/g/g105154).  
-(\*5) Choose one of: mount ATtiny402 directly or through a [SOP8 adapter board](https://akizukidenshi.com/catalog/g/g105154).  
+(\*1) Install either D2 or D11.  
+(\*2) Install either D7 or D12.  
+(\*3) Install either D10 or D13.  
+(\*4) It is acceptable not to mount the pin header and instead use pogo pins or similar.  
+(\*5) R10 and R11 are connected in parallel. Adjust the ratio of the equivalent resistance of R10 + R11 to the value of R12 to be about 19.  
 
 ## About UPDI HV programming
 
@@ -633,30 +633,30 @@ Avrdude done.  Thank you.
 
 ### 12 V generation circuit
 
-An MC34063A generates 12 V. This IC can switch up to 1.5 A, but we don't need that much current here, so the design is configured to output roughly 20 mA.
+An MT3608L generates 12 V. This IC can switch up to 2.5 A, but we don't need that much current here, so the design is configured to output roughly 20 mA.
 
-In the R10, R11, and R12 divider circuit, we adjusted the ratio of the equivalent resistance of R10 + R11 to R12 to about 8.6. We used the 56 kΩ, 39 kΩ, and 2.7 kΩ combination because it was the closest match available in the 1% resistor kit we had, but a typical combination is 13 kΩ and 1.5 kΩ.
+In the R10, R11, and R12 divider circuit, we adjusted the ratio of the equivalent resistance of R10 + R11 to R12 to about 19. We used the 390 kΩ, 47 kΩ, and 4.7 kΩ combination because it was the closest match available.
 
 The output voltage can be approximated with this equation:
 
 $$
-V_{out} = 1.25 \times \left(1 + \frac{R_{top}}{R_{bottom}}\right)
+V_{out} = 0.6 \times \left(1 + \frac{R_{top}}{R_{bottom}}\right)
 $$
 
-Here, $R_{top}$ is the equivalent resistance of R10 and R11, and $R_{bottom}$ is R12. In practice, adjust the divider ratio to about 8.6 so TP2 is around 12 V.
+Here, $R_{top}$ is the equivalent resistance of R10 and R11, and $R_{bottom}$ is R12. In practice, adjust the divider ratio to about 19 so TP2 is around 12 V.
 
 Example combinations:
 
 | R10 | R11 | R12  | $V_{out}$ | Note |
 |-----|-----|------|-----------|------|
-| 56 k | 39 k | 2.7 k | 11.89     | E12 series |
-| 13 k | -    | 1.5 k | 12.08     | E24 series |
-| 11 k | -    | 1.3 k | 11.83     | E24 series |
-| 33 k | -    | 3.9 k | 11.83     | E12 series |
-| 18 k |100 k | 1.8 k | 11.84     | E12 series |
-| 51 k | 51 k | 3.0 k | 11.88     | E24 series |
-| 43 k |680 k | 4.7 k | 12.01     | E24 series |
-| 75 k |470 k | 7.5 k | 12.03     | E24 series |
+|200 k | 47 k | 2.0 k | 12.02     | E24 series |
+|390 k | 47 k | 2.2 k | 12.04     | E24 series |
+|390 k | 75 k | 4.7 k | 12.04     | E24 series |
+|  1 M |100 k | 4.7 k | 12.20     | E6 series  |
+| 39 k | -    | 2.0 k | 12.30     | E24 series |
+| 91 k | -    | 4.7 k | 12.22     | E24 series |
+|680 k |680 k |  18 k | 11.93     | E12 series |
+|114 k | -    | 6.0 k | 12.00     | E96 series |
 
 
 ### CH340K 3.3 V operation
@@ -673,9 +673,9 @@ In general, a two-pole, double-throw switch is often used to switch between UPDI
 
 ### VDD voltage indicator
 
-The LED D8 color indicates the VDD voltage of the target. It is green for 3.3 V and orange (green + red) for 5.0 V.
-To reduce component count, the design uses only a Zener diode and two resistors.
-If the LED is changed, the Zener voltage and resistor values must be adjusted to match the LED forward voltage; otherwise, the LED will not light cleanly. Another point to consider is that 3.3 V results in a slightly dimmer LED than 5.0 V.
+The illumination of LEDs D8 and D9 indicates the VDD voltage of the target. At 3.3 V, only D9 (green) lights up. At 5.0 V, both D8 (red) and D9 (green) light up, resulting in an orange color (red + green).
+To reduce component count, the design uses only Zener diodes and resistors.
+If the LEDs are changed, the Zener voltage and resistor values must be adjusted to match the LED forward voltages; otherwise, the LEDs will not light cleanly. Another point to consider is that 3.3 V results in a slightly dimmer LED than 5.0 V.
 
 ## Issues with DxCore 1.6.2
 
@@ -727,6 +727,15 @@ If new functions in DxCore 1.6.x are needed (for example, support for AVR DU ser
 Besides the critical writing problem in DxCore 1.6.2, several additional issues have been found.
 
 One of the most significant appears to be that `analogReference()` does not work, causing `analogRead()` to fail. See [fix analogReference() by wke67 · Pull Request #643 · SpenceKonde/DxCore](https://github.com/SpenceKonde/DxCore/pull/643) for details.
+
+## Changes in Rev. 2
+
+The following changes were made in Rev. 2:
+
+* Changed SMD (surface mount) for diodes, resistors, and capacitors on the PCBA.  
+  (Through-hole components are assumed to be mounted by hand.)
+* Changed the step-up converter from MC34063A to MT3608L to reduce component count.
+* Reduced the PCB size to 75%.
 
 ## Finished product
 
