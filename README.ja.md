@@ -304,7 +304,7 @@ Arduino IDEから、書き込み装置をSerialUPDIに設定すれば書き込�
 |J5/J6| どちらかをターゲットに接続 |
 | J7  | 未接続         |
 
-SW2は通常はONにします。特にATtinyをターゲットにする場合は、ONにして本機から電源を供給するようにする必要があります。  
+SW3は通常はONにします。特にATtinyをターゲットにする場合は、ONにして本機から電源を供給するようにする必要があります。  
 ターゲットに合わせてJ5/J6のどちらかを接続します。ATtinyであればJ5を、AVR Dx/ExシリーズであればJ6を接続します。J5/J6は、ターゲットの回路がHVに対応していれば問題ありませんが、チップ単体で接続する方が安全でしょう。  
 J3は未接続にしておくことを推奨します。
 
@@ -322,7 +322,7 @@ J3は未接続にしておくことを推奨します。
 | SW3 | 通常はON       |
 | J1  | PCを接続       |
 | J2  | **Target**     |
-| J3  | 未接続         |
+| J3  | ターゲットを接続 |
 | J4  | 用途に応じて選択 |
 |J5/J6| 未接続/接続    |
 | J7  | 未接続         |
@@ -646,7 +646,7 @@ Avrdude done.  Thank you.
 ### HV電圧が心配
 
 * TP2電圧が12V付近 (11.5V以上、12.5V以下) になるようR10, R11, R12を調整する。
-* TP3電圧が7.5V付近 (Vdd+2.0V以上、8.5V以下) になるようD5またはD6+D7を調整する。
+* TP3電圧が7.5V付近 (Vdd+2.0V以上、8.5V以下) になるようD10またはD13を調整する。
 * 初回はチップ単体または最小構成で評価し、問題がないことを確認してから実機に接続する。
 
 
@@ -664,7 +664,7 @@ $$
 V_{out} = 0.6 \times \left(1 + \frac{R_{top}}{R_{bottom}}\right)
 $$
 
-ここで、 $R_{top}$ は R10 と R11 の合成抵抗、 $R_{bottom}$ は R12 です。実際には、分圧比が 19 に近くなるように調整し、TP2 が約12V付近になるようにしています。
+ここで、 $R_{top}$ は R10 と R11 の合成抵抗、 $R_{bottom}$ は R12 です。実際には、分圧比が 19 に近くなるように調整し、TP2 が約12Vになるようにしています。
 
 抵抗の組み合わせの例:
 
@@ -705,13 +705,13 @@ LEDを変更した場合、Vfに合わせてツェナー電圧や抵抗値を調
 
 ### 致命的な問題
 
-2026年8月時点の[DxCore](https://github.com/SpenceKonde/DxCore)の最新版である1.6.2には、AVR DDシリーズで使えないという致命的な問題があります。
+執筆時点(2026年9月)の[DxCore](https://github.com/SpenceKonde/DxCore)の最新版である1.6.2には、AVR DDシリーズで使えないという致命的な問題があります。
 問題は2つあり、1つはエラーが発生して書き込みできないというもので、もう1つはfuseの設定が間違っていてUPDIピンが無効化されてしまうというものです。
 
 * [On 1.6.2 upload to AVR64DD14 fails with prog.py: error: unrecognized arguments · Issue #629 · SpenceKonde/DxCore](https://github.com/SpenceKonde/DxCore/issues/629)
 * [Add missing zero-bit in SYSCFG0 for DD-chips by felias-fogg · Pull Request #638 · SpenceKonde/DxCore](https://github.com/SpenceKonde/DxCore/pull/638)
 
-1つ目の問題だけを直して書き込みを行うと、2つ目の問題により、UPDIでの書き込みができなくなってしまいます。今回このプロジェクトを立てたのは、まさにこの問題に対処するためでした。
+1つ目の問題だけを直して書き込みを行うと、2つ目の問題により、UPDIでの書き込みができなくなってしまいます。今回このプロジェクト(とその[前身のプロジェクト](https://github.com/k-takata/PCB_avr_dx_unbricker))を立てたのは、まさにこの問題に対処するためでした。
 
 上記2点を両方修正すれば、AVR DDシリーズでもDxCore 1.6.2が使えるようになります。
 

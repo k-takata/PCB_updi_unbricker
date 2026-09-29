@@ -289,7 +289,7 @@ Configure and connect the switches and connectors as follows.
 | J5 / J6 | Connect the appropriate target connector |
 | J7 | Disconnected |
 
-SW2 is normally set to ON. For ATtiny targets in particular, keep it ON so this board supplies power.  
+SW3 is normally set to ON. For ATtiny targets in particular, keep it ON so this board supplies power.  
 Connect either J5 or J6, depending on the target. Use J5 for ATtiny and J6 for AVR Dx/Ex. Connecting J5/J6 to the target circuit is fine as long as it supports HV, but connecting a bare chip is safer.  
 J3 should remain disconnected.
 
@@ -306,7 +306,7 @@ Configure and connect the switches and connectors as follows.
 | SW3 | Normally ON |
 | J1 | Connect PC |
 | J2 | **Target** |
-| J3 | Disconnected |
+| J3 | Connect the target |
 | J4 | Select according to purpose |
 | J5 / J6 | Connected or disconnected |
 | J7 | Disconnected |
@@ -626,7 +626,7 @@ Avrdude done.  Thank you.
 ### Concern about the HV voltage
 
 * Adjust R10, R11, and R12 so that the TP2 voltage is around 12 V (11.5 V to 12.5 V).
-* Adjust D5 or D6 + D7 so that the TP3 voltage is around 7.5 V (Vdd + 2.0 V minimum, up to 8.5 V).
+* Adjust D10 or D13 so that the TP3 voltage is around 7.5 V (Vdd + 2.0 V minimum, up to 8.5 V).
 * For the first evaluation, use a bare chip or a minimal configuration and confirm that it works before connecting to the actual device.
 
 ## Circuit description
@@ -681,13 +681,13 @@ If the LEDs are changed, the Zener voltage and resistor values must be adjusted 
 
 ### Critical issue
 
-The latest DxCore version at the time of writing, 1.6.2, had a critical problem that made it unusable with AVR DD-series devices.
+The latest DxCore version at the time of writing (Sep. 2026), 1.6.2, had a critical problem that made it unusable with AVR DD-series devices.
 Two issues exist: one causes an error that prevents programming, and the other sets the fuse incorrectly and disables the UPDI pin.
 
 * [On 1.6.2 upload to AVR64DD14 fails with prog.py: error: unrecognized arguments · Issue #629 · SpenceKonde/DxCore](https://github.com/SpenceKonde/DxCore/issues/629)
 * [Add missing zero-bit in SYSCFG0 for DD-chips by felias-fogg · Pull Request #638 · SpenceKonde/DxCore](https://github.com/SpenceKonde/DxCore/pull/638)
 
-If only the first issue is fixed and programming is attempted, the second issue makes UPDI programming impossible. This project was created specifically to address this issue.
+If only the first issue is fixed and programming is attempted, the second issue makes UPDI programming impossible. This project (and [the predecessor](https://github.com/k-takata/PCB_avr_dx_unbricker)) was created specifically to address this issue.
 
 If both issues are fixed, AVR DD-series devices can work with DxCore 1.6.2.
 
