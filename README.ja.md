@@ -794,3 +794,7 @@ UPDI HVプログラミングに対応したプロジェクトや参考情報へ�
 
 * [\[MULTIX UPDI4AVR Programmer\] modernAVR世代専用HV対応プログラム書込器 | 朝日薫 / K.Sato](https://askn37.github.io/product/UPDI4AVR/)
 * [PICerFT](http://einstlab.web.fc2.com/PICerFT/PICerFT.html)
+
+### その他
+
+* [IMPLEMENTING UPDI FROM SCRATCH – www.CodeRancher.Us](https://www.coderancher.us/series/implementing-updi-from-scratch/) -- UPDIに関する詳しい解説
