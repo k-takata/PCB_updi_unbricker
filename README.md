@@ -678,6 +678,25 @@ The illumination of LEDs D8 and D9 indicates the VDD voltage of the target. At 3
 To reduce component count, the design uses only Zener diodes and resistors.
 If the LEDs are changed, the Zener voltage and resistor values must be adjusted to match the LED forward voltages; otherwise, the LEDs will not light cleanly. Another point to consider is that 3.3 V results in a slightly dimmer LED than 5.0 V.
 
+### UPDI high-voltage protection
+
+#### ATtiny
+
+The ATtiny (J5) UPDI data line receives a 12 V pulse, so it is necessary to protect the AVR Dx/Ex UPDI data line and the USB-to-serial converter chip (U1) from being exposed to that 12 V spike.
+At the same time, because UPDI is a bidirectional interface, the circuit must pass normal communication while blocking only the 12 V pulse.
+
+In this design, an N-ch MOSFET (Q3) is used for protection against the 12 V pulse. This is effectively an application of the logic level shifter using an N-ch MOSFET.
+
+Reference: [Logic Level Shifting Basics | DigiKey](https://www.digikey.com/en/blog/logic-level-shifting-basics)
+
+In addition, D2 (or D11) and D4 are included to absorb high voltage in case Q3 fails.
+
+#### AVR Dx/Ex
+
+The AVR Dx/Ex (J6) RESET line receives a 7.5 V pulse, but outside the pulse period it only needs to receive VDD. Since communication is not required at that time, the circuit can be kept simple.
+
+The design pulls the line up to VDD with R7 and blocks reverse current with D5.
+
 ## Issues with DxCore 1.6.2
 
 ### Critical issue
