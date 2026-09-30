@@ -133,8 +133,9 @@ There are two types of HV programming. One is the 12 V pulse applied to the UPDI
    Apply a 12 V pulse to the UPDI pin within 8.8 ms after power-on reset (POR), with a width of 100 μs to 1 ms.  
    If the pulse is not applied within the required time after POR, the pin function may interfere with the intended operation.
 2. AVR Dx/Ex series:  
-   Apply a 7.5 V pulse to the RESET pin for at least 10 μs, then send the NVMPROG key within 65 ms.  
-   If transmission of the NVMPROG key is not completed in time, a reset is triggered automatically.  
+   Apply a 7.5 V pulse to the RESET pin for at least 10 μs, then send a valid UPDI key within 65 ms.  
+   If transmission of the UPDI key is not completed in time, a reset is triggered automatically.  
+   (There are three types of keys in the UPDI key: the Chip Erase key, the NVMPROG key, and the USERROW-Write key.)  
    Unlike ATtiny devices, AVR Dx/Ex series have a separate RESET pin, and it cannot be used as an output pin; there are no POR-to-HV-pulse timing restrictions.
 
 For safety, this board uses separate connectors for ATtiny and AVR Dx/Ex devices.
