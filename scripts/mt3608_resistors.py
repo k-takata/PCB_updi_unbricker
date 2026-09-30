@@ -15,7 +15,7 @@ e24 = [1.0, 1.1, 1.2, 1.3, 1.5, 1.6, 1.8, 2.0, 2.2, 2.4, 2.7, 3.0, 3.3, 3.6, 3.9
 multipliers = [1, 10, 100, 1000, 10000, 100000, 1000000]
 all_e24 = sorted(list(set([round(val * m, 2) for val in e24 for m in multipliers])))
 
-# Filter reasonable ranges to avoid extreme values. 
+# Filter reasonable ranges to avoid extreme values.
 # Generally, R2 should be between 1k and 50k, R1 between 20k and 1M.
 r_vals = [r for r in all_e24 if 1000 <= r <= 1000000]
 
@@ -40,7 +40,7 @@ for r1_a in r_vals:
         r1_s = r1_a + r1_b
         # Parallel
         r1_p = (r1_a * r1_b) / (r1_a + r1_b)
-        
+
         for r2 in r_vals:
             # Series for R1
             v_out_s = v_ref * (1 + r1_s / r2)
@@ -60,7 +60,7 @@ for r1 in r_vals:
             r2_s = r2_a + r2_b
             # Parallel
             r2_p = (r2_a * r2_b) / (r2_a + r2_b)
-            
+
             # Series for R2
             v_out_s = v_ref * (1 + r1 / r2_s)
             if target_min <= v_out_s <= target_max:
