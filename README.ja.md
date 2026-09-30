@@ -154,7 +154,7 @@ HVプログラミングには2種類あり、1つはATtinyシリーズで使用�
 * [ATtiny202/204/402/404/406 Data Sheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/ATtiny202-204-402-404-406-DataSheet-DS40002318A.pdf) [PDF]  
   "30. UPDI - Unified Program and Debug Interface" や "33. Electrical Characteristics" (33.18. UPDI Timing) などを参照。
 * [AVR64DD32/28 Datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/AVR64DD32-28-Complete-DataSheet-DS40002315.pdf) [PDF]  
-  "34. UPDI - Unified Program and Debug Interface" や "36. Electrical Characteristics" (36.18. UPDI) などを参照。
+  "36. UPDI - Unified Program and Debug Interface" や "38. Electrical Characteristics" (38.5.18. UPDI) などを参照。
 
 
 ## 動作確認済みデバイス
