@@ -120,7 +120,7 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |SW4        |   1|      |プッシュスイッチ|
 |U1         |   1|[AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186)||
 |U2         |   1|[CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586)||
-|U3         |   1|[MT3608L](https://jlcpcb.com/partdetail/XI_AN_AerosemiTech-MT3608L/C2932326)||
+|U3         |   1|[MT3608L](https://jlcpcb.com/partdetail/XI_AN_AerosemiTech-MT3608L/C2932326)|ステップアップコンバーター。(SDB628, SX1308も可)|
 |U4         |   1|[ATtiny402-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY402SSNR/C616056)||
 
 (\*1) D2またはD11のどちらか一方を実装する。  
@@ -700,6 +700,26 @@ CH340Kを3.3V動作させる場合は、データシートではV3ピンをVCC�
 LED D8/D9の点灯状況でターゲットのVDDの電圧を判別できるようにしてあります。3.3VならばD9 (緑色) のみが点灯し、5.0VならばD8 (赤色) とD9 (緑色) の両方が点灯します。
 部品点数削減のため、ツェナーダイオードと抵抗2本だけの構成になっています。
 LEDを変更した場合、Vfに合わせてツェナー電圧や抵抗値を調整しないときれいに光らないのが欠点です。また、5.0Vに比べて3.3VではLEDが少し暗くなってしまうのも考慮すべき点です。
+
+
+### UPDIの高電圧保護
+
+#### ATtiny
+
+ATtiny (J5) のUPDIデータ線には12Vパルスが掛かりますが、AVR Dx/ExのUPDIデータ線やUSBシリアル変換チップ (U1) には12Vパルスが流れ込まないように保護する必要があります。
+一方で、UPDIは双方向の通信が行われますので、通信は通しながら、12Vパルスだけを遮断する必要があります。
+
+今回はNch MOSFET (Q3) を使って、12Vパルスからの保護を行っています。これはNch MOSFETを使用したレベルシフターの応用です。
+
+参考: [ロジックレベルシフトの基礎 | DigiKey](https://www.digikey.jp/ja/blog/logic-level-shifting-basics)
+
+また、Q3が故障した場合に備え、D2 (あるいはD11) とD4で高電圧を吸収するようにしています。
+
+#### AVR Dx/Ex
+
+AVR Dx/Ex (J6) のRESET線には7.5Vパルスが掛かりますが、パルスを与えるとき以外はVDD電圧を与えるだけでよく、通信は不要なので、回路は簡単です。
+
+R7でVDDにプルアップし、D5で逆流を阻止しているだけです。
 
 
 ## DxCore 1.6.2に関する問題
