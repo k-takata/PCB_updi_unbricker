@@ -636,6 +636,8 @@ Avrdude done.  Thank you.
 
 An MT3608L generates 12 V. This IC can switch up to 2.5 A, but we don't need that much current here, so the design is configured to output roughly 20 mA.
 
+Note: It may be better to replace D6, instead of BAT43WS, with a part with a little more margin in peak forward current, such as [B0540WS](https://jlcpcb.com/partdetail/hongjiacheng-B0540WS/C7420326).
+
 In the R10, R11, and R12 divider circuit, we adjusted the ratio of the equivalent resistance of R10 + R11 to R12 to about 19. We used the 390 kΩ, 75 kΩ, and 3.3 kΩ combination because it was the closest match available in the 1% resistor kit we had.
 
 The output voltage can be approximated with this equation:
@@ -670,7 +672,11 @@ Reference: [Non-Compliant Use of CH340 V3 Pin: Deep Dive for Engineers](https://
 
 As described above, the UPDI section uses the circuit from [UPDI Adapter for AE-CH9102F (Rev. 2)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F), which includes automatic mode switching using the RTS signal.
 
-In general, a two-pole, double-throw switch is often used to switch between UPDI mode and serial communication mode. Here, the TxD line remains connected, allowing switching with a single-pole, double-throw switch. In addition, to keep the switching circuit compact, a discrete-component implementation is used instead of an analog switch IC such as 4052.
+Switching is performed by taking advantage of the fact that RTS is active (low) during serial communication and inactive (high) during UPDI communication.
+
+In general, a two-pole, double-throw switch is often used to switch between UPDI mode and serial communication mode. Here, the TxD line remains connected, allowing switching with a single-pole, double-throw switch. In addition, to keep the switching circuit compact, a discrete-component implementation is used instead of an analog switch IC such as 4052/4053. (A single-channel analog switch IC such as 74LVC1G3157 could make it smaller, but we did not use it this time because of part availability and other considerations.)
+
+Q2 uses a P-ch MOSFET and is controlled directly by the RTS signal, but an N-ch MOSFET may be more stable. In that case, the RTS signal would need to be inverted, which would require one additional N-ch MOSFET and a resistor.
 
 ### VDD voltage indicator
 
