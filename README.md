@@ -328,7 +328,7 @@ The command used in this example is as follows.
 The programmer is specified as `serialupdi`.  
 The device name (part name) is described later.  
 The port name is something like `COM8` on Windows.  
-A baud rate such as `115200` or `230400` is recommended; it seems that higher rates do not work reliably.  
+A baud rate such as `115200` or `230400` is recommended. (The maximum speed of CH340K is 230400 bps.)  
 `-v` is an option for verbose output.  
 The memory operation is described later.
 
