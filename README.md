@@ -106,7 +106,7 @@ See “Usage” for detailed procedures.
 | R11 | 1 | 75 kΩ 1% | 1608M (\*5) |
 | R12 | 1 | 3.3 kΩ 1% | 1608M (\*5) |
 | R13 | 1 | 220 Ω | 1608M; adjust according to LED (47 Ω to 220 Ω) |
-| R14 | 1 | 470 Ω | 1608M; adjust according to LED |
+| R14 | 1 | 12 kΩ | 1608M; adjust according to LED |
 | R20 | (1) | 10 kΩ | Do not install (1608M) |
 | SW1-SW3 | 3 | [SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/) | Slide switch, SPDT, PCB mount |
 | SW4 | 1 |  | Push button switch |
