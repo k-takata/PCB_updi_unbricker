@@ -1,6 +1,6 @@
 [English](README.md) | [日本語](README.ja.md)
 
-# UPDI Unbricker
+# UPDI Unbricker (Rev. 2)
 
 ## 概要
 
@@ -67,67 +67,67 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 
 ## 回路図
 
-[![schema](images/schema.png)](images/schema.pdf)
+[![schema](images/schema-rev2.png)](images/schema-rev2.pdf)
 
 
 ## 基板パターン図
 
-![PCB pattern](images/pcb-pattern.png)
+![PCB pattern](images/pcb-pattern-rev2.png)
 
 
 ## 部品表
 
 | Reference |個数|値    | 説明 |
 |-----------|----|------|------|
-|C1,C2      |   2|10μF |3225Mまたは3216M |
-|C3,C7      |   2|0.1μF| |
-|C4         |   1|100μF|≧47μF, ≧10V |
-|C5         |   1|47μF |≧47μF, ≧25V |
-|C6         |   1|220pF |150pF - 470pF|
-|D1,D3-D6   |   5|[BAT43](https://akizukidenshi.com/catalog/g/g113907/) |適当なショットキーバリアダイオード (他の例: [SD103A](https://akizukidenshi.com/catalog/g/g104271), [11EQS03L](https://akizukidenshi.com/catalog/g/g108997/))|
-|D2         |   1|      |5.6Vツェナーダイオード、過電圧保護用|
-|D7         |   1|      |3.6Vツェナーダイオード、LEDに合わせて値は適宜調整 (3.0 - 3.6V)|
-|D8         |   1|[OSRGHC5B32A](https://akizukidenshi.com/catalog/g/g106314/)|2色LED (赤・緑) カソードコモン、φ5mm、VDD電圧インジケーター|
-|D9         |   1|[1N4737A](https://www.sengoku.co.jp/mod/sgk_cart/detail.php?code=EEHD-0FMV)|7.5Vツェナーダイオード (\*1) |
-|D10        |   1|任意  |ツェナーダイオード (\*1) |
-|D11        |   1|任意  |ツェナーダイオード (\*1) |
-|F1         |   1|[MF-NSMF050-2](https://akizukidenshi.com/catalog/g/g115300/)|リセッタブルヒューズ 0.5A|
-|J1         |   1|[5077CR-16-SMC2-BK-TR](https://akizukidenshi.com/catalog/g/g114356/)|USB Type-Cレセプタクル|
+|C1,C2      |   2|10μF |1608M|
+|C3,C6      |   2|0.1μF|1608M|
+|C4,C5      |   2|22μF |2012M, ≧25V|
+|D1,D3-D6   |   5|[BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693)|SOD-323|
+|D2         |   1|[BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402)|5.6Vツェナーダイオード、SOD-123、過電圧保護用 (\*1)|
+|D7         |   1|[BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402)|3.6Vツェナーダイオード、SOD-123、LEDに合わせて値は適宜調整 (3.0 - 3.6V) (\*2)|
+|D8         |   1|[NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256)|2012M、VDD電圧インジケーター|
+|D9         |   1|[KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297)|2012M、VDD電圧インジケーター|
+|D10        |   1|[BZT52C7V5](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C7V5/C19077405)|7.5Vツェナーダイオード、SOD-123 (\*3)|
+|D11        |   1|任意  |5.6Vツェナーダイオード、DO-41 (\*1)|
+|D12        |   1|任意  |3.6Vツェナーダイオード、DO-35 (\*2)|
+|D13        |   1|任意  |7.5Vツェナーダイオード、DO-41 (\*3)|
+|F1         |   1|[SMD1206P050TF](https://jlcpcb.com/partdetail/21511-SMD1206P050TF/C20799)|リセッタブルヒューズ 0.5A|
+|J1         |   1|[TYPE-C16PIN](https://jlcpcb.com/partdetail/SHOUHAN-TYPEC16PIN/C393939)|USB Type-Cレセプタクル|
 |J2         |   1|      |ピンヘッダー 1x3、書き込み先切り替え用|
 |J3         |   1|      |[L型ピンソケット 1x6](https://akizukidenshi.com/catalog/g/g109862/)、TTLシリアル接続用|
 |J5         |   1|      |ピンソケット 1x3、ATtiny UPDI接続用|
 |J4         |   1|      |ピンヘッダー 1x3、RTS/DTR切り替え用|
 |J6         |   1|      |ピンソケット 1x4、AVR Dx/Ex UPDI接続用|
-|J7         |   1|      |ピンヘッダー 1x4、ファームウェア書き込み用 (\*2)|
-|L1         |   1|330μH|100μH - 330μH, ≧100mA, [AL0307-331K](https://akizukidenshi.com/catalog/g/g103968/)等|
-|Q1,Q3,Q6,Q8|   4|[BSS138](https://akizukidenshi.com/catalog/g/g104232/)|Nch MOSFET|
-|Q2,Q5,Q7   |   3|[BSS84](https://akizukidenshi.com/catalog/g/g104269/) |Pch MOSFET|
-|Q4         |   1|[SSM3J332R](https://akizukidenshi.com/catalog/g/g115985/)|Pch MOSFET|
-|R1,R15     |   2|470Ω |黄紫茶金、1/4Wサイズ|
+|J7         |   1|      |ピンヘッダー 1x4、ファームウェア書き込み用 (\*4)|
+|L1         |   1|[DFE322512F-4R7M=P2](https://jlcpcb.com/partdetail/MurataElectronics-DFE322512F_4R7MP2/C703083)|4.7μH, ≧100mA|
+|Q1,Q3,Q6,Q8|   4|[BSS138](https://jlcpcb.com/partdetail/hongjiacheng-BSS138/C7420339)|Nch MOSFET|
+|Q2,Q5,Q7   |   3|[BSS84](https://jlcpcb.com/partdetail/LRC-LBSS84LT1G/C8492) |Pch MOSFET|
+|Q4         |   1|[AO3401A](https://jlcpcb.com/partdetail/Alpha_OmegaSemicon-AO3401A/C15127)|Pch MOSFET|
+|R1,R15     |   2|470Ω |1608M|
 |R2,R3      |   2|5.1kΩ|1608M|
-|R4,R17,R19 |   3|100kΩ|茶黒黄金、1/4Wサイズ (10kΩ - 100kΩ)|
-|R5         |   1|220Ω|赤赤茶金、1/4Wサイズ|
-|R6         |   1|2.2Ω |赤赤金金、1/4Wサイズ|
-|R7,R8,R16,R18| 4|10kΩ |茶黒橙金、1/4Wサイズ|
-|R9         |   1|200Ω |赤黒茶金、1/4Wサイズ (150Ω - 220Ω)|
-|R10        |   1|56kΩ 1% |緑青黒赤茶、1/4Wサイズ (\*3)|
-|R11        |   1|39kΩ 1% |橙白黒赤茶、1/4Wサイズ (\*3)|
-|R12        |   1|2.7kΩ 1%|赤紫黒茶茶、1/4Wサイズ (\*3)|
-|R13        |   1|200Ω |赤黒茶金、1/4Wサイズ、LEDに合わせて値は適宜調整 (47 - 220Ω)|
-|R14        |   1|470Ω |黄紫茶金、1/4Wサイズ、LEDに合わせて値は適宜調整|
-|R20        | (1)|10kΩ |未実装 (茶黒橙金、1/6Wサイズ)|
+|R4,R17,R19 |   3|100kΩ|1608M|
+|R5         |   1|220Ω|1608M|
+|(R6)       |   -|-    |欠番|
+|R7,R8,R16,R18| 4|10kΩ |1608M|
+|(R9)       |   -|-    |欠番|
+|R10        |   1|390kΩ 1% |1608M (\*5)|
+|R11        |   1|75kΩ 1% |1608M (\*5)|
+|R12        |   1|3.3kΩ 1%|1608M (\*5)|
+|R13        |   1|220Ω |1608M、LEDに合わせて値は適宜調整 (47 - 220Ω)|
+|R14        |   1|12kΩ |1608M、LEDに合わせて値は適宜調整|
+|R20        | (1)|10kΩ |未実装 (1608M)|
 |SW1-SW3    |   3|[SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/)|スライドスイッチ 1回路2接点 基板用|
 |SW4        |   1|      |プッシュスイッチ|
-|U1         |   1|[LM1117GS-3.3](https://akizukidenshi.com/catalog/g/g116989/)||
-|U2         |   1|[CH340K](https://akizukidenshi.com/catalog/g/g116306/)||
-|U3         |   1|[MC34063AN](https://akizukidenshi.com/catalog/g/g112016/)|(\*4)|
-|U4         |   1|[ATtiny402-SS](https://akizukidenshi.com/catalog/g/g130009/)|(\*5)|
+|U1         |   1|[AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186)||
+|U2         |   1|[CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586)||
+|U3         |   1|[MT3608L](https://jlcpcb.com/partdetail/XI_AN_AerosemiTech-MT3608L/C2932326)|ステップアップコンバーター。(SDB628, SX1308も可)|
+|U4         |   1|[ATtiny402-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY402SSNR/C616056)||
 
-(\*1) D9を単独で使用するか、D10 + D11の組み合わせで使用する。TP1の電圧が7.5V (Vdd+2.0V以上、8.5V以下)になるようにする。例えば、3.0V + 5.1Vなどの組み合わせでもよいだろう。  
-(\*2) ピンヘッダーを実装せず、ポゴピンなどを使うようにしてもよい。  
-(\*3) R10とR11は並列接続されている。R10 + R11の合成抵抗と、R12の抵抗値の比が8.6になるように調整する。他の組み合わせとしては、R10に13kΩ、R11は未接続、R12に1.5kΩを推奨。
-(\*4) [DIP版](https://akizukidenshi.com/catalog/g/g112016/)を載せるか、[SOP8版](https://akizukidenshi.com/catalog/g/g117573/)を直接載せるか、[SOP8変換基板](https://akizukidenshi.com/catalog/g/g105154)を介して載せるかのどれかを選択する。  
-(\*5) ATtiny402を直接載せるか、[SOP8変換基板](https://akizukidenshi.com/catalog/g/g105154)を介して載せるかのどちらかを選択する。  
+(\*1) D2またはD11のどちらか一方を実装する。  
+(\*2) D7またはD12のどちらか一方を実装する。  
+(\*3) D10またはD13のどちらか一方を実装する。  
+(\*4) ピンヘッダーを実装せず、ポゴピンなどを使うようにしてもよい。  
+(\*5) R10とR11は並列接続されている。R10 + R11の合成抵抗と、R12の抵抗値の比が19になるように調整する。
 
 
 ## UPDI HVプログラミングについて
@@ -142,8 +142,9 @@ HVプログラミングには2種類あり、1つはATtinyシリーズで使用�
    パワーオンリセット(POR)から8.8ms以内にUPDIピンに12Vパルス(100μs - 1ms)を与える。  
    PORから時間内にパルスを与えなければ、ピンの機能と干渉する可能性がある。
 2. AVR Dx/Exシリーズ:  
-   RESETピンに7.5Vパルス(10μs以上)を与えてから65ms以内にNVMPROGキーを送出する。  
-   時間内にNVMPROGキーの送出まで終わらなければ、自動的にリセットが掛かる。  
+   RESETピンに7.5Vパルス(10μs以上)を与えてから65ms以内に有効なUPDIキーを送出する。  
+   時間内にUPDIキーの送出まで終わらなければ、自動的にリセットが掛かる。  
+   (UPDIキーには、Chip Eraseキー、NVMPROGキー、USERROW-Writeキーの3種類がある。)  
    ATtinyとは異なり、独立したRESETピンが存在し、出力として使用することはできないので、PORからHVパルスまでの時間的制約はない。
 
 本機は安全のため、ATtinyとAVR Dx/Exでは別のコネクターに接続するようになっています。
@@ -154,7 +155,7 @@ HVプログラミングには2種類あり、1つはATtinyシリーズで使用�
 * [ATtiny202/204/402/404/406 Data Sheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/ATtiny202-204-402-404-406-DataSheet-DS40002318A.pdf) [PDF]  
   "30. UPDI - Unified Program and Debug Interface" や "33. Electrical Characteristics" (33.18. UPDI Timing) などを参照。
 * [AVR64DD32/28 Datasheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/AVR64DD32-28-Complete-DataSheet-DS40002315.pdf) [PDF]  
-  "34. UPDI - Unified Program and Debug Interface" や "36. Electrical Characteristics" (36.18. UPDI) などを参照。
+  "36. UPDI - Unified Program and Debug Interface" や "38. Electrical Characteristics" (38.5.18. UPDI) などを参照。
 
 
 ## 動作確認済みデバイス
@@ -209,7 +210,7 @@ SW2はターゲットへ供給する電圧を選択します。5Vまたは3.3V�
 
 SW3は本機からターゲットへ電源を供給するかどうかを選択します。シルクのON側に倒すと給電し、OFF側に倒すと給電しません。別経路からターゲットへ電源供給中の場合はOFFにしてください。
 
-ターゲットに対して本機から電源を供給する場合は、SW2で供給電圧を選択し、SW3をONにします。供給電圧によってLEDの色が変わります。3.3Vで緑色、5Vでオレンジ色（緑 + 赤）です。SW3がOFFでターゲットを接続していない場合はLEDは消灯しますが、ターゲットを接続した場合はターゲットからの電源でLEDが点灯します。
+ターゲットに対して本機から電源を供給する場合は、SW2で供給電圧を選択し、SW3をONにします。供給電圧によってLEDの点灯状況が変わります。3.3Vで緑色、5Vで緑色 + 赤色です。SW3がOFFでターゲットを接続していない場合はLEDは消灯しますが、ターゲットを接続した場合はターゲットからの電源でLEDが点灯します。
 
 
 ### ファームウェアの書き込み
@@ -304,7 +305,7 @@ Arduino IDEから、書き込み装置をSerialUPDIに設定すれば書き込�
 |J5/J6| どちらかをターゲットに接続 |
 | J7  | 未接続         |
 
-SW2は通常はONにします。特にATtinyをターゲットにする場合は、ONにして本機から電源を供給するようにする必要があります。  
+SW3は通常はONにします。特にATtinyをターゲットにする場合は、ONにして本機から電源を供給するようにする必要があります。  
 ターゲットに合わせてJ5/J6のどちらかを接続します。ATtinyであればJ5を、AVR Dx/ExシリーズであればJ6を接続します。J5/J6は、ターゲットの回路がHVに対応していれば問題ありませんが、チップ単体で接続する方が安全でしょう。  
 J3は未接続にしておくことを推奨します。
 
@@ -322,7 +323,7 @@ J3は未接続にしておくことを推奨します。
 | SW3 | 通常はON       |
 | J1  | PCを接続       |
 | J2  | **Target**     |
-| J3  | 未接続         |
+| J3  | ターゲットを接続 |
 | J4  | 用途に応じて選択 |
 |J5/J6| 未接続/接続    |
 | J7  | 未接続         |
@@ -344,7 +345,7 @@ J3の6番ピンの機能はJ4にジャンパーピンを挿すことでRTSかDTR
 書き込み装置は `serialupdi` を指定します。  
 デバイス名（パーツ名）は後述します。  
 ポート名は、例えばWindowsであれば `COM8` のようになります。  
-ボーレートは `115200` または `230400` などが良いでしょう。それ以上は上手く動かないようです。  
+ボーレートは `115200` または `230400` などが良いでしょう。(CH340Kの最大速度は230400bpsです。)  
 `-v` は詳細表示のためのオプションです。  
 メモリ操作命令は後述します。
 
@@ -646,7 +647,7 @@ Avrdude done.  Thank you.
 ### HV電圧が心配
 
 * TP2電圧が12V付近 (11.5V以上、12.5V以下) になるようR10, R11, R12を調整する。
-* TP3電圧が7.5V付近 (Vdd+2.0V以上、8.5V以下) になるようD5またはD6+D7を調整する。
+* TP3電圧が7.5V付近 (Vdd+2.0V以上、8.5V以下) になるようD10またはD13を調整する。
 * 初回はチップ単体または最小構成で評価し、問題がないことを確認してから実機に接続する。
 
 
@@ -654,30 +655,32 @@ Avrdude done.  Thank you.
 
 ### 12V発生回路
 
-MC34063Aを使用して12Vを発生させています。このICは1.5Aまでスイッチできますが、今回はそれほど大きな電流を必要としないため、20mA程度を出力できる構成にしています。
+MT3608Lを使用して12Vを発生させています。このICは2.5Aまでスイッチできますが、今回はそれほど大きな電流を必要としないため、20mA程度を出力できる構成にしています。
 
-R10, R11, R12 による分圧回路では、R10 + R11 の合成抵抗と R12 の比を約8.6に近づけるよう調整しています。手持ちの1%抵抗で8.6に近い値になる組み合わせが、56kΩ, 39kΩ, 2.7kΩの組み合わせだったのでそのようにしていますが、一般的には13kΩと1.5kΩを使う場合が多いようです。
+注: D6は、BAT43WSではなく、もう少しピーク順電流に余裕のある[B0540WS](https://jlcpcb.com/partdetail/hongjiacheng-B0540WS/C7420326)に変更した方がよいかもしれません。
+
+R10, R11, R12 による分圧回路では、R10 + R11 の合成抵抗と R12 の比を19に近づけるよう調整しています。手持ちの1%抵抗で19に近い値になる組み合わせが、390kΩ, 75kΩ, 3.3kΩの組み合わせだったのでそのようにしています。
 
 出力電圧は、次式で概算できます。
 
 $$
-V_{out} = 1.25 \times \left(1 + \frac{R_{top}}{R_{bottom}}\right)
+V_{out} = 0.6 \times \left(1 + \frac{R_{top}}{R_{bottom}}\right)
 $$
 
-ここで、 $R_{top}$ は R10 と R11 の合成抵抗、 $R_{bottom}$ は R12 です。実際には、分圧比が 8.6 に近くなるように調整し、TP2 が約12V付近になるようにしています。
+ここで、 $R_{top}$ は R10 と R11 の合成抵抗、 $R_{bottom}$ は R12 です。実際には、分圧比が 19 に近くなるように調整し、TP2 が約12Vになるようにしています。
 
 抵抗の組み合わせの例:
 
 | R10 | R11 | R12  | $V_{out}$ | Note |
 |-----|-----|------|-----------|------|
-| 56k | 39k | 2.7k | 11.89     | E12系列 |
-| 13k | -   | 1.5k | 12.08     | E24系列 |
-| 11k | -   | 1.3k | 11.83     | E24系列 |
-| 33k | -   | 3.9k | 11.83     | E12系列 |
-| 18k |100k | 1.8k | 11.84     | E12系列 |
-| 51k | 51k | 3.0k | 11.88     | E24系列 |
-| 43k |680k | 4.7k | 12.01     | E24系列 |
-| 75k |470k | 7.5k | 12.03     | E24系列 |
+|200k | 47k | 2.0k | 12.02     | E24系列 |
+|390k | 47k | 2.2k | 12.04     | E12系列 |
+|390k | 75k | 3.3k | 12.04     | E24系列 |
+|  1M |100k | 4.7k | 12.20     | E6系列  |
+| 39k | -   | 2.0k | 12.30     | E24系列 |
+| 91k | -   | 4.7k | 12.22     | E24系列 |
+|680k |680k |  18k | 11.93     | E12系列 |
+|114k | -   | 6.0k | 12.00     | E96系列 |
 
 
 ### CH340Kの3.3V動作
@@ -691,27 +694,51 @@ CH340Kを3.3V動作させる場合は、データシートではV3ピンをVCC�
 
 前述の通り、UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 2)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F)の回路を使用しており、RTS信号による自動切り替え機能を備えています。
 
-一般的には、UPDIモードとシリアル通信モードの切り替えには2回路2接点スイッチを使うことが多いですが、TxDは接続したままとすることで、1回路2接点スイッチで切り替えを実現しています。さらに、切り替え回路を小さくするため、4052のようなアナログスイッチICは使用せず、ディスクリート部品で構成しています。
+シリアル通信中はRTSがアクティブ (low) になり、UPDI通信中はRTSが非アクティブ (high) になることを利用して切り替えを行っています。
+
+一般的には、UPDIモードとシリアル通信モードの切り替えには2回路2接点スイッチを使うことが多いですが、TxDは接続したままとすることで、1回路2接点スイッチで切り替えを実現しています。さらに、切り替え回路を小さくするため、4052/4053のような多回路のアナログスイッチICは使用せず、ディスクリート部品で構成しています。(74LVC1G3157などの1回路のアナログスイッチICを使用すればもっと小さくできそうですが、部品の入手性などを考慮し、今回は使用していません。)
+
+Q2にはPch MOSFETを使い、RTS信号で直接制御していますが、Nch MOSFETを使うようにした方が安定するかもしれません。その場合、RTS信号を反転する必要があるので、もう1つNch MOSFETと抵抗が必要になってしまいますが。
 
 
 ### VDD電圧インジケーター
 
-LED D8の色でターゲットのVDDの電圧を判別できるようにしてあります。3.3Vならば緑色、5.0Vならばオレンジ色 (緑 + 赤) となっています。
+LED D8/D9の点灯状況でターゲットのVDDの電圧を判別できるようにしてあります。3.3VならばD9 (緑色) のみが点灯し、5.0VならばD8 (赤色) とD9 (緑色) の両方が点灯します。
 部品点数削減のため、ツェナーダイオードと抵抗2本だけの構成になっています。
 LEDを変更した場合、Vfに合わせてツェナー電圧や抵抗値を調整しないときれいに光らないのが欠点です。また、5.0Vに比べて3.3VではLEDが少し暗くなってしまうのも考慮すべき点です。
+
+
+### UPDIの高電圧保護
+
+#### ATtiny
+
+ATtiny (J5) のUPDIデータ線には12Vパルスが掛かりますが、AVR Dx/ExのUPDIデータ線やUSBシリアル変換チップ (U1) には12Vパルスが流れ込まないように保護する必要があります。
+一方で、UPDIは双方向の通信が行われますので、通信は通しながら、12Vパルスだけを遮断する必要があります。
+
+今回はNch MOSFET (Q3) を使って、12Vパルスからの保護を行っています。これはNch MOSFETを使用したレベルシフターの応用です。
+
+参考: [ロジックレベルシフトの基礎 | DigiKey](https://www.digikey.jp/ja/blog/logic-level-shifting-basics)
+
+また、Q3が故障した場合に備え、D2 (あるいはD11) とD4で高電圧を吸収するようにしています。
+
+#### AVR Dx/Ex
+
+AVR Dx/Ex (J6) のRESET線には7.5Vパルスが掛かりますが、パルスを与えるとき以外はVDD電圧を与えるだけでよく、通信は不要なので、回路は簡単です。
+
+R7でVDDにプルアップし、D5で逆流を阻止しているだけです。
 
 
 ## DxCore 1.6.2に関する問題
 
 ### 致命的な問題
 
-2026年8月時点の[DxCore](https://github.com/SpenceKonde/DxCore)の最新版である1.6.2には、AVR DDシリーズで使えないという致命的な問題があります。
+執筆時点(2026年9月)の[DxCore](https://github.com/SpenceKonde/DxCore)の最新版である1.6.2には、AVR DDシリーズで使えないという致命的な問題があります。
 問題は2つあり、1つはエラーが発生して書き込みできないというもので、もう1つはfuseの設定が間違っていてUPDIピンが無効化されてしまうというものです。
 
 * [On 1.6.2 upload to AVR64DD14 fails with prog.py: error: unrecognized arguments · Issue #629 · SpenceKonde/DxCore](https://github.com/SpenceKonde/DxCore/issues/629)
 * [Add missing zero-bit in SYSCFG0 for DD-chips by felias-fogg · Pull Request #638 · SpenceKonde/DxCore](https://github.com/SpenceKonde/DxCore/pull/638)
 
-1つ目の問題だけを直して書き込みを行うと、2つ目の問題により、UPDIでの書き込みができなくなってしまいます。今回このプロジェクトを立てたのは、まさにこの問題に対処するためでした。
+1つ目の問題だけを直して書き込みを行うと、2つ目の問題により、UPDIでの書き込みができなくなってしまいます。今回このプロジェクト(とその[前身のプロジェクト](https://github.com/k-takata/PCB_avr_dx_unbricker))を立てたのは、まさにこの問題に対処するためでした。
 
 上記2点を両方修正すれば、AVR DDシリーズでもDxCore 1.6.2が使えるようになります。
 
@@ -754,8 +781,19 @@ DxCore 1.6.2には、書き込みができない致命的な問題の他にも�
 特に影響が大きいと思われるのは、`analogReference()` が動かないために `analogRead()` が正しく動かないという問題です。詳細は [fix analogReference() by wke67 · Pull Request #643 · SpenceKonde/DxCore](https://github.com/SpenceKonde/DxCore/pull/643) を参照してください。
 
 
+## 変更差分
+
+Rev. 2での変更点は以下の通りです。
+
+* PCBA用にダイオード、抵抗、コンデンサーを表面実装部品に変更。  
+  （スルーホール部品は手で実装することを想定）
+* 部品点数の削減のため、ステップアップコンバーターをMC34063AからMT3608Lに変更。
+* 基板サイズを75%に縮小。
+
+
 ## 完成品
 
+Rev. 1:  
 [![完成品](images/unbricker-thumb.jpg)](images/unbricker.jpg)
 
 
@@ -783,3 +821,7 @@ UPDI HVプログラミングに対応したプロジェクトや参考情報へ�
 
 * [\[MULTIX UPDI4AVR Programmer\] modernAVR世代専用HV対応プログラム書込器 | 朝日薫 / K.Sato](https://askn37.github.io/product/UPDI4AVR/)
 * [PICerFT](http://einstlab.web.fc2.com/PICerFT/PICerFT.html)
+
+### その他
+
+* [IMPLEMENTING UPDI FROM SCRATCH – www.CodeRancher.Us](https://www.coderancher.us/series/implementing-updi-from-scratch/) -- UPDIに関する詳しい解説
