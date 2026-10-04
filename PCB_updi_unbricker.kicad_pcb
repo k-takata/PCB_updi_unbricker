@@ -9,8 +9,8 @@
 	(paper "A5")
 	(title_block
 		(title "UPDI Unbricker")
-		(date "2026-09-26")
-		(rev "2")
+		(date "2026-10-04")
+		(rev "3")
 		(company "K.Takata")
 	)
 	(layers
