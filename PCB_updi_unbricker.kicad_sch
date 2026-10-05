@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "UPDI Unbricker")
-		(date "2026-10-04")
+		(date "2026-10-05")
 		(rev "3")
 		(company "K.Takata")
 	)
@@ -11995,22 +11995,22 @@
 			)
 		)
 		(pin "2"
-			(uuid "6bed0e84-3f5e-4810-ab29-0cf23aa782ad")
+			(uuid "6bed0e84-3f5e-4810-ab29-0cf23aa782ae")
 		)
 		(pin "5"
-			(uuid "d8e8cec0-6a60-431b-b5bf-be4e4b0a6b6e")
+			(uuid "d8e8cec0-6a60-431b-b5bf-be4e4b0a6b6f")
 		)
 		(pin "1"
-			(uuid "e3e7ecff-4ff2-4e99-938a-1d28518b89af")
+			(uuid "e3e7ecff-4ff2-4e99-938a-1d28518b89b0")
 		)
 		(pin "3"
-			(uuid "d7bcca68-5bc2-4b53-8723-fc15150c4d73")
+			(uuid "d7bcca68-5bc2-4b53-8723-fc15150c4d74")
 		)
 		(pin "4"
-			(uuid "dbc0fac0-7626-40cb-89b9-af49ae58700a")
+			(uuid "dbc0fac0-7626-40cb-89b9-af49ae58700b")
 		)
 		(pin "6"
-			(uuid "bfaf297e-3dc0-452d-9ab2-abc01abb14fa")
+			(uuid "bfaf297e-3dc0-452d-9ab2-abc01abb14fb")
 		)
 		(instances
 			(project "PCB_updi_unbricker"
@@ -13044,7 +13044,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 200.66 86.36 0)
 			(hide yes)
 			(show_name no)
@@ -17695,7 +17695,7 @@
 				)
 			)
 		)
-		(property "Value" "VDD"
+		(property "Value" "+5V"
 			(at 175.006 123.19 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18896,7 +18896,7 @@
 				)
 			)
 		)
-		(property "Value" "VDD"
+		(property "Value" "+5V"
 			(at 44.196 166.37 0)
 			(show_name no)
 			(do_not_autoplace no)
