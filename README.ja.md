@@ -1,13 +1,13 @@
 [English](README.md) | [日本語](README.ja.md)
 
-# UPDI Unbricker (Rev. 2)
+# UPDI Unbricker (Rev. 3)
 
 ## 概要
 
 AVR DA, DB, DD, DU, EA, EBシリーズの7.5V高電圧 (HV) プログラミング、およびモダンATtinyシリーズ (tinyAVR 0/1/2シリーズ) の12V HVプログラミングに対応したUPDI (Unified Program and Debug Interface) 書き込み装置です。
 意図的あるいは事故によりUPDIピンの設定を変更してしまい、通常のUPDI書き込み装置で書き込みができなくなってしまったデバイスに対し、HVパルスを注入することで、再度書き込みができるようにします。
 
-UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 2)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F)の回路を使用しており、RTS信号による自動切り替え機能を備えています。
+UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F)の回路を使用しており、RTS信号による自動切り替え機能を備えています。
 
 
 ## 対応範囲
@@ -67,23 +67,25 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 
 ## 回路図
 
-[![schema](images/schema-rev2.png)](images/schema-rev2.pdf)
+[![schema](images/schema-rev3.png)](images/schema-rev3.pdf)
 
 
 ## 基板パターン図
 
-![PCB pattern](images/pcb-pattern-rev2.png)
+![PCB pattern](images/pcb-pattern-rev3.png)
 
 
 ## 部品表
 
 | Reference |個数|値    | 説明 |
 |-----------|----|------|------|
-|C1,C2      |   2|10μF |1608M|
+|C1,C2,C4   |   3|10μF |1608M|
 |C3,C6      |   2|0.1μF|1608M|
-|C4,C5      |   2|22μF |2012M, ≧25V|
-|D1,D3-D6   |   5|[BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693)|SOD-323|
+|C5         |   1|10μF |2012M, ≧25V|
+|C7         |   1|22pF  |1608M|
+|D1,D3-D5   |   4|[BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693)|SOD-323|
 |D2         |   1|[BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402)|5.6Vツェナーダイオード、SOD-123、過電圧保護用 (\*1)|
+|D6         |   1|[1N5819WS](https://jlcpcb.com/partdetail/GuangdongHottech-1N5819WS/C191023)|SOD-323|
 |D7         |   1|[BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402)|3.6Vツェナーダイオード、SOD-123、LEDに合わせて値は適宜調整 (3.0 - 3.6V) (\*2)|
 |D8         |   1|[NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256)|2012M、VDD電圧インジケーター|
 |D9         |   1|[KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297)|2012M、VDD電圧インジケーター|
@@ -99,9 +101,10 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |J4         |   1|      |ピンヘッダー 1x3、RTS/DTR切り替え用|
 |J6         |   1|      |ピンソケット 1x4、AVR Dx/Ex UPDI接続用|
 |J7         |   1|      |ピンヘッダー 1x4、ファームウェア書き込み用 (\*4)|
-|L1         |   1|[DFE322512F-4R7M=P2](https://jlcpcb.com/partdetail/MurataElectronics-DFE322512F_4R7MP2/C703083)|4.7μH, ≧100mA|
-|Q1,Q3,Q6,Q8|   4|[BSS138](https://jlcpcb.com/partdetail/hongjiacheng-BSS138/C7420339)|Nch MOSFET|
-|Q2,Q5,Q7   |   3|[BSS84](https://jlcpcb.com/partdetail/LRC-LBSS84LT1G/C8492) |Pch MOSFET|
+|L1         |   1|[DFE322512F-100M=P2](https://jlcpcb.com/partdetail/1423957-DFE322512F_100MP2/C1333678)|10μH, ≧300mA|
+|(Q1,Q2)    |   -|-    |欠番|
+|Q3,Q6,Q8   |   3|[BSS138](https://jlcpcb.com/partdetail/hongjiacheng-BSS138/C7420339)|Nch MOSFET|
+|Q5,Q7      |   2|[BSS84](https://jlcpcb.com/partdetail/LRC-LBSS84LT1G/C8492) |Pch MOSFET|
 |Q4         |   1|[AO3401A](https://jlcpcb.com/partdetail/Alpha_OmegaSemicon-AO3401A/C15127)|Pch MOSFET|
 |R1,R15     |   2|470Ω |1608M|
 |R2,R3      |   2|5.1kΩ|1608M|
@@ -110,25 +113,24 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |(R6)       |   -|-    |欠番|
 |R7,R8,R16,R18| 4|10kΩ |1608M|
 |(R9)       |   -|-    |欠番|
-|R10        |   1|390kΩ 1% |1608M (\*5)|
-|R11        |   1|75kΩ 1% |1608M (\*5)|
-|R12        |   1|3.3kΩ 1%|1608M (\*5)|
+|R10        |   1|470kΩ 1% |1608M (\*5)|
+|R11        |   1|10MΩ 1% |1608M (\*5)|
+|R12        |   1|51kΩ 1%|1608M (\*5)|
 |R13        |   1|220Ω |1608M、LEDに合わせて値は適宜調整 (47 - 220Ω)|
 |R14        |   1|12kΩ |1608M、LEDに合わせて値は適宜調整|
-|R20        | (1)|10kΩ |未実装 (1608M)|
 |SW1-SW3    |   3|[SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/)|スライドスイッチ 1回路2接点 基板用|
 |SW4        |   1|      |プッシュスイッチ|
 |U1         |   1|[CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586)||
 |U2         |   1|[AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186)||
-|(U3)       |   -|-    |欠番|
+|U3         |   1|[74LVC1G3157](https://jlcpcb.com/partdetail/JSMSEMI-SN74LVC1G3157DBVRJSM/C44512789)|アナログスイッチ|
 |U4         |   1|[ATtiny402-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY402SSNR/C616056)||
-|U5         |   1|[MT3608L](https://jlcpcb.com/partdetail/XI_AN_AerosemiTech-MT3608L/C2932326)|ステップアップコンバーター。(SDB628, SX1308も可)|
+|U5         |   1|[TPS61040DBVR](https://jlcpcb.com/partdetail/TexasInstruments-TPS61040DBVR/C7722)|ステップアップコンバーター|
 
 (\*1) D2またはD11のどちらか一方を実装する。  
 (\*2) D7またはD12のどちらか一方を実装する。  
 (\*3) D10またはD13のどちらか一方を実装する。  
 (\*4) ピンヘッダーを実装せず、ポゴピンなどを使うようにしてもよい。  
-(\*5) R10とR11は並列接続されている。R10 + R11の合成抵抗と、R12の抵抗値の比が19になるように調整する。
+(\*5) R10とR11は並列接続されている。R10 + R11の合成抵抗と、R12の抵抗値の比が8.732になるように調整する。
 
 
 ## UPDI HVプログラミングについて
@@ -656,32 +658,29 @@ Avrdude done.  Thank you.
 
 ### 12V発生回路
 
-MT3608Lを使用して12Vを発生させています。このICは2.5Aまでスイッチできますが、今回はそれほど大きな電流を必要としないため、20mA程度を出力できる構成にしています。
+TPS61040を使用して12Vを発生させています。このICは400mAまでスイッチできますが、今回はそれほど大きな電流を必要としないため、20mA程度を出力できる構成にしています。
 
-注: D6は、BAT43WSではなく、もう少しピーク順電流に余裕のある[B0540WS](https://jlcpcb.com/partdetail/hongjiacheng-B0540WS/C7420326)に変更した方がよいかもしれません。
-
-R10, R11, R12 による分圧回路では、R10 + R11 の合成抵抗と R12 の比を19に近づけるよう調整しています。手持ちの1%抵抗で19に近い値になる組み合わせが、390kΩ, 75kΩ, 3.3kΩの組み合わせだったのでそのようにしています。
+R10, R11, R12 による分圧回路では、R10 + R11 の合成抵抗と R12 の比を8.732 (= 12 / 1.233) に近づけるよう調整しています。手持ちの1%抵抗でこの値に近い値になる組み合わせが、470kΩ, 10MΩ, 51kΩの組み合わせだったのでそのようにしています。
 
 出力電圧は、次式で概算できます。
 
 $$
-V_{out} = 0.6 \times \left(1 + \frac{R_{top}}{R_{bottom}}\right)
+V_{out} = 1.233 \times \left(1 + \frac{R_{top}}{R_{bottom}}\right)
 $$
 
-ここで、 $R_{top}$ は R10 と R11 の合成抵抗、 $R_{bottom}$ は R12 です。実際には、分圧比が 19 に近くなるように調整し、TP2 が約12Vになるようにしています。
+ここで、 $R_{top}$ は R10 と R11 の合成抵抗、 $R_{bottom}$ は R12 です。実際には、分圧比が 8.732 に近くなるように調整し、TP2 が約12Vになるようにしています。
 
 抵抗の組み合わせの例:
 
 | R10 | R11 | R12  | $V_{out}$ | Note |
 |-----|-----|------|-----------|------|
-|200k | 47k | 2.0k | 12.02     | E24系列 |
-|390k | 47k | 2.2k | 12.04     | E12系列 |
-|390k | 75k | 3.3k | 12.04     | E24系列 |
-|  1M |100k | 4.7k | 12.20     | E6系列  |
-| 39k | -   | 2.0k | 12.30     | E24系列 |
-| 91k | -   | 4.7k | 12.22     | E24系列 |
-|680k |680k |  18k | 11.93     | E12系列 |
-|114k | -   | 6.0k | 12.00     | E96系列 |
+|390k | 10M | 43k  | 12.00     | E24系列 |
+|470k | 10M | 51K  | 12.09     | E24系列 |
+|680k |100k | 47k  | 11.85     | E6系列  |
+|680k | 10M | 75k  | 11.70     | E24系列 |
+|680k | -   | 75k  | 12.41     | E24系列 |
+|390k | -   | 43k  | 12.41     | E24系列 |
+|  1M | 10M | 100k | 12.44     |         |
 
 
 ### CH340Kの3.3V動作
@@ -693,13 +692,11 @@ CH340Kを3.3V動作させる場合は、データシートではV3ピンをVCC�
 
 ### UPDIモードとシリアル通信モードの自動切り替え
 
-前述の通り、UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 2)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F)の回路を使用しており、RTS信号による自動切り替え機能を備えています。
+前述の通り、UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F)の回路を使用しており、RTS信号による自動切り替え機能を備えています。
 
 シリアル通信中はRTSがアクティブ (low) になり、UPDI通信中はRTSが非アクティブ (high) になることを利用して切り替えを行っています。
 
-一般的には、UPDIモードとシリアル通信モードの切り替えには2回路2接点スイッチを使うことが多いですが、TxDは接続したままとすることで、1回路2接点スイッチで切り替えを実現しています。さらに、切り替え回路を小さくするため、4052/4053のような多回路のアナログスイッチICは使用せず、ディスクリート部品で構成しています。(74LVC1G3157などの1回路のアナログスイッチICを使用すればもっと小さくできそうですが、部品の入手性などを考慮し、今回は使用していません。)
-
-Q2にはPch MOSFETを使い、RTS信号で直接制御していますが、Nch MOSFETを使うようにした方が安定するかもしれません。その場合、RTS信号を反転する必要があるので、もう1つNch MOSFETと抵抗が必要になってしまいますが。
+一般的には、UPDIモードとシリアル通信モードの切り替えには2回路2接点 (DPDT) スイッチを使うことが多いですが、TxDは接続したままとすることで、1回路2接点 (SPDT) スイッチで切り替えを実現しています。Rev. 2まではディスクリート部品でスイッチを構成していましたが、Rev. 3では、1回路のアナログスイッチICである74LVC1G3157を使用しています。
 
 
 ### VDD電圧インジケーター
@@ -783,6 +780,15 @@ DxCore 1.6.2には、書き込みができない致命的な問題の他にも�
 
 
 ## 変更差分
+
+### Rev. 3
+
+Rev. 3での変更点は以下の通りです。
+
+* ステップアップコンバーターをMT3608LからTPS61040に変更。(JLCPCBのPromotional Extended部品)
+* アナログスイッチをディスクリート部品から74LVC1G3157に変更。
+
+### Rev. 2
 
 Rev. 2での変更点は以下の通りです。
 
