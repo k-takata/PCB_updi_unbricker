@@ -4,7 +4,7 @@
 
 ## Overview
 
-This board is a UPDI programmer for AVR Dx/Ex-series 7.5 V high-voltage (HV) programming and modern ATtiny-series (tinyAVR 0/1/2) 12 V HV programming.
+This board is a UPDI programmer for AVR DA, DB, DD, DU, EA, and EB-series 7.5 V high-voltage (HV) programming and modern ATtiny-series (tinyAVR 0/1/2) 12 V HV programming.
 It injects HV pulses to restore programming capability when the UPDI pin has been accidentally or deliberately reconfigured, preventing normal UPDI programming with a standard UPDI tool.
 
 The UPDI section of the circuit uses the design from [UPDI Adapter for AE-CH9102F (Rev. 2)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F), and it includes an automatic mode switch controlled by the RTS signal.
