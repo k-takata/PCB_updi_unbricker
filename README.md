@@ -137,8 +137,8 @@ There are two types of HV programming. One is the 12 V pulse applied to the UPDI
    If the pulse is not applied within the required time after POR, the pin function may interfere with the intended operation.
 2. AVR Dx/Ex series:  
    Apply a 7.5 V pulse to the RESET pin for at least 10 μs, then send a valid UPDI key within 65 ms.  
-   If transmission of the UPDI key is not completed in time, a reset is triggered automatically.  
-   (There are three types of keys in the UPDI key: the Chip Erase key, the NVMPROG key, and the USERROW-Write key.)  
+   If the UPDI key transmission is not completed in time, a reset is triggered automatically.  
+   (The UPDI key includes three types: the Chip Erase key, the NVMPROG key, and the USERROW-Write key.)  
    Unlike ATtiny devices, AVR Dx/Ex series have a separate RESET pin, and it cannot be used as an output pin; there are no POR-to-HV-pulse timing restrictions.
 
 For safety, this board uses separate connectors for ATtiny and AVR Dx/Ex devices.
@@ -322,7 +322,7 @@ You can select pin 6 on J3 as RTS or DTR by inserting a jumper on J4.
 
 Here is an example of setting fuses using [AVRDUDE](https://github.com/avrdudes/avrdude/). AVRDUDE requires v7.0 or later with SerialUPDI support.
 
-The command used in this example is as follows.
+The command used in this example is:
 
 ```
 >avrdude -c <programmer> -p <device name> -P <port name> -b <baud rate> -v -U <memory operation>
@@ -637,7 +637,7 @@ Avrdude done.  Thank you.
 
 ### 12 V generation circuit
 
-A TPS61040 generates the 12 V rail. The IC can deliver up to 400 mA, but this design only requires roughly 20 mA, so it is configured accordingly.
+A TPS61040 generates the 12 V rail. The IC can switch up to 400 mA, but this design only requires roughly 20 mA, so it is configured accordingly.
 
 In the R10, R11, and R12 divider network, the ratio of the effective resistance of R10 + R11 to R12 is tuned to be close to 8.732 (= 12 / 1.233). We used the 470 kΩ, 10 MΩ, and 51 kΩ combination because it was the closest match among the 1% resistors available.
 
@@ -680,7 +680,7 @@ In general, a double-pole, double-throw (DPDT) switch is often used to switch be
 
 The illumination of LEDs D8 and D9 indicates the VDD voltage of the target. At 3.3 V, only D9 (green) lights up. At 5.0 V, both D8 (red) and D9 (green) light up.
 To reduce component count, the design uses only Zener diodes and resistors.
-If the LEDs are changed, the Zener voltage and resistor values must be adjusted to match the LED forward voltages; otherwise, the LEDs will not light cleanly. Another point to consider is that 3.3 V results in a slightly dimmer LED than 5.0 V.
+If you change the LEDs, adjust the Zener voltage and resistor values to match the LED forward voltages; otherwise, the LEDs will not light cleanly. Another point to consider is that 3.3 V makes the LED slightly dimmer than 5.0 V.
 
 ### UPDI high-voltage protection
 
@@ -689,7 +689,7 @@ If the LEDs are changed, the Zener voltage and resistor values must be adjusted 
 The ATtiny (J5) UPDI data line receives a 12 V pulse, so it is necessary to protect the AVR Dx/Ex UPDI data line and the USB-to-serial converter chip (U1) from being exposed to that 12 V spike.
 At the same time, because UPDI is a bidirectional interface, the circuit must pass normal communication while blocking only the 12 V pulse.
 
-In this design, an N-ch MOSFET (Q3) is used for protection against the 12 V pulse. This is effectively an application of the logic level shifter using an N-ch MOSFET.
+In this design, an N-ch MOSFET (Q3) protects against the 12 V pulse. This is effectively an application of the logic level shifter using an N-ch MOSFET.
 
 Reference: [Logic Level Shifting Basics | DigiKey](https://www.digikey.com/en/blog/logic-level-shifting-basics)
 
@@ -742,9 +742,9 @@ Specifically, on Windows, move to `C:\Users\<USERNAME>\AppData\Local\Arduino15\p
  #----------------------------------------#
 ```
 
-This fix is overwritten when DxCore is updated or reinstalled via the Board Manager, so it must be reapplied in such cases.
+This fix is overwritten when you update or reinstall DxCore via the Board Manager, so you must reapply it in those cases.
 
-If new functions in DxCore 1.6.x are needed (for example, support for AVR DU series), use this workaround until a fixed release becomes available. If those new features are not needed, using DxCore 1.5.11 is recommended.
+If you need new functions in DxCore 1.6.x (for example, support for AVR DU series), use this workaround until a fixed release becomes available. If you don't need those new features, using DxCore 1.5.11 is recommended.
 
 ### Other issues
 
