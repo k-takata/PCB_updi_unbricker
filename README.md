@@ -110,10 +110,11 @@ See “Usage” for detailed procedures.
 | R20 | (1) | 10 kΩ | Do not install (1608M) |
 | SW1-SW3 | 3 | [SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/) | Slide switch, SPDT, PCB mount |
 | SW4 | 1 |  | Push button switch |
-| U1 | 1 | [AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186) | |
-| U2 | 1 | [CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586) | |
-| U3 | 1 | [MT3608L](https://jlcpcb.com/partdetail/XI_AN_AerosemiTech-MT3608L/C2932326) | Step-up converter. (Also usable: SDB628 or SX1308) |
+| U1 | 1 | [CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586) | |
+| U2 | 1 | [AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186) | |
+| (U3) | - | - | Not used |
 | U4 | 1 | [ATtiny402-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY402SSNR/C616056) | |
+| U5 | 1 | [MT3608L](https://jlcpcb.com/partdetail/XI_AN_AerosemiTech-MT3608L/C2932326) | Step-up converter. (Also usable: SDB628 or SX1308) |
 
 (\*1) Install either D2 or D11.  
 (\*2) Install either D7 or D12.  
