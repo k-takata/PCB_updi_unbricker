@@ -118,10 +118,11 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |R20        | (1)|10kΩ |未実装 (1608M)|
 |SW1-SW3    |   3|[SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/)|スライドスイッチ 1回路2接点 基板用|
 |SW4        |   1|      |プッシュスイッチ|
-|U1         |   1|[AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186)||
-|U2         |   1|[CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586)||
-|U3         |   1|[MT3608L](https://jlcpcb.com/partdetail/XI_AN_AerosemiTech-MT3608L/C2932326)|ステップアップコンバーター。(SDB628, SX1308も可)|
+|U1         |   1|[CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586)||
+|U2         |   1|[AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186)||
+|(U3)       |   -|-    |欠番|
 |U4         |   1|[ATtiny402-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY402SSNR/C616056)||
+|U5         |   1|[MT3608L](https://jlcpcb.com/partdetail/XI_AN_AerosemiTech-MT3608L/C2932326)|ステップアップコンバーター。(SDB628, SX1308も可)|
 
 (\*1) D2またはD11のどちらか一方を実装する。  
 (\*2) D7またはD12のどちらか一方を実装する。  
