@@ -647,7 +647,7 @@ $$
 V_{out} = 1.233 \times \left(1 + \frac{R_{top}}{R_{bottom}}\right)
 $$
 
-Here, $R_{top}$ is the effective resistance of R10 and R11, and $R_{bottom}$ is R12. In practice, the divider ratio is adjusted close to 8.732 so that TP2 is about 12 V.
+Here, $R_{top}$ is the effective resistance of R10 and R11, and $R_{bottom}$ is R12. In practice, the divider ratio is adjusted close to 8.732 so that TP2 is about 12 V. R12 is selected from a range of 10 kΩ to 200 kΩ.
 
 Example combinations:
 
@@ -659,7 +659,7 @@ Example combinations:
 |680 k | 10 M | 75 k | 11.70 | E24 series |
 |680 k | -    | 75 k | 12.41 | E24 series |
 |390 k | -    | 43 k | 12.41 | E24 series |
-|  1 M | 10 M | 100 k | 12.44 | |
+|  1 M | 10 M |100 k | 12.44 | |
 
 
 ### CH340K 3.3 V operation
