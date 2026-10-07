@@ -675,7 +675,7 @@ As described above, the UPDI section uses the circuit from [UPDI Adapter for AE-
 
 Switching is performed by taking advantage of the fact that RTS is active (low) during serial communication and inactive (high) during UPDI communication.
 
-In general, a two-pole, double-throw switch is often used to switch between UPDI mode and serial communication mode. Here, the TxD line remains connected, allowing switching with a single-pole, double-throw switch. In addition, to keep the switching circuit compact, a discrete-component implementation is used instead of an analog switch IC such as 4052/4053. (A single-channel analog switch IC such as 74LVC1G3157 could make it smaller, but we did not use it this time because of part availability and other considerations.)
+In general, a double-pole, double-throw switch is often used to switch between UPDI mode and serial communication mode. Here, the TxD line remains connected, allowing switching with a single-pole, double-throw switch. In addition, to keep the switching circuit compact, a discrete-component implementation is used instead of an analog switch IC such as 4052/4053. (A single-channel analog switch IC such as 74LVC1G3157 could make it smaller, but we did not use it this time because of part availability and other considerations.)
 
 Q2 uses a P-ch MOSFET and is controlled directly by the RTS signal, but an N-ch MOSFET may be more stable. In that case, the RTS signal would need to be inverted, which would require one additional N-ch MOSFET and a resistor.
 
