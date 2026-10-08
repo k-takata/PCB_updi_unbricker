@@ -337,7 +337,7 @@ J3の6番ピンの機能はJ4にジャンパーピンを挿すことでRTSかDTR
 
 ## AVRDUDEの使用例
 
-[AVRDUDE](https://github.com/avrdudes/avrdude/)でヒューズを設定する例を示します。AVRDUDEは、SerialUPDIに対応したv7.0以降が必要です。
+[AVRDUDE](https://github.com/avrdudes/avrdude/)でヒューズを設定する例を示します。AVRDUDEは、SerialUPDIに対応したv7.0以降が必要です。(ここではv8.1を使用)
 
 今回使用するコマンドは以下のようになります。
 

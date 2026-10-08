@@ -320,7 +320,7 @@ You can select pin 6 on J3 as RTS or DTR by inserting a jumper on J4.
 
 ## AVRDUDE usage examples
 
-Here is an example of setting fuses using [AVRDUDE](https://github.com/avrdudes/avrdude/). AVRDUDE requires v7.0 or later with SerialUPDI support.
+Here is an example of setting fuses using [AVRDUDE](https://github.com/avrdudes/avrdude/). AVRDUDE requires v7.0 or later with SerialUPDI support. (v8.1 is used here.)
 
 The command used in this example is:
 
