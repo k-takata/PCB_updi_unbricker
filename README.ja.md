@@ -82,7 +82,7 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |C1,C2,C4   |   3|10μF |1608M|
 |C3,C6      |   2|0.1μF|1608M|
 |C5         |   1|10μF |2012M, ≧25V|
-|C7         |   1|22pF  |1608M|
+|C7         |   1|33pF  |1608M|
 |D1,D3-D5   |   4|[BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693)|SOD-323|
 |D2         |   1|[BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402)|5.6Vツェナーダイオード、SOD-123、過電圧保護用 (\*1)|
 |D6         |   1|[1N5819WS](https://jlcpcb.com/partdetail/GuangdongHottech-1N5819WS/C191023)|SOD-323|
