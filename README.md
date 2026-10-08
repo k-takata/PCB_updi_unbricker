@@ -1,13 +1,13 @@
 [English](README.md) | [日本語](README.ja.md)
 
-# UPDI Unbricker (Rev. 2)
+# UPDI Unbricker (Rev. 3)
 
 ## Overview
 
 This board is a UPDI programmer for AVR DA, DB, DD, DU, EA, and EB-series 7.5 V high-voltage (HV) programming and modern ATtiny-series (tinyAVR 0/1/2) 12 V HV programming.
 It injects HV pulses to restore programming capability when the UPDI pin has been accidentally or deliberately reconfigured, preventing normal UPDI programming with a standard UPDI tool.
 
-The UPDI section of the circuit uses the design from [UPDI Adapter for AE-CH9102F (Rev. 2)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F), and it includes an automatic mode switch controlled by the RTS signal.
+The UPDI section of the circuit is based on the design from [UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F), and it includes an automatic mode switch controlled by the RTS signal.
 
 ## Supported scope
 
@@ -61,21 +61,23 @@ See “Usage” for detailed procedures.
 
 ## Schematic
 
-[![schema](images/schema-rev2.png)](images/schema-rev2.pdf)
+[![schema](images/schema-rev3.png)](images/schema-rev3.pdf)
 
 ## PCB layout
 
-![PCB pattern](images/pcb-pattern-rev2.png)
+![PCB pattern](images/pcb-pattern-rev3.png)
 
 ## BOM
 
 | Reference | Quantity | Value | Description |
 |-----------|----------|-------|-------------|
-| C1, C2 | 2 | 10 μF | 1608M |
+| C1, C2, C4 | 3 | 10 μF | 1608M |
 | C3, C6 | 2 | 0.1 μF | 1608M |
-| C4, C5 | 2 | 22 μF | 2012M, ≥ 25 V |
-| D1, D3-D6 | 5 | [BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693) | SOD-323 |
+| C5 | 1 | 10 μF | 2012M, ≥ 25 V |
+| C7 | 1 | 33 pF | 1608M |
+| D1, D3-D5 | 4 | [BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693) | SOD-323 |
 | D2 | 1 | [BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402) | 5.6 V Zener diode, SOD-123, for overvoltage protection (\*1) |
+| D6 | 1 | [1N5819WS](https://jlcpcb.com/partdetail/GuangdongHottech-1N5819WS/C191023) | SOD-323, ≥ 300 mA |
 | D7 | 1 | [BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402) | 3.6 V Zener diode, SOD-123; adjust value as needed for LED (3.0 V to 3.6 V) (\*2) |
 | D8 | 1 | [NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256) | 2012M, VDD voltage indicator |
 | D9 | 1 | [KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297) | 2012M, VDD voltage indicator |
@@ -91,9 +93,10 @@ See “Usage” for detailed procedures.
 | J4 | 1 |  | 1 × 3 pin header for RTS/DTR switching |
 | J6 | 1 |  | 1 × 4 pin socket for AVR Dx/Ex UPDI connection |
 | J7 | 1 |  | 1 × 4 pin header for firmware programming (\*4) |
-| L1 | 1 | [DFE322512F-4R7M=P2](https://jlcpcb.com/partdetail/MurataElectronics-DFE322512F_4R7MP2/C703083) | 4.7 μH, ≥ 100 mA |
-| Q1, Q3, Q6, Q8 | 4 | [BSS138](https://jlcpcb.com/partdetail/hongjiacheng-BSS138/C7420339) | N-ch MOSFET |
-| Q2, Q5, Q7 | 3 | [BSS84](https://jlcpcb.com/partdetail/LRC-LBSS84LT1G/C8492) | P-ch MOSFET |
+| L1 | 1 | [DFE322512F-100M=P2](https://jlcpcb.com/partdetail/1423957-DFE322512F_100MP2/C1333678) | 10 μH, ≥ 300 mA |
+| (Q1, Q2) | - | - | Not used |
+| Q3, Q6, Q8 | 3 | [BSS138](https://jlcpcb.com/partdetail/hongjiacheng-BSS138/C7420339) | N-ch MOSFET |
+| Q5, Q7 | 2 | [BSS84](https://jlcpcb.com/partdetail/LRC-LBSS84LT1G/C8492) | P-ch MOSFET |
 | Q4 | 1 | [AO3401A](https://jlcpcb.com/partdetail/Alpha_OmegaSemicon-AO3401A/C15127) | P-ch MOSFET |
 | R1, R15 | 2 | 470 Ω | 1608M |
 | R2, R3 | 2 | 5.1 kΩ | 1608M |
@@ -102,25 +105,24 @@ See “Usage” for detailed procedures.
 | (R6) | - | - | Not used |
 | R7, R8, R16, R18 | 4 | 10 kΩ | 1608M |
 | (R9) | - | - | Not used |
-| R10 | 1 | 390 kΩ 1% | 1608M (\*5) |
-| R11 | 1 | 75 kΩ 1% | 1608M (\*5) |
-| R12 | 1 | 3.3 kΩ 1% | 1608M (\*5) |
+| R10 | 1 | 470 kΩ 1% | 1608M (\*5) |
+| R11 | 1 | 10 MΩ 1% | 1608M (\*5) |
+| R12 | 1 | 51 kΩ 1% | 1608M (\*5) |
 | R13 | 1 | 220 Ω | 1608M; adjust according to LED (47 Ω to 220 Ω) |
 | R14 | 1 | 12 kΩ | 1608M; adjust according to LED |
-| R20 | (1) | 10 kΩ | Do not install (1608M) |
 | SW1-SW3 | 3 | [SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/) | Slide switch, SPDT, PCB mount |
 | SW4 | 1 |  | Push button switch |
 | U1 | 1 | [CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586) | |
 | U2 | 1 | [AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186) | |
-| (U3) | - | - | Not used |
+| U3 | 1 | [74LVC1G3157](https://jlcpcb.com/partdetail/JSMSEMI-SN74LVC1G3157DBVRJSM/C44512789) | Analog switch |
 | U4 | 1 | [ATtiny402-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY402SSNR/C616056) | |
-| U5 | 1 | [MT3608L](https://jlcpcb.com/partdetail/XI_AN_AerosemiTech-MT3608L/C2932326) | Step-up converter. (Also usable: SDB628 or SX1308) |
+| U5 | 1 | [TPS61040DBVR](https://jlcpcb.com/partdetail/TexasInstruments-TPS61040DBVR/C7722) | Step-up converter |
 
 (\*1) Install either D2 or D11.  
 (\*2) Install either D7 or D12.  
 (\*3) Install either D10 or D13.  
 (\*4) It is acceptable not to mount the pin header and instead use pogo pins or similar.  
-(\*5) R10 and R11 are connected in parallel. Adjust the ratio of the equivalent resistance of R10 + R11 to the value of R12 to be about 19.  
+(\*5) R10 and R11 are connected in parallel. Adjust the ratio of the effective resistance of R10 + R11 to the value of R12 to approximately 8.732.  
 
 ## About UPDI HV programming
 
@@ -135,8 +137,8 @@ There are two types of HV programming. One is the 12 V pulse applied to the UPDI
    If the pulse is not applied within the required time after POR, the pin function may interfere with the intended operation.
 2. AVR Dx/Ex series:  
    Apply a 7.5 V pulse to the RESET pin for at least 10 μs, then send a valid UPDI key within 65 ms.  
-   If transmission of the UPDI key is not completed in time, a reset is triggered automatically.  
-   (There are three types of keys in the UPDI key: the Chip Erase key, the NVMPROG key, and the USERROW-Write key.)  
+   If the UPDI key transmission is not completed in time, a reset is triggered automatically.  
+   (The UPDI key includes three types: the Chip Erase key, the NVMPROG key, and the USERROW-Write key.)  
    Unlike ATtiny devices, AVR Dx/Ex series have a separate RESET pin, and it cannot be used as an output pin; there are no POR-to-HV-pulse timing restrictions.
 
 For safety, this board uses separate connectors for ATtiny and AVR Dx/Ex devices.
@@ -318,9 +320,9 @@ You can select pin 6 on J3 as RTS or DTR by inserting a jumper on J4.
 
 ## AVRDUDE usage examples
 
-Here is an example of setting fuses using [AVRDUDE](https://github.com/avrdudes/avrdude/). AVRDUDE requires v7.0 or later with SerialUPDI support.
+Here is an example of setting fuses using [AVRDUDE](https://github.com/avrdudes/avrdude/). AVRDUDE requires v7.0 or later with SerialUPDI support. (v8.1 is used here.)
 
-The command used in this example is as follows.
+The command used in this example is:
 
 ```
 >avrdude -c <programmer> -p <device name> -P <port name> -b <baud rate> -v -U <memory operation>
@@ -635,32 +637,29 @@ Avrdude done.  Thank you.
 
 ### 12 V generation circuit
 
-An MT3608L generates 12 V. This IC can switch up to 2.5 A, but we don't need that much current here, so the design is configured to output roughly 20 mA.
+A TPS61040 generates the 12 V rail. The IC can switch up to 400 mA, but this design only requires roughly 20 mA, so it is configured accordingly.
 
-Note: It may be better to replace D6, instead of BAT43WS, with a part with a little more margin in peak forward current, such as [B0540WS](https://jlcpcb.com/partdetail/hongjiacheng-B0540WS/C7420326).
+In the R10, R11, and R12 divider network, the ratio of the effective resistance of R10 + R11 to R12 is tuned to be close to 8.732 (= 12 / 1.233). We used the 470 kΩ, 10 MΩ, and 51 kΩ combination because it was the closest match among the 1% resistors available.
 
-In the R10, R11, and R12 divider circuit, we adjusted the ratio of the equivalent resistance of R10 + R11 to R12 to about 19. We used the 390 kΩ, 75 kΩ, and 3.3 kΩ combination because it was the closest match available in the 1% resistor kit we had.
-
-The output voltage can be approximated with this equation:
+The output voltage can be estimated with the following equation:
 
 $$
-V_{out} = 0.6 \times \left(1 + \frac{R_{top}}{R_{bottom}}\right)
+V_{out} = 1.233 \times \left(1 + \frac{R_{top}}{R_{bottom}}\right)
 $$
 
-Here, $R_{top}$ is the equivalent resistance of R10 and R11, and $R_{bottom}$ is R12. In practice, adjust the divider ratio to about 19 so TP2 is around 12 V.
+Here, $R_{top}$ is the effective resistance of R10 and R11, and $R_{bottom}$ is R12. In practice, the divider ratio is adjusted close to 8.732 so that TP2 is about 12 V. R12 is selected from a range of 10 kΩ to 200 kΩ.
 
 Example combinations:
 
 | R10 | R11 | R12  | $V_{out}$ | Note |
 |-----|-----|------|-----------|------|
-|200 k | 47 k | 2.0 k | 12.02     | E24 series |
-|390 k | 47 k | 2.2 k | 12.04     | E12 series |
-|390 k | 75 k | 3.3 k | 12.04     | E24 series |
-|  1 M |100 k | 4.7 k | 12.20     | E6 series  |
-| 39 k | -    | 2.0 k | 12.30     | E24 series |
-| 91 k | -    | 4.7 k | 12.22     | E24 series |
-|680 k |680 k |  18 k | 11.93     | E12 series |
-|114 k | -    | 6.0 k | 12.00     | E96 series |
+|390 k | 10 M | 43 k | 12.00 | E24 series |
+|470 k | 10 M | 51 k | 12.09 | E24 series |
+|680 k |100 k | 47 k | 11.85 | E6 series |
+|680 k | 10 M | 75 k | 11.70 | E24 series |
+|680 k | -    | 75 k | 12.41 | E24 series |
+|390 k | -    | 43 k | 12.41 | E24 series |
+|  1 M | 10 M |100 k | 12.44 | |
 
 
 ### CH340K 3.3 V operation
@@ -671,19 +670,17 @@ Reference: [Non-Compliant Use of CH340 V3 Pin: Deep Dive for Engineers](https://
 
 ### Automatic switching between UPDI mode and serial communication mode
 
-As described above, the UPDI section uses the circuit from [UPDI Adapter for AE-CH9102F (Rev. 2)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F), which includes automatic mode switching using the RTS signal.
+As described above, the UPDI section is based on the circuit from [UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F), which includes automatic mode switching using the RTS signal.
 
 Switching is performed by taking advantage of the fact that RTS is active (low) during serial communication and inactive (high) during UPDI communication.
 
-In general, a double-pole, double-throw switch is often used to switch between UPDI mode and serial communication mode. Here, the TxD line remains connected, allowing switching with a single-pole, double-throw switch. In addition, to keep the switching circuit compact, a discrete-component implementation is used instead of an analog switch IC such as 4052/4053. (A single-channel analog switch IC such as 74LVC1G3157 could make it smaller, but we did not use it this time because of part availability and other considerations.)
-
-Q2 uses a P-ch MOSFET and is controlled directly by the RTS signal, but an N-ch MOSFET may be more stable. In that case, the RTS signal would need to be inverted, which would require one additional N-ch MOSFET and a resistor.
+In general, a double-pole, double-throw (DPDT) switch is often used to switch between UPDI mode and serial communication mode. Here, the TxD line remains connected, allowing the mode to be selected with a single-pole, double-throw (SPDT) switch. Rev. 2 used a discrete-component implementation, while Rev. 3 uses a single-channel analog switch IC, 74LVC1G3157.
 
 ### VDD voltage indicator
 
 The illumination of LEDs D8 and D9 indicates the VDD voltage of the target. At 3.3 V, only D9 (green) lights up. At 5.0 V, both D8 (red) and D9 (green) light up.
 To reduce component count, the design uses only Zener diodes and resistors.
-If the LEDs are changed, the Zener voltage and resistor values must be adjusted to match the LED forward voltages; otherwise, the LEDs will not light cleanly. Another point to consider is that 3.3 V results in a slightly dimmer LED than 5.0 V.
+If you change the LEDs, adjust the Zener voltage and resistor values to match the LED forward voltages; otherwise, the LEDs will not light cleanly. Another point to consider is that 3.3 V makes the LED slightly dimmer than 5.0 V.
 
 ### UPDI high-voltage protection
 
@@ -692,7 +689,7 @@ If the LEDs are changed, the Zener voltage and resistor values must be adjusted 
 The ATtiny (J5) UPDI data line receives a 12 V pulse, so it is necessary to protect the AVR Dx/Ex UPDI data line and the USB-to-serial converter chip (U1) from being exposed to that 12 V spike.
 At the same time, because UPDI is a bidirectional interface, the circuit must pass normal communication while blocking only the 12 V pulse.
 
-In this design, an N-ch MOSFET (Q3) is used for protection against the 12 V pulse. This is effectively an application of the logic level shifter using an N-ch MOSFET.
+In this design, an N-ch MOSFET (Q3) protects against the 12 V pulse. This is effectively an application of the logic level shifter using an N-ch MOSFET.
 
 Reference: [Logic Level Shifting Basics | DigiKey](https://www.digikey.com/en/blog/logic-level-shifting-basics)
 
@@ -745,9 +742,9 @@ Specifically, on Windows, move to `C:\Users\<USERNAME>\AppData\Local\Arduino15\p
  #----------------------------------------#
 ```
 
-This fix is overwritten when DxCore is updated or reinstalled via the Board Manager, so it must be reapplied in such cases.
+This fix is overwritten when you update or reinstall DxCore via the Board Manager, so you must reapply it in those cases.
 
-If new functions in DxCore 1.6.x are needed (for example, support for AVR DU series), use this workaround until a fixed release becomes available. If those new features are not needed, using DxCore 1.5.11 is recommended.
+If you need new functions in DxCore 1.6.x (for example, support for AVR DU series), use this workaround until a fixed release becomes available. If you don't need those new features, using DxCore 1.5.11 is recommended.
 
 ### Other issues
 
@@ -755,13 +752,23 @@ Besides the critical writing problem in DxCore 1.6.2, several additional issues 
 
 One of the most significant appears to be that `analogReference()` does not work, causing `analogRead()` to fail. See [fix analogReference() by wke67 · Pull Request #643 · SpenceKonde/DxCore](https://github.com/SpenceKonde/DxCore/pull/643) for details.
 
-## Changes in Rev. 2
+
+## History
+
+### Rev. 3
+
+The following changes were made in Rev. 3:
+
+* Replaced the step-up converter from MT3608L to TPS61040. (JLCPCB's Promotional Extended part)
+* Replaced the analog switch circuit from the discrete parts with the 74LVC1G3157.
+
+### Rev. 2
 
 The following changes were made in Rev. 2:
 
-* Changed SMD (surface mount) for diodes, resistors, and capacitors on the PCBA.  
-  (Through-hole components are assumed to be mounted by hand.)
-* Changed the step-up converter from MC34063A to MT3608L to reduce component count.
+* Switched the diodes, resistors, and capacitors used on the PCBA to surface-mount components.  
+  (Through-hole parts are intended to be mounted by hand.)
+* Replaced the step-up converter from MC34063A to MT3608L to reduce the component count.
 * Reduced the PCB size to 75%.
 
 ## Finished product
