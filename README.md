@@ -16,7 +16,7 @@ The UPDI section of the circuit uses the design from [UPDI Adapter for AE-CH9102
 | AVR Dx/Ex 7.5 V HV UPDI | Supported | Applies 7.5 V pulse to RESET pin |
 | ATtiny 12 V HV UPDI | Supported | Applies 12 V pulse to UPDI pin |
 | Normal UPDI programming | Supported | SerialUPDI is used as the programmer |
-| Devices verified so far | AVR64DD28, ATtiny1604, ATtiny402 | As of README creation |
+| Devices verified so far | AVR64DD28, ATtiny1604, ATtiny402, etc. | As of README creation |
 
 ## Software used
 
@@ -151,9 +151,15 @@ For simplified processing, this board resets both ATtiny and AVR Dx/Ex devices w
 
 ## Devices verified
 
-* AVR64DD28
-* ATtiny1604
-* ATtiny402
+* AVR DD series
+  - AVR64DD28
+* AVR EB series
+  - AVR16EB14
+* tinyAVR 0 series
+  - ATtiny1604
+  - ATtiny402
+* tinyAVR 1 series
+  - ATtiny412
 
 ## Usage
 
