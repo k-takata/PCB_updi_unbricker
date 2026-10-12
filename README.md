@@ -775,6 +775,9 @@ The following changes were made in Rev. 2:
 Rev. 1:  
 [![Finished product](images/unbricker-thumb.jpg)](images/unbricker.jpg)
 
+Rev. 2:  
+[![Finished product](images/unbricker-rev2-thumb.jpg)](images/unbricker-rev2.jpg)
+
 ## License
 
 CC0

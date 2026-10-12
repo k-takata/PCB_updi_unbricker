@@ -803,6 +803,9 @@ Rev. 2での変更点は以下の通りです。
 Rev. 1:  
 [![完成品](images/unbricker-thumb.jpg)](images/unbricker.jpg)
 
+Rev. 2:  
+[![完成品](images/unbricker-rev2-thumb.jpg)](images/unbricker-rev2.jpg)
+
 
 ## License
 
