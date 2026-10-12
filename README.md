@@ -226,9 +226,9 @@ Select the appropriate board and chip for the AVR mounted on U4.
 
 | Part | Board | Chip |
 |------|-------|------|
-| U4 | megaTinyCore → ATtiny412/402/212/202 | ATtiny402 |
+| U4 | megaTinyCore → ATtiny412/402/212/202 | ATtiny402 (or ATtiny412) |
 
-ATtiny402 has been used for verification, but other 8-pin ATtiny devices may also work.
+ATtiny402 has been mainly used for verification, but ATtiny412 should also work. ATtiny2xx doesn't have enough flash memory.
 
 Set the programmer to SerialUPDI to write the firmware.
 
