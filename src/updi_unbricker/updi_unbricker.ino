@@ -30,7 +30,9 @@ void setup()
   openDrainFast(PIN_PWR, LOW);  // On
 
   // UPDI - 8 bit, even parity, 2 stop bit; one-wire
-  serial_updi.begin(115200, SERIAL_8E2 | SERIAL_HALF_DUPLEX);
+  //serial_updi.begin(115200, SERIAL_8E2 | SERIAL_HALF_DUPLEX);
+  //serial_updi.end();
+  pinModeFast(PIN_UPDI, INPUT_PULLUP);
 
   attachInterrupt(digitalPinToInterrupt(PIN_INPUT), buttonPushed, FALLING);
 }
@@ -76,7 +78,9 @@ static bool wait_for_pin_state(uint8_t pin, int8_t expected, uint32_t timeoutUs)
 
 const uint8_t UPDI_SYNCH = 0x55;
 const uint8_t UPDI_KEY_64 = 0xe0;
-const uint8_t nvmprog_key[] = {0x20, 0x67, 0x6f, 0x72, 0x50, 0x4d, 0x56, 0x4e}; // 0x4E564D50726F6720
+const uint8_t chip_erase_key[] = {0x65, 0x73, 0x61, 0x72, 0x45, 0x4d, 0x56, 0x4e}; // 0x4E564D4572617365 'NVMErase'
+const uint8_t nvmprog_key[]    = {0x20, 0x67, 0x6f, 0x72, 0x50, 0x4d, 0x56, 0x4e}; // 0x4E564D50726F6720 'NVMProg '
+const uint8_t userrow_key[]    = {0x65, 0x74, 0x26, 0x73, 0x55, 0x4d, 0x56, 0x4e}; // 0x4E564D5573267465 'NVMUs&te'
 
 void reset_target()
 {
@@ -94,7 +98,7 @@ void reset_target()
   delay(1);   // < 8.8 ms
 }
 
-constexpr uint32_t hv_pulse_12_us = 100;
+constexpr uint32_t hv_pulse_12_us = 150;
 constexpr uint32_t hv_pulse_75_us = 50;
 constexpr uint32_t hv_pulse_gap_us = 10;
 
@@ -105,8 +109,9 @@ void send_hv_pulse()
   //   AVR Dx/Ex: > 10 us
 
   // Use a common pulse sequence for both device families and tune if needed.
+
   digitalWriteFast(PIN_HV_12, HIGH);
-  delayMicroseconds(hv_pulse_12_us);
+  delayMicroseconds(hv_pulse_12_us - hv_pulse_75_us);
   digitalWriteFast(PIN_HV_75, HIGH);
   delayMicroseconds(hv_pulse_75_us);
   digitalWriteFast(PIN_HV_75, LOW);
@@ -127,9 +132,18 @@ void enable_updi()
   openDrainFast(PIN_UPDI, FLOATING);
 
   // Wait t_UPDI (10 - 200 us) and allow a generous timeout for real hardware variation.
+#if 1
   if (!wait_for_pin_state(PIN_UPDI, HIGH, updi_wait_timeout_us)) {
     return;
   }
+#else
+  // Wait t_UPDI (10 - 200 us)
+  for (int i = 0; i < 21; ++i) {
+    delayMicroseconds(10);
+    if (digitalReadFast(PIN_UPDI) == HIGH)
+      break;
+  }
+#endif
 
   // Wait t_DebZ (200 us - 14 ms)
   delay(1);
@@ -151,6 +165,7 @@ void enable_updi()
     serial_updi.write(e);
     serial_updi.read();
   }
+  serial_updi.end();
 }
 
 void loop()
