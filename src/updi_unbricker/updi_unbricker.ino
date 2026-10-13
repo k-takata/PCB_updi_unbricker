@@ -76,11 +76,32 @@ static bool wait_for_pin_state(uint8_t pin, int8_t expected, uint32_t timeoutUs)
   return false;
 }
 
+// UPDI Instructions
 const uint8_t UPDI_SYNCH = 0x55;
+const uint8_t UPDI_ACK = 0x40;
+const uint8_t UPDI_LDCS = 0x80;
+const uint8_t UPDI_STCS = 0xc0;
 const uint8_t UPDI_KEY_64 = 0xe0;
+
+// UPDI registors
+const uint8_t UPDI_REG_ASI_KEY_STATUS = 0x07;
+const uint8_t UPDI_REG_RESET_REQ = 0x08;
+const uint8_t UPDI_REG_ASI_SYS_STATUS = 0x0B;
+
+// Values for UPDI_REG_RESET_REQ
+const uint8_t UPDI_RSTREQ_RUN = 0x00;
+const uint8_t UPDI_RSTREQ_RESET = 0x59;
+
+// UPDI Keys
 const uint8_t chip_erase_key[] = {0x65, 0x73, 0x61, 0x72, 0x45, 0x4d, 0x56, 0x4e}; // 0x4E564D4572617365 'NVMErase'
 const uint8_t nvmprog_key[]    = {0x20, 0x67, 0x6f, 0x72, 0x50, 0x4d, 0x56, 0x4e}; // 0x4E564D50726F6720 'NVMProg '
 const uint8_t userrow_key[]    = {0x65, 0x74, 0x26, 0x73, 0x55, 0x4d, 0x56, 0x4e}; // 0x4E564D5573267465 'NVMUs&te'
+
+uint8_t updi_send_byte(uint8_t b)
+{
+  serial_updi.write(b);
+  return serial_updi.read();
+}
 
 void reset_target()
 {
@@ -155,15 +176,59 @@ void enable_updi()
   openDrainFast(PIN_UPDI, FLOATING);
 #endif
 
-  // Send NVMPROG key
   serial_updi.begin(115200, SERIAL_8E2 | SERIAL_HALF_DUPLEX);
-  serial_updi.write(UPDI_SYNCH);
-  serial_updi.read();
-  serial_updi.write(UPDI_KEY_64);
-  serial_updi.read();
+
+  // Send Chip Erase key
+  updi_send_byte(UPDI_SYNCH);
+  updi_send_byte(UPDI_KEY_64);
+  for (const auto& e : chip_erase_key) {
+    updi_send_byte(e);
+  }
+  delayMicroseconds(20);
+
+  // Send NVMPROG key
+  updi_send_byte(UPDI_SYNCH);
+  updi_send_byte(UPDI_KEY_64);
   for (const auto& e : nvmprog_key) {
-    serial_updi.write(e);
-    serial_updi.read();
+    updi_send_byte(e);
+  }
+  delayMicroseconds(20);
+
+  // Check key status
+  bool done = false;
+  for (int i = 0; i < 1000; i++) {
+    updi_send_byte(UPDI_SYNCH);
+    updi_send_byte(UPDI_LDCS | UPDI_REG_ASI_KEY_STATUS);
+    uint8_t st = serial_updi.read();  // Use serial_updi.available()?
+    if ((st & 0x18) == 0x18) {
+      done = true;
+      break;
+    }
+  }
+  if (!done) {
+    return;
+  }
+  delayMicroseconds(20);
+
+  updi_send_byte(UPDI_SYNCH);
+  updi_send_byte(UPDI_STCS | UPDI_REG_RESET_REQ);
+  updi_send_byte(UPDI_RSTREQ_RESET);
+  delayMicroseconds(20);
+
+  for (int i = 0; i < 100; i++) {
+    updi_send_byte(UPDI_SYNCH);
+    updi_send_byte(UPDI_STCS | UPDI_REG_RESET_REQ);
+    updi_send_byte(UPDI_RSTREQ_RUN);
+    delayMicroseconds(20);
+
+    updi_send_byte(UPDI_SYNCH);
+    updi_send_byte(UPDI_LDCS | UPDI_REG_ASI_SYS_STATUS);
+    uint8_t st = serial_updi.read();  // Use serial_updi.available()?
+    if ((st & 0x01) == 0x00) {
+      done = true;
+      break;
+    }
+    delayMicroseconds(20);
   }
   serial_updi.end();
 }
