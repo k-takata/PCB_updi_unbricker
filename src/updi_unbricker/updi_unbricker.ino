@@ -91,9 +91,15 @@ const uint8_t UPDI_REG_ASI_KEY_STATUS = 0x07;
 const uint8_t UPDI_REG_RESET_REQ = 0x08;
 const uint8_t UPDI_REG_ASI_SYS_STATUS = 0x0B;
 
+// Bitmasks for UPDI_REG_ASI_KEY_STATUS
+const uint8_t UPDI_UROWWR_BIT = 0x20;
+const uint8_t UPDI_NVMPROG_BIT = 0x10;
+const uint8_t UPDI_CHER_BIT = 0x08;
 // Values for UPDI_REG_RESET_REQ
 const uint8_t UPDI_RSTREQ_RUN = 0x00;
 const uint8_t UPDI_RSTREQ_RESET = 0x59;
+// Bitmasks for UPDI_REG_ASI_SYS_STATUS
+const uint8_t UPDI_LOCKSTATUS_BIT = 0x01;
 
 // UPDI Keys
 const uint8_t chip_erase_key[] = {0x65, 0x73, 0x61, 0x72, 0x45, 0x4d, 0x56, 0x4e}; // 0x4E564D4572617365 'NVMErase'
@@ -105,6 +111,61 @@ uint8_t updi_send_byte(uint8_t b)
   // RXD is connected to TXD; we receive the same byte that we sent.
   serial_updi.write(b);
   return serial_updi.read();
+}
+
+// Send a UPDI Instruction
+void updi_send_inst(uint8_t inst)
+{
+  // Each instruction must start with a synch byte.
+  updi_send_byte(UPDI_SYNCH);
+  updi_send_byte(inst);
+}
+
+// Send a 64-bit key
+void updi_send_key_64(const uint8_t (&arr)[8])
+{
+  updi_send_inst(UPDI_KEY_64);
+  for (const auto& e : arr) {
+    updi_send_byte(e);
+  }
+}
+
+void updi_write_reg(uint8_t reg, uint8_t val)
+{
+  updi_send_inst(UPDI_STCS | reg);
+  updi_send_byte(val);
+}
+
+constexpr uint32_t updi_read_reg_timeout_us = 2000; // > (128 + 12) bits
+
+struct updi_reg_status {
+  bool status;
+  uint8_t value;
+};
+
+updi_reg_status updi_read_reg(
+    uint8_t reg, uint32_t timeoutUs = updi_read_reg_timeout_us)
+{
+  updi_send_inst(UPDI_LDCS | reg);
+
+  // Direction Change:
+  // The number of Idle bits can be configured through the Guard Time Value
+  // (GTVAL) bit field in the Control A (UPDI.CTRLA) register.
+  // The default is 128 bits and the minimum is 2 bits.
+  // timeoutUs should be set based on it.
+  // E.g., if the baud rate is 115200 and the Idle bits are 128 bits, the
+  // minimum timeout should be:
+  // 1'000'000 [us] / 115'200 [bps] * (128 + 12) = 1215 [us]
+
+  const uint32_t start = micros();
+  while ((micros() - start) < timeoutUs) {
+    if (serial_updi.available()) {
+      uint8_t b = serial_updi.read();
+      return {true, b};
+      delayMicroseconds(50);
+    }
+  }
+  return {false, 0x00};
 }
 
 void reset_target()
@@ -144,9 +205,67 @@ void send_hv_pulse()
   delayMicroseconds(hv_pulse_gap_us);
 }
 
+constexpr uint32_t updi_inter_byte_delay_us = 20;   // > 2 bits
+
+void erase_chip()
+{
+  // Send Chip Erase key
+  updi_send_key_64(chip_erase_key);
+  delayMicroseconds(updi_inter_byte_delay_us);
+
+  // Send NVMPROG key
+  updi_send_key_64(nvmprog_key);
+  delayMicroseconds(updi_inter_byte_delay_us);
+
+  // Check key status
+  bool done = false;
+  const uint32_t start_keys = millis();
+  while ((millis() - start_keys) < 100) {
+    auto [status, value] = updi_read_reg(UPDI_REG_ASI_KEY_STATUS);
+    if (!status) {
+      return;
+    }
+    const uint8_t mask = UPDI_NVMPROG_BIT | UPDI_CHER_BIT;
+    if ((value & mask) == mask) {
+      done = true;
+      break;
+    }
+  }
+  if (!done) {
+    return;
+  }
+  delayMicroseconds(updi_inter_byte_delay_us);
+
+  updi_write_reg(UPDI_REG_RESET_REQ, UPDI_RSTREQ_RESET);
+  delayMicroseconds(updi_inter_byte_delay_us);
+
+  done = false;
+  const uint32_t start_erase = millis();
+  while ((millis() - start_erase) < 1000) {
+    updi_write_reg(UPDI_REG_RESET_REQ, UPDI_RSTREQ_RUN);
+    delayMicroseconds(updi_inter_byte_delay_us);
+
+    auto [status, value] = updi_read_reg(UPDI_REG_ASI_SYS_STATUS);
+    if (!status) {
+      return;
+    }
+    if ((value & UPDI_LOCKSTATUS_BIT) == 0x00) {
+      done = true;
+      break;
+    }
+    delayMicroseconds(updi_inter_byte_delay_us);
+  }
+}
+
+void start_prog()
+{
+  // Send NVMPROG key
+  updi_send_key_64(nvmprog_key);
+}
+
 constexpr uint32_t updi_wait_timeout_us = 2000;
 
-void enable_updi()
+void enable_updi(bool erase)
 {
   // This is required only for AVR Dx/Ex series.
   // However, it should be harmless for ATtiny.
@@ -181,67 +300,29 @@ void enable_updi()
 
   serial_updi.begin(UPDI_BAUD_RATE, SERIAL_8E2 | SERIAL_HALF_DUPLEX);
 
-  // Send Chip Erase key
-  updi_send_byte(UPDI_SYNCH);
-  updi_send_byte(UPDI_KEY_64);
-  for (const auto& e : chip_erase_key) {
-    updi_send_byte(e);
+  if (erase) {
+    erase_chip();
   }
-  delayMicroseconds(20);
-
-  // Send NVMPROG key
-  updi_send_byte(UPDI_SYNCH);
-  updi_send_byte(UPDI_KEY_64);
-  for (const auto& e : nvmprog_key) {
-    updi_send_byte(e);
+  else {
+    start_prog();
   }
-  delayMicroseconds(20);
 
-  // Check key status
-  bool done = false;
-  for (int i = 0; i < 1000; i++) {
-    updi_send_byte(UPDI_SYNCH);
-    updi_send_byte(UPDI_LDCS | UPDI_REG_ASI_KEY_STATUS);
-    uint8_t st = serial_updi.read();  // Use serial_updi.available()?
-    if ((st & 0x18) == 0x18) {
-      done = true;
-      break;
-    }
-  }
-  if (!done) {
-    return;
-  }
-  delayMicroseconds(20);
-
-  updi_send_byte(UPDI_SYNCH);
-  updi_send_byte(UPDI_STCS | UPDI_REG_RESET_REQ);
-  updi_send_byte(UPDI_RSTREQ_RESET);
-  delayMicroseconds(20);
-
-  for (int i = 0; i < 100; i++) {
-    updi_send_byte(UPDI_SYNCH);
-    updi_send_byte(UPDI_STCS | UPDI_REG_RESET_REQ);
-    updi_send_byte(UPDI_RSTREQ_RUN);
-    delayMicroseconds(20);
-
-    updi_send_byte(UPDI_SYNCH);
-    updi_send_byte(UPDI_LDCS | UPDI_REG_ASI_SYS_STATUS);
-    uint8_t st = serial_updi.read();  // Use serial_updi.available()?
-    if ((st & 0x01) == 0x00) {
-      done = true;
-      break;
-    }
-    delayMicroseconds(20);
-  }
   serial_updi.end();
 }
+
+constexpr int chip_erase_threshold = 5000; // [ms]
 
 void loop()
 {
   if (checkButtonStatus()) {
     reset_target();
+    bool erase = false;
+    if (millis() - pushed_time > chip_erase_threshold) {
+      // The START button was held down for over the threshold.
+      erase = true;
+    }
     send_hv_pulse();
-    enable_updi();
+    enable_updi(erase);
   }
   delay(10);
 }
