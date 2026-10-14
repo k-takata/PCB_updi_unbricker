@@ -18,6 +18,8 @@
 // Use only TX0 pin
 auto& serial_updi = Serial;
 
+#define UPDI_BAUD_RATE  115200
+
 void setup()
 {
   pinModeFast(PIN_INPUT, INPUT_PULLUP);
@@ -30,7 +32,7 @@ void setup()
   openDrainFast(PIN_PWR, LOW);  // On
 
   // UPDI - 8 bit, even parity, 2 stop bit; one-wire
-  //serial_updi.begin(115200, SERIAL_8E2 | SERIAL_HALF_DUPLEX);
+  //serial_updi.begin(UPDI_BAUD_RATE, SERIAL_8E2 | SERIAL_HALF_DUPLEX);
   //serial_updi.end();
   pinModeFast(PIN_UPDI, INPUT_PULLUP);
 
@@ -76,9 +78,10 @@ static bool wait_for_pin_state(uint8_t pin, int8_t expected, uint32_t timeoutUs)
   return false;
 }
 
-// UPDI Instructions
+// UPDI Control Frames
 const uint8_t UPDI_SYNCH = 0x55;
 const uint8_t UPDI_ACK = 0x40;
+// UPDI Instructions
 const uint8_t UPDI_LDCS = 0x80;
 const uint8_t UPDI_STCS = 0xc0;
 const uint8_t UPDI_KEY_64 = 0xe0;
@@ -99,6 +102,7 @@ const uint8_t userrow_key[]    = {0x65, 0x74, 0x26, 0x73, 0x55, 0x4d, 0x56, 0x4e
 
 uint8_t updi_send_byte(uint8_t b)
 {
+  // RXD is connected to TXD; we receive the same byte that we sent.
   serial_updi.write(b);
   return serial_updi.read();
 }
@@ -158,7 +162,6 @@ void enable_updi()
     return;
   }
 #else
-  // Wait t_UPDI (10 - 200 us)
   for (int i = 0; i < 21; ++i) {
     delayMicroseconds(10);
     if (digitalReadFast(PIN_UPDI) == HIGH)
@@ -176,7 +179,7 @@ void enable_updi()
   openDrainFast(PIN_UPDI, FLOATING);
 #endif
 
-  serial_updi.begin(115200, SERIAL_8E2 | SERIAL_HALF_DUPLEX);
+  serial_updi.begin(UPDI_BAUD_RATE, SERIAL_8E2 | SERIAL_HALF_DUPLEX);
 
   // Send Chip Erase key
   updi_send_byte(UPDI_SYNCH);
