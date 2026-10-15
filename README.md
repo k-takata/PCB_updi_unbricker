@@ -114,8 +114,8 @@ See “Usage” for detailed procedures.
 | SW4 | 1 |  | Push button switch |
 | U1 | 1 | [CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586) | |
 | U2 | 1 | [AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186) | |
-| U3 | 1 | [74LVC1G3157](https://jlcpcb.com/partdetail/JSMSEMI-SN74LVC1G3157DBVRJSM/C44512789) | Analog switch |
-| U4 | 1 | [ATtiny402-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY402SSNR/C616056) | |
+| U3 | 1 | [74LVC1G3157](https://jlcpcb.com/partdetail/JSMSEMI-SN74LVC1G3157DBVRJSM/C44512789) | Analog switch (SPDT) |
+| U4 | 1 | [ATtiny402-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY402SSNR/C616056) | Or ATtiny412 |
 | U5 | 1 | [TPS61040DBVR](https://jlcpcb.com/partdetail/TexasInstruments-TPS61040DBVR/C7722) | Step-up converter |
 
 (\*1) Install either D2 or D11.  
