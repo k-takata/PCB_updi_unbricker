@@ -151,6 +151,8 @@ HVプログラミングには2種類あり、1つはATtinyシリーズで使用�
 本機は安全のため、ATtinyとAVR Dx/Exでは別のコネクターに接続するようになっています。
 また処理を簡略化するため、ATtinyとAVR Dx/ExのどちらもPORを行ってからHVパルスを与え、その後、NVMPROGキーを送出するようになっています。PORはAVR Dx/Exには不要ですし、NVMPROGキーの送出はATtinyには不要ですが、悪影響はないはずです。
 
+AVR Dx/Exシリーズの場合、デバイスがロックされているとNVMPROGキーは受け付けません。本機では、STARTボタンを5秒以上長押しすると、Chip Eraseキーを送出し、デバイスを消去することで強制的にロックを解除します。
+
 **参考資料:**
 
 * [ATtiny202/204/402/404/406 Data Sheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/ATtiny202-204-402-404-406-DataSheet-DS40002318A.pdf) [PDF]  
@@ -317,6 +319,8 @@ SW3は通常はONにします。特にATtinyをターゲットにする場合は
 J3は未接続にしておくことを推奨します。
 
 接続した状態で、STARTボタンを押すと、ターゲットのリセットの後、HVパルスとNVMPROGキーの送出が行われ、UPDIが有効化されます。そのあとで通常と同様の手順でArduino IDEから書き込み操作を行えば書き込みができるはずです。
+
+ロックされたAVR Dx/Exシリーズの場合、STARTボタンを5秒以上長押しすると、ターゲットを消去することで強制的にロックを解除できます。
 
 
 ### シリアル通信
