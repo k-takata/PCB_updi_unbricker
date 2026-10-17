@@ -2461,6 +2461,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -8561,7 +8562,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C22790"
+		(property "LCSC" "C22809"
 			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
