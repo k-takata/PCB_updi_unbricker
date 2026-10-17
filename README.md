@@ -217,7 +217,7 @@ To program the firmware to U4, configure and connect the switches and connectors
 | Part | Setting / connection |
 |------|---------------------|
 | SW1 | Any |
-| SW2 | Any |
+| SW2 | 5 V |
 | SW3 | Any |
 | J1 | Connect PC |
 | J2 | **FW** |
