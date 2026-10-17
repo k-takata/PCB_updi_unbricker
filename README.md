@@ -142,6 +142,8 @@ There are two types of HV programming. One is the 12 V pulse applied to the UPDI
 For safety, this board uses separate connectors for ATtiny and AVR Dx/Ex devices.
 For simplified processing, this board resets both ATtiny and AVR Dx/Ex devices with POR, then applies an HV pulse, and finally sends the NVMPROG key. POR is unnecessary for AVR Dx/Ex, and sending the NVMPROG key is unnecessary for ATtiny, but it should be harmless.
 
+For AVR Dx/Ex series, locked devices don't accept the NVMPROG key. This board sends the Chip Erase key if the START button is keep pressed over 5 seconds, and forcibly unlocks the device by erasing it.
+
 **Reference material:**
 
 * [ATtiny202/204/402/404/406 Data Sheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/ATtiny202-204-402-404-406-DataSheet-DS40002318A.pdf) [PDF]  
@@ -302,6 +304,8 @@ Connect either J5 or J6, depending on the target. Use J5 for ATtiny and J6 for A
 J3 should remain disconnected.
 
 With the connection set, press the START button. The board resets the target, sends the HV pulse and NVMPROG key, enabling UPDI. Then follow the usual Arduino IDE programming procedure; the device should be ready for programming.
+
+For a locked AVR Dx/Ex device, keep pressing the START button over 5 seconds; you can forcibly unlock the target by erasing it.
 
 ### Serial communication
 
