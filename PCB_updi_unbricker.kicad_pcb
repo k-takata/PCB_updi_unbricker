@@ -3465,17 +3465,10 @@
 				)
 			)
 		)
-		(pad "" smd roundrect
-			(at 0 0)
-			(size 1.69 2.66)
-			(layers "F.Paste")
-			(roundrect_rratio 0.147929)
-			(uuid "ae7a50c4-0429-4726-b583-ab66f04c335d")
-		)
 		(pad "1" smd roundrect
 			(at -2.6375 -2)
 			(size 1.675 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "D+")
 			(pinfunction "UD+_1")
@@ -3485,7 +3478,7 @@
 		(pad "2" smd roundrect
 			(at -2.6375 -1)
 			(size 1.675 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "D-")
 			(pinfunction "UD-_2")
@@ -3495,7 +3488,7 @@
 		(pad "3" smd roundrect
 			(at -2.6375 0)
 			(size 1.675 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "GND")
 			(pinfunction "GND_3")
@@ -3505,7 +3498,7 @@
 		(pad "4" smd roundrect
 			(at -2.6375 1)
 			(size 1.675 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "DTR")
 			(pinfunction "~{DTR}_4")
@@ -3515,7 +3508,7 @@
 		(pad "5" smd roundrect
 			(at -2.6375 2)
 			(size 1.675 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "CTS")
 			(pinfunction "~{CTS}_5")
@@ -3525,7 +3518,7 @@
 		(pad "6" smd roundrect
 			(at 2.6375 2)
 			(size 1.675 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "RTS")
 			(pinfunction "~{RTS}_6")
@@ -3535,7 +3528,7 @@
 		(pad "7" smd roundrect
 			(at 2.6375 1)
 			(size 1.675 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "VDD")
 			(pinfunction "VCC_7")
@@ -3545,7 +3538,7 @@
 		(pad "8" smd roundrect
 			(at 2.6375 0)
 			(size 1.675 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "TxD")
 			(pinfunction "TXD_8")
@@ -3555,7 +3548,7 @@
 		(pad "9" smd roundrect
 			(at 2.6375 -1)
 			(size 1.675 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "RxD")
 			(pinfunction "RXD_9")
@@ -3565,7 +3558,7 @@
 		(pad "10" smd roundrect
 			(at 2.6375 -2)
 			(size 1.675 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "Net-(U1-V3)")
 			(pinfunction "V3_10")
@@ -6321,7 +6314,7 @@
 		(pad "1" smd roundrect
 			(at -1.1375 -0.95)
 			(size 1.325 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "/UPDI")
 			(pintype "bidirectional")
@@ -6330,7 +6323,7 @@
 		(pad "2" smd roundrect
 			(at -1.1375 0)
 			(size 1.325 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "GND")
 			(pinfunction "GND_2")
@@ -6340,7 +6333,7 @@
 		(pad "3" smd roundrect
 			(at -1.1375 0.95)
 			(size 1.325 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "/RxD (TTL)")
 			(pintype "bidirectional")
@@ -6349,7 +6342,7 @@
 		(pad "4" smd roundrect
 			(at 1.1375 0.95)
 			(size 1.325 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "RxD")
 			(pintype "bidirectional")
@@ -6358,7 +6351,7 @@
 		(pad "5" smd roundrect
 			(at 1.1375 0)
 			(size 1.325 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "+5V")
 			(pinfunction "VCC_5")
@@ -6368,7 +6361,7 @@
 		(pad "6" smd roundrect
 			(at 1.1375 -0.95)
 			(size 1.325 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "RTS")
 			(pintype "input")
@@ -6784,7 +6777,7 @@
 		(pad "A1" smd roundrect
 			(at -3.2 -3.68 270)
 			(size 0.6 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "GND")
 			(pinfunction "GND_A1")
@@ -6794,7 +6787,7 @@
 		(pad "A4" smd roundrect
 			(at -2.4 -3.68 270)
 			(size 0.6 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "Net-(F1-Pad1)")
 			(pinfunction "VBUS_A4")
@@ -6804,7 +6797,7 @@
 		(pad "A5" smd roundrect
 			(at -1.25 -3.68 270)
 			(size 0.3 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "Net-(J1-CC1)")
 			(pinfunction "CC1_A5")
@@ -6814,7 +6807,7 @@
 		(pad "A6" smd roundrect
 			(at -0.25 -3.68 270)
 			(size 0.3 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "D+")
 			(pinfunction "D+_A6")
@@ -6824,7 +6817,7 @@
 		(pad "A7" smd roundrect
 			(at 0.25 -3.68 270)
 			(size 0.3 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "D-")
 			(pinfunction "D-_A7")
@@ -6834,7 +6827,7 @@
 		(pad "A8" smd roundrect
 			(at 1.25 -3.68 270)
 			(size 0.3 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "unconnected-(J1-SBU1-PadA8)")
 			(pinfunction "SBU1_A8")
@@ -6844,7 +6837,7 @@
 		(pad "A9" smd roundrect
 			(at 2.4 -3.68 270)
 			(size 0.6 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "Net-(F1-Pad1)")
 			(pinfunction "VBUS_A9")
@@ -6854,7 +6847,7 @@
 		(pad "A12" smd roundrect
 			(at 3.2 -3.68 270)
 			(size 0.6 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "GND")
 			(pinfunction "GND_A12")
@@ -6864,7 +6857,7 @@
 		(pad "B1" smd roundrect
 			(at 3.2 -3.68 270)
 			(size 0.6 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "GND")
 			(pinfunction "GND_B1")
@@ -6874,7 +6867,7 @@
 		(pad "B4" smd roundrect
 			(at 2.4 -3.68 270)
 			(size 0.6 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "Net-(F1-Pad1)")
 			(pinfunction "VBUS_B4")
@@ -6884,7 +6877,7 @@
 		(pad "B5" smd roundrect
 			(at 1.75 -3.68 270)
 			(size 0.3 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "Net-(J1-CC2)")
 			(pinfunction "CC2_B5")
@@ -6894,7 +6887,7 @@
 		(pad "B6" smd roundrect
 			(at 0.75 -3.68 270)
 			(size 0.3 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "D+")
 			(pinfunction "D+_B6")
@@ -6904,7 +6897,7 @@
 		(pad "B7" smd roundrect
 			(at -0.75 -3.68 270)
 			(size 0.3 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "D-")
 			(pinfunction "D-_B7")
@@ -6914,7 +6907,7 @@
 		(pad "B8" smd roundrect
 			(at -1.75 -3.68 270)
 			(size 0.3 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "unconnected-(J1-SBU2-PadB8)")
 			(pinfunction "SBU2_B8")
@@ -6924,7 +6917,7 @@
 		(pad "B9" smd roundrect
 			(at -2.4 -3.68 270)
 			(size 0.6 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "Net-(F1-Pad1)")
 			(pinfunction "VBUS_B9")
@@ -6934,7 +6927,7 @@
 		(pad "B12" smd roundrect
 			(at -3.2 -3.68 270)
 			(size 0.6 1.15)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "GND")
 			(pinfunction "GND_B12")
@@ -6946,7 +6939,7 @@
 			(size 1 2.1)
 			(drill oval 0.6 1.7)
 			(property pad_prop_mechanical)
-			(layers "*.Cu" "*.Mask" "F.Paste")
+			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
 			(net "GND")
 			(pinfunction "SHIELD_SH")
@@ -6958,7 +6951,7 @@
 			(size 1 1.8)
 			(drill oval 0.6 1.4)
 			(property pad_prop_mechanical)
-			(layers "*.Cu" "*.Mask" "F.Paste")
+			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
 			(net "GND")
 			(pinfunction "SHIELD_SH")
@@ -6970,7 +6963,7 @@
 			(size 1 2.1)
 			(drill oval 0.6 1.7)
 			(property pad_prop_mechanical)
-			(layers "*.Cu" "*.Mask" "F.Paste")
+			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
 			(net "GND")
 			(pinfunction "SHIELD_SH")
@@ -6982,7 +6975,7 @@
 			(size 1 1.8)
 			(drill oval 0.6 1.4)
 			(property pad_prop_mechanical)
-			(layers "*.Cu" "*.Mask" "F.Paste")
+			(layers "*.Cu" "*.Mask")
 			(remove_unused_layers no)
 			(net "GND")
 			(pinfunction "SHIELD_SH")
@@ -7909,7 +7902,7 @@
 		(pad "1" smd roundrect
 			(at -2.475 -1.905)
 			(size 1.95 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "+5V")
 			(pinfunction "VCC_1")
@@ -7919,7 +7912,7 @@
 		(pad "2" smd roundrect
 			(at -2.475 -0.635)
 			(size 1.95 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "UPDI_TGT")
 			(pinfunction "PA6_2")
@@ -7929,7 +7922,7 @@
 		(pad "3" smd roundrect
 			(at -2.475 0.635)
 			(size 1.95 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "PWR_CTL")
 			(pinfunction "PA7_3")
@@ -7939,7 +7932,7 @@
 		(pad "4" smd roundrect
 			(at -2.475 1.905)
 			(size 1.95 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "HV_12_CTL")
 			(pinfunction "PA1_4")
@@ -7949,7 +7942,7 @@
 		(pad "5" smd roundrect
 			(at 2.475 1.905)
 			(size 1.95 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "INPUT")
 			(pinfunction "PA2_5")
@@ -7959,7 +7952,7 @@
 		(pad "6" smd roundrect
 			(at 2.475 0.635)
 			(size 1.95 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "UPDI_FW")
 			(pinfunction "~{RESET}/PA0_6")
@@ -7969,7 +7962,7 @@
 		(pad "7" smd roundrect
 			(at 2.475 -0.635)
 			(size 1.95 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "HV_75_CTL")
 			(pinfunction "PA3_7")
@@ -7979,7 +7972,7 @@
 		(pad "8" smd roundrect
 			(at 2.475 -1.905)
 			(size 1.95 0.6)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.25)
 			(net "GND")
 			(pinfunction "GND_8")
@@ -9254,7 +9247,7 @@
 		(pad "1" smd roundrect
 			(at -1.4 0 90)
 			(size 1.25 2.65)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.2)
 			(net "+5V")
 			(pintype "passive")
@@ -9263,7 +9256,7 @@
 		(pad "2" smd roundrect
 			(at 1.4 0 90)
 			(size 1.25 2.65)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.2)
 			(net "Net-(D6-A)")
 			(pintype "passive")
@@ -15329,7 +15322,7 @@
 		(pad "1" smd roundrect
 			(at -1.4 0 90)
 			(size 1.25 1.75)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.2)
 			(net "Net-(F1-Pad1)")
 			(pintype "passive")
@@ -15338,7 +15331,7 @@
 		(pad "2" smd roundrect
 			(at 1.4 0 90)
 			(size 1.25 1.75)
-			(layers "F.Cu" "F.Mask" "F.Paste")
+			(layers "F.Cu" "F.Mask")
 			(roundrect_rratio 0.2)
 			(net "+5V")
 			(pintype "passive")
