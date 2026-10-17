@@ -97,10 +97,10 @@ See “Usage” for detailed procedures.
 | Q4 | 1 | [AO3401A](https://jlcpcb.com/partdetail/Alpha_OmegaSemicon-AO3401A/C15127) | P-ch MOSFET |
 | R1, R15 | 2 | 470 Ω | 1608M |
 | R2, R3 | 2 | 5.1 kΩ | 1608M |
-| R4, R17, R19 | 3 | 100 kΩ | 1608M |
+| R4 | 1 | 100 kΩ | 1608M |
 | R5 | 1 | 220 Ω | 1608M |
 | (R6) | - | - | Not used |
-| R7, R8, R16, R18 | 4 | 10 kΩ | 1608M |
+| R7, R8, R16-R19 | 6 | 10 kΩ | 1608M |
 | (R9) | - | - | Not used |
 | R10 | 1 | 390 kΩ 1% | 1608M (\*5) |
 | R11 | 1 | 75 kΩ 1% | 1608M (\*5) |
