@@ -1846,7 +1846,7 @@
 				)
 			)
 		)
-		(property "Value" "100k"
+		(property "Value" "10k"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "74e9d1b0-6979-4e9d-8ddb-50a3eaa5d553")
@@ -1904,7 +1904,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25803"
+		(property "LCSC" "C25804"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -2461,6 +2461,7 @@
 			(effects
 				(font
 					(size 1.27 1.27)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14458,7 +14459,7 @@
 				)
 			)
 		)
-		(property "Value" "100k"
+		(property "Value" "10k"
 			(at 0 1.43 0)
 			(layer "F.Fab")
 			(uuid "2bd29abe-f122-43fa-a133-011f93bed833")
@@ -14516,7 +14517,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C25803"
+		(property "LCSC" "C25804"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
