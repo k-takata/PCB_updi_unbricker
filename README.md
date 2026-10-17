@@ -661,7 +661,7 @@ Example combinations:
 |-----|-----|------|-----------|------|
 |390 k | 10 M | 43 k | 12.00 | E24 series |
 |470 k | 10 M | 51 k | 12.09 | E24 series |
-|680 k |100 k | 47 k | 11.85 | E6 series |
+|680 k |  1 M | 47 k | 11.85 | E6 series |
 |680 k | 10 M | 75 k | 11.70 | E24 series |
 |680 k | -    | 75 k | 12.41 | E24 series |
 |390 k | -    | 43 k | 12.41 | E24 series |
