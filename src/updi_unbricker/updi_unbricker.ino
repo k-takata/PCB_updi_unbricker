@@ -98,8 +98,8 @@ void reset_target()
   delay(1);   // < 8.8 ms
 }
 
-constexpr uint32_t hv_pulse_12_us = 150;
-constexpr uint32_t hv_pulse_75_us = 50;
+constexpr uint32_t hv_pulse_12_us = 200;
+constexpr uint32_t hv_pulse_75_us = 20;
 constexpr uint32_t hv_pulse_gap_us = 10;
 
 void send_hv_pulse()
