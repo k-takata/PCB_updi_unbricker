@@ -31,7 +31,7 @@ void setup()
 
   openDrainFast(PIN_PWR, LOW);  // On
 
-  // UPDI - 8 bit, even parity, 2 stop bit; one-wire
+  // UPDI - 8-bit, even parity, 2 stop bits; one-wire
   //serial_updi.begin(UPDI_BAUD_RATE, SERIAL_8E2 | SERIAL_HALF_DUPLEX);
   //serial_updi.end();
   pinModeFast(PIN_UPDI, INPUT_PULLUP);
@@ -86,7 +86,7 @@ const uint8_t UPDI_LDCS = 0x80;
 const uint8_t UPDI_STCS = 0xc0;
 const uint8_t UPDI_KEY_64 = 0xe0;
 
-// UPDI registors
+// UPDI registers
 const uint8_t UPDI_REG_ASI_KEY_STATUS = 0x07;
 const uint8_t UPDI_REG_RESET_REQ = 0x08;
 const uint8_t UPDI_REG_ASI_SYS_STATUS = 0x0B;
@@ -206,6 +206,8 @@ void send_hv_pulse()
 }
 
 constexpr uint32_t updi_inter_byte_delay_us = 20;   // > 2 bits
+constexpr uint32_t updi_key_timeout_ms = 100;
+constexpr uint32_t updi_erase_timeout_ms = 1000;
 
 void erase_chip()
 {
@@ -220,7 +222,7 @@ void erase_chip()
   // Check key status
   bool done = false;
   const uint32_t start_keys = millis();
-  while ((millis() - start_keys) < 100) {
+  while ((millis() - start_keys) < updi_key_timeout_ms) {
     auto [status, value] = updi_read_reg(UPDI_REG_ASI_KEY_STATUS);
     if (!status) {
       return;
@@ -241,7 +243,7 @@ void erase_chip()
 
   done = false;
   const uint32_t start_erase = millis();
-  while ((millis() - start_erase) < 1000) {
+  while ((millis() - start_erase) < updi_erase_timeout_ms) {
     updi_write_reg(UPDI_REG_RESET_REQ, UPDI_RSTREQ_RUN);
     delayMicroseconds(updi_inter_byte_delay_us);
 
