@@ -155,7 +155,8 @@ updi_reg_status updi_read_reg(
   // timeoutUs should be set based on it.
   // E.g., if the baud rate is 115200 and the Idle bits are 128 bits, the
   // minimum timeout should be:
-  // 1'000'000 [us] / 115'200 [bps] * (128 + 12) = 1215 [us]
+  //   1'000'000 [us] / 115'200 [bps] = 8.681 [us / bit]
+  //   8.681 * (128 + 12) = 1215 [us] (Idle bits + 1 frame)
 
   const uint32_t start = micros();
   while ((micros() - start) < timeoutUs) {
