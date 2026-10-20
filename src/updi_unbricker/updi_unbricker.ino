@@ -50,14 +50,14 @@ void buttonPushed()
   }
 }
 
-constexpr int debounceDelay = 50; // [ms]
+constexpr int debounce_delay_ms = 50;
 
 bool checkButtonStatus()
 {
   bool ret = false;
 
   if (button_pushed) {
-    if (millis() - pushed_time >= debounceDelay) {
+    if (millis() - pushed_time >= debounce_delay_ms) {
       if (digitalReadFast(PIN_INPUT) == LOW) {
         ret = true;
       }
@@ -313,14 +313,14 @@ void enable_updi(bool erase)
   serial_updi.end();
 }
 
-constexpr int chip_erase_threshold = 5000; // [ms]
+constexpr int chip_erase_threshold_ms = 5000;
 
 void loop()
 {
   if (checkButtonStatus()) {
     reset_target();
     bool erase = false;
-    if (millis() - pushed_time > chip_erase_threshold) {
+    if (millis() - pushed_time > chip_erase_threshold_ms) {
       // The START button was held down for over the threshold.
       erase = true;
     }
