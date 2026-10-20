@@ -79,32 +79,32 @@ static bool wait_for_pin_state(uint8_t pin, int8_t expected, uint32_t timeoutUs)
 }
 
 // UPDI Control Frames
-const uint8_t UPDI_SYNCH = 0x55;
-const uint8_t UPDI_ACK = 0x40;
+constexpr uint8_t UPDI_SYNCH = 0x55;
+constexpr uint8_t UPDI_ACK = 0x40;
 // UPDI Instructions
-const uint8_t UPDI_LDCS = 0x80;
-const uint8_t UPDI_STCS = 0xc0;
-const uint8_t UPDI_KEY_64 = 0xe0;
+constexpr uint8_t UPDI_LDCS = 0x80;
+constexpr uint8_t UPDI_STCS = 0xc0;
+constexpr uint8_t UPDI_KEY_64 = 0xe0;
 
 // UPDI registers
-const uint8_t UPDI_REG_ASI_KEY_STATUS = 0x07;
-const uint8_t UPDI_REG_RESET_REQ = 0x08;
-const uint8_t UPDI_REG_ASI_SYS_STATUS = 0x0B;
+constexpr uint8_t UPDI_REG_ASI_KEY_STATUS = 0x07;
+constexpr uint8_t UPDI_REG_RESET_REQ = 0x08;
+constexpr uint8_t UPDI_REG_ASI_SYS_STATUS = 0x0B;
 
 // Bitmasks for UPDI_REG_ASI_KEY_STATUS
-const uint8_t UPDI_UROWWR_BIT = 0x20;
-const uint8_t UPDI_NVMPROG_BIT = 0x10;
-const uint8_t UPDI_CHER_BIT = 0x08;
+constexpr uint8_t UPDI_UROWWR_BIT = 0x20;
+constexpr uint8_t UPDI_NVMPROG_BIT = 0x10;
+constexpr uint8_t UPDI_CHER_BIT = 0x08;
 // Values for UPDI_REG_RESET_REQ
-const uint8_t UPDI_RSTREQ_RUN = 0x00;
-const uint8_t UPDI_RSTREQ_RESET = 0x59;
+constexpr uint8_t UPDI_RSTREQ_RUN = 0x00;
+constexpr uint8_t UPDI_RSTREQ_RESET = 0x59;
 // Bitmasks for UPDI_REG_ASI_SYS_STATUS
-const uint8_t UPDI_LOCKSTATUS_BIT = 0x01;
+constexpr uint8_t UPDI_LOCKSTATUS_BIT = 0x01;
 
 // UPDI Keys
-const uint8_t chip_erase_key[] = {0x65, 0x73, 0x61, 0x72, 0x45, 0x4d, 0x56, 0x4e}; // 0x4E564D4572617365 'NVMErase'
-const uint8_t nvmprog_key[]    = {0x20, 0x67, 0x6f, 0x72, 0x50, 0x4d, 0x56, 0x4e}; // 0x4E564D50726F6720 'NVMProg '
-const uint8_t userrow_key[]    = {0x65, 0x74, 0x26, 0x73, 0x55, 0x4d, 0x56, 0x4e}; // 0x4E564D5573267465 'NVMUs&te'
+constexpr uint8_t chip_erase_key[] = {0x65, 0x73, 0x61, 0x72, 0x45, 0x4d, 0x56, 0x4e}; // 0x4E564D4572617365 'NVMErase'
+constexpr uint8_t nvmprog_key[]    = {0x20, 0x67, 0x6f, 0x72, 0x50, 0x4d, 0x56, 0x4e}; // 0x4E564D50726F6720 'NVMProg '
+constexpr uint8_t userrow_key[]    = {0x65, 0x74, 0x26, 0x73, 0x55, 0x4d, 0x56, 0x4e}; // 0x4E564D5573267465 'NVMUs&te'
 
 uint8_t updi_send_byte(uint8_t b)
 {
