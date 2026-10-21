@@ -486,9 +486,9 @@ Avrdude done.  Thank you.
 
 #### Lock / unlock
 
-You can lock a device by manipulating the Lock Key register. A locked device can no longer read data through UPDI. To unlock it, the device must be erased.
+You can lock a device by manipulating the Lock Key register. A locked device can no longer read data through UPDI. To unlock it, you must erase the device.
 
-First, try reading the contents of the Lock Key register. Specify `-U lock:r:-:h`.
+First, try reading the Lock Key register. Specify `-U lock:r:-:h`.
 
 ```
 > avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -U lock:r:-:h -v
@@ -580,7 +580,7 @@ Leaving NVM programming mode
 Avrdude done.  Thank you.
 ```
 
-Because the device is locked, the UPDI communication cannot read the device signature and the read fails.
+Because the device is locked, the UPDI communication cannot read the device signature, and the command fails.
 
 As the error message says, retry with the `-F` option.
 
@@ -662,7 +662,7 @@ Avrdude done.  Thank you.
 
 The error messages are confusing, but it shows "Unlocking the chip and trying again" afterward, meaning the device erase was performed and the device became readable again via UPDI.
 
-Reading the Lock Key register again, you will see that it has returned to its original value.
+If you read the Lock Key register again, you will see it has returned to its original value.
 
 ```
 > avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -U lock:r:-:h
@@ -772,8 +772,8 @@ Leaving NVM programming mode
 Avrdude done.  Thank you.
 ```
 
-The UPDI link is established, but because the device is locked, the device signature cannot be read and an error is returned.
-You can recover it by specifying the `-e` options on the avrdude command, but alternatively, if you hold down the START button for more than 5 seconds, you can erase the device using this board alone without using the avrdude command.
+The UPDI link is established, but because the device is locked, the device signature cannot be read, and the command fails.
+You can recover it by specifying the `-e` option in the avrdude command, but alternatively, if you hold down the START button for more than 5 seconds, you can erase the device using this board alone without using the avrdude command.
 
 After holding down the START button for more than 5 seconds, reading the Lock Key register shows that it has returned to its original value.
 
@@ -955,7 +955,7 @@ This is almost the same as AVR64DD28, so it is omitted here. Be careful about th
 
 This is almost the same as AVR64DD28, so it is omitted here. Be careful about the difference in the `-p` option and the SYSCFG0 fuse value.
 
-At present, chip erase by holding down the START button does not work reliably on the ATtiny series. Erasing via the avrdude command (`-e`) is required.
+At present, chip erase by holding down the START button does not work reliably on the ATtiny series. You must erase via the avrdude command (`-e`).
 
 
 ## Troubleshooting
