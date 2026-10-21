@@ -207,7 +207,14 @@ void send_hv_pulse()
 }
 
 constexpr uint32_t updi_inter_byte_delay_us = 20;   // > 2 bits
-constexpr uint32_t updi_key_timeout_ms = 100;
+
+// t_P_CE (Chip Erase time)
+//   AVR64DDxx: 11 ms
+//   AVR128DAxx: 11 ms
+//   AVR16LAxx: 10 ms
+// t_P_UPDICE (UPDI Chip Erase time)
+//   AVR16LAxx: 50 ms
+//   AVR32LAxx: 70 ms
 constexpr uint32_t updi_erase_timeout_ms = 1000;
 
 void erase_chip()
@@ -221,28 +228,21 @@ void erase_chip()
   delayMicroseconds(updi_inter_byte_delay_us);
 
   // Check key status
-  bool done = false;
-  const uint32_t start_keys = millis();
-  while ((millis() - start_keys) < updi_key_timeout_ms) {
+  {
     auto [status, value] = updi_read_reg(UPDI_REG_ASI_KEY_STATUS);
     if (!status) {
       return;
     }
     const uint8_t mask = UPDI_NVMPROG_BIT | UPDI_CHER_BIT;
-    if ((value & mask) == mask) {
-      done = true;
-      break;
+    if ((value & mask) != mask) {
+      return;
     }
-  }
-  if (!done) {
-    return;
   }
   delayMicroseconds(updi_inter_byte_delay_us);
 
   updi_write_reg(UPDI_REG_RESET_REQ, UPDI_RSTREQ_RESET);
   delayMicroseconds(updi_inter_byte_delay_us);
 
-  done = false;
   const uint32_t start_erase = millis();
   while ((millis() - start_erase) < updi_erase_timeout_ms) {
     updi_write_reg(UPDI_REG_RESET_REQ, UPDI_RSTREQ_RUN);
@@ -253,7 +253,7 @@ void erase_chip()
       return;
     }
     if ((value & UPDI_LOCKSTATUS_BIT) == 0x00) {
-      done = true;
+      // Chip Erase finished.
       break;
     }
     delayMicroseconds(updi_inter_byte_delay_us);
