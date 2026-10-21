@@ -144,6 +144,8 @@ There are two types of HV programming. One is the 12 V pulse applied to the UPDI
 For safety, this board uses separate connectors for ATtiny and AVR Dx/Ex devices.
 For simplified processing, this board resets both ATtiny and AVR Dx/Ex devices with POR, then applies an HV pulse, and finally sends the NVMPROG key. POR is unnecessary for AVR Dx/Ex, and sending the NVMPROG key is unnecessary for ATtiny, but it should be harmless.
 
+For AVR Dx/Ex series, locked devices don't accept the NVMPROG key. This board sends the Chip Erase key if you keep pressing the START button for over 5 seconds, and forcibly unlocks the device by erasing it.
+
 **Reference material:**
 
 * [ATtiny202/204/402/404/406 Data Sheet](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/ATtiny202-204-402-404-406-DataSheet-DS40002318A.pdf) [PDF]  
@@ -305,6 +307,8 @@ J3 should remain disconnected.
 
 With the connection set, press the START button. The board resets the target, sends the HV pulse and NVMPROG key, enabling UPDI. Then follow the usual Arduino IDE programming procedure; the device should be ready for programming.
 
+For a locked AVR Dx/Ex device, keep pressing the START button for over 5 seconds; you can forcibly unlock the target by erasing it.
+
 ### Serial communication
 
 Configure and connect the switches and connectors as follows.
@@ -331,13 +335,15 @@ Here is an example of setting fuses using [AVRDUDE](https://github.com/avrdudes/
 The command used in this example is:
 
 ```
->avrdude -c <programmer> -p <device name> -P <port name> -b <baud rate> -v -U <memory operation>
+> avrdude -c <programmer> -p <device name> -P <port name> -b <baud rate> -v -U <memory operation>
 ```
+
+(The `> ` at the beginning of the line is a prompt. You don't need to input it.)
 
 The programmer is specified as `serialupdi`.  
 The device name (part name) is described later.  
 The port name is something like `COM8` on Windows.  
-A baud rate such as `115200` or `230400` is recommended. (The maximum speed of CH340K is 230400 bps.)  
+A baud rate such as `115200` or `230400` is recommended; it seems that higher rates do not work reliably.  
 `-v` is an option for verbose output.  
 The memory operation is described later.
 
@@ -353,7 +359,7 @@ To read SYSCFG0, specify `-U fuse5:r:-:h`.
 `fuse5` indicates SYSCFG0, `r` means read, `-` means standard output, and `h` means hexadecimal output.
 
 ```
->avrdude -c serialupdi -p 64dd28 -P COM8 -b 115200 -v -U fuse5:r:-:h
+> avrdude -c serialupdi -p 64dd28 -P COM8 -b 115200 -v -U fuse5:r:-:h
 Avrdude version 8.1
 Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
 
@@ -388,7 +394,7 @@ Change the UPDIPINCFG bit (Bit 4) from 1 to 0 to switch the UPDI pin to GPIO.
 Use `-U fuse5:w:0xc9:m` to set SYSCFG0 to 0xc9. `w` means write, and `m` means immediate value.
 
 ```
->avrdude -c serialupdi -p 64dd28 -P COM8 -b 115200 -v -U fuse5:w:0xc9:m
+> avrdude -c serialupdi -p 64dd28 -P COM8 -b 115200 -v -U fuse5:w:0xc9:m
 Avrdude version 8.1
 Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
 
@@ -420,7 +426,7 @@ Avrdude done.  Thank you.
 Read SYSCFG0 again. Since the UPDI pin has been changed to GPIO, the UPDI link cannot be established and the read fails.
 
 ```
->avrdude -c serialupdi -p 64dd28 -P COM8 -b 115200 -v -U fuse5:r:-:h
+> avrdude -c serialupdi -p 64dd28 -P COM8 -b 115200 -v -U fuse5:r:-:h
 Avrdude version 8.1
 Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
 
@@ -451,7 +457,7 @@ With that state, change the UPDIPINCFG bit back to 1 and restore the UPDI pin.
 Use `-U fuse5:w:0xd9:m` to set SYSCFG0 back to 0xd9.
 
 ```
->avrdude -c serialupdi -p 64dd28 -P COM8 -b 115200 -v -U fuse5:w:0xd9:m
+> avrdude -c serialupdi -p 64dd28 -P COM8 -b 115200 -v -U fuse5:w:0xd9:m
 Avrdude version 8.1
 Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
 
@@ -480,6 +486,330 @@ Leaving NVM programming mode
 Avrdude done.  Thank you.
 ```
 
+#### Lock / unlock
+
+You can lock a device by manipulating the Lock Key register. A locked device can no longer read data through UPDI. To unlock it, you must erase the device.
+
+First, try reading the Lock Key register. Specify `-U lock:r:-:h`.
+
+```
+> avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -U lock:r:-:h -v
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : AVR64DD28
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+NVM type 2: 24-bit, word oriented write
+Entering NVM programming mode
+Chip silicon revision: 1.3
+
+AVR device initialized and ready to accept instructions
+Device signature = 1E 96 1B (AVR64DD28)
+Reading lock memory ...
+Writing 4 bytes to output file <stdout>
+0x5c,0xc5,0xc5,0x5c
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+The Lock Key register is 4 bytes long, and its value is `0x5c,0xc5,0xc5,0x5c`.
+
+If you write a different value to the register, the device becomes locked. Here, try writing `0x00`.
+
+```
+> avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -U lock:w:0x00:m -v
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : AVR64DD28
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+NVM type 2: 24-bit, word oriented write
+Entering NVM programming mode
+Chip silicon revision: 1.3
+
+AVR device initialized and ready to accept instructions
+Device signature = 1E 96 1B (AVR64DD28)
+Reading 1 byte for lock from input file 0x00
+in 1 section [0, 0]
+Writing 1 byte (0x00) to lock, 1 byte written, 1 verified
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+Read the Lock Key register again.
+
+```
+> avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -U lock:r:-:h -v
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : AVR64DD28
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+Device is locked
+NVM type 2: 24-bit, word oriented write
+Entering NVM programming mode
+Error: timeout waiting for device to unlock
+Error: unable to enter NVM programming mode: device is locked
+
+AVR device initialized and ready to accept instructions
+Error: unable to read signature data for part AVR64DD28 (rc = -3)
+Error: double check chip or use -F to override this check
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+Because the device is locked, the UPDI communication cannot read the device signature, and the command fails.
+
+As the error message says, retry with the `-F` option.
+
+```
+> avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -U lock:r:-:h -v -F
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : AVR64DD28
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+Device is locked
+NVM type 2: 24-bit, word oriented write
+Entering NVM programming mode
+Error: timeout waiting for device to unlock
+Error: unable to enter NVM programming mode: device is locked
+
+AVR device initialized and ready to accept instructions
+Error: unable to read signature data for part AVR64DD28 (rc = -3)
+Error: unable to read signature data (rc = -3)
+Error: unable to read signature data for part AVR64DD28 (rc = -3)
+Error: unable to read signature data for part AVR64DD28 (rc = -3)
+Error: unable to read signature data for part AVR64DD28 (rc = -3)
+Error: unable to read signature data for part AVR64DD28 (rc = -3)
+Device signature = 00 00 00 (retrying)
+Error: unable to read signature data for part AVR64DD28 (rc = -3)
+Error: unable to read signature data (rc = -3)
+Error: unable to read signature data for part AVR64DD28 (rc = -3)
+Error: unable to read signature data for part AVR64DD28 (rc = -3)
+Error: unable to read signature data for part AVR64DD28 (rc = -3)
+Error: unable to read signature data for part AVR64DD28 (rc = -3)
+Device signature = 00 00 00
+Error: invalid device signature
+Warning: expected signature for AVR64DD28 is 1E 96 1B
+Reading lock memory ...
+Error: unable to read byte at address 0x0000
+Error: unable to read all of lock (rc = -2)
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+As the device is locked, you still cannot read the Lock Key register. To make the device readable again through UPDI, you need to erase the device. To erase the device, specify `-e`.
+
+```
+> avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -e -v
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : AVR64DD28
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+Device is locked
+NVM type 2: 24-bit, word oriented write
+Entering NVM programming mode
+Error: timeout waiting for device to unlock
+Error: unable to enter NVM programming mode: device is locked
+
+AVR device initialized and ready to accept instructions
+Error: unable to read signature data for part AVR64DD28 (rc = -3)
+Unlocking the chip and trying again
+Device signature = 1E 96 1B (AVR64DD28)
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+The error messages are confusing, but it shows "Unlocking the chip and trying again" afterward, meaning the device erase was performed and the device became readable again via UPDI.
+
+If you read the Lock Key register again, you will see it has returned to its original value.
+
+```
+> avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -U lock:r:-:h
+Reading lock memory ...
+Writing 4 bytes to output file <stdout>
+0x5c,0xc5,0xc5,0x5c
+
+Avrdude done.  Thank you.
+```
+
+#### Lock and GPIO reconfiguration of the UPDI pin
+
+Try locking the device and switching the UPDI pin to GPIO at the same time.
+Specify `-U lock:w:0x00:m` and `-U fuse5:w:0xc9:m` together.
+
+```
+> avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -U lock:w:0x00:m -U fuse5:w:0xc9:m -v
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : AVR64DD28
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+NVM type 2: 24-bit, word oriented write
+Entering NVM programming mode
+Chip silicon revision: 1.3
+
+AVR device initialized and ready to accept instructions
+Device signature = 1E 96 1B (AVR64DD28)
+
+Processing -U lock:w:0x00:m
+Reading 1 byte for lock from input file 0x00
+in 1 section [0, 0]
+Writing 1 byte (0x00) to lock, 1 byte written, 1 verified
+
+Processing -U fuse5:w:0xc9:m
+Reading 1 byte for fuse5/syscfg0 from input file 0xc9
+in 1 section [0, 0]
+Writing 1 byte (0xC9) to fuse5/syscfg0, 1 byte written, 1 verified
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+Read the Lock Key register as-is.
+
+```
+> avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -U lock:r:-:h -v
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : AVR64DD28
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+Error: UPDI link initialization failed
+Error: initialization failed  (rc = -1)
+ - double check the connections and try again
+ - use -b to set lower baud rate, e.g. -b 57600
+ - use -F to override this check
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+The UPDI link could not be established.
+
+Press the START button and try again.
+
+```
+> avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -U lock:r:-:h -v
+Avrdude version 8.1
+Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
+
+System wide configuration file is C:\Users\<USER>\AppData\Local\Arduino15\packages\DxCore\tools\avrdude\avrdude_v8.1-released\etc\avrdude.conf
+
+Using port            : COM8
+Using programmer      : serialupdi
+Setting baud rate     : 115200
+AVR part              : AVR64DD28
+Programming modes     : SPM, UPDI
+Programmer type       : serialupdi
+Description           : SerialUPDI
+Device is locked
+Device in reset status, trying to release it
+NVM type 2: 24-bit, word oriented write
+Entering NVM programming mode
+Error: timeout waiting for device to unlock
+Error: unable to enter NVM programming mode: device is locked
+
+AVR device initialized and ready to accept instructions
+Error: unable to read signature data for part AVR64DD28 (rc = -3)
+Error: double check chip or use -F to override this check
+Leaving NVM programming mode
+
+Avrdude done.  Thank you.
+```
+
+The UPDI link is established, but because the device is locked, the device signature cannot be read, and the command fails.
+You can recover it by specifying the `-e` option in the avrdude command, but alternatively, if you hold down the START button for more than 5 seconds, you can erase the device using this board alone without using the avrdude command.
+
+After holding down the START button for more than 5 seconds, reading the Lock Key register shows that it has returned to its original value.
+
+```
+> avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -U lock:r:-:h
+Reading lock memory ...
+Writing 4 bytes to output file <stdout>
+0x5c,0xc5,0xc5,0x5c
+
+Avrdude done.  Thank you.
+```
+
+Erasing the device does not clear the fuse settings, so the UPDI pin configuration remains unchanged.
+
+```
+> avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -U fuse5:r:-:h
+Reading fuse5/syscfg0 memory ...
+Writing 1 byte to output file <stdout>
+0xc9
+
+Avrdude done.  Thank you.
+```
+
+To restore the UPDI pin setting, you need to write the original value back.
+
+```
+> avrdude -c serialupdi -b 115200 -P COM8 -p 64dd28 -U fuse5:w:0xd9:m
+Reading 1 byte for fuse5/syscfg0 from input file 0xd9
+Writing 1 byte (0xD9) to fuse5/syscfg0, 1 byte written, 1 verified
+
+Avrdude done.  Thank you.
+```
+
+
 ### ATtiny1604
 
 For ATtiny1604, the UPDI pin setting is controlled by the RSTPINCFG bits in the SYSCFG0 fuse.
@@ -492,7 +822,7 @@ To read SYSCFG0, specify `-U fuse5:r:-:h`.
 `fuse5` indicates SYSCFG0, `r` means read, `-` means standard output, and `h` means hexadecimal output.
 
 ```
->avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:r:-:h
+> avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:r:-:h
 Avrdude version 8.1
 Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
 
@@ -529,7 +859,7 @@ Use `-U fuse5:w:0xf2:m` to set SYSCFG0 to 0xf2. `w` means write, and `m` means i
 Note that if you change the RSTPINCFG bits to 2 (SYSCFG0: 0xfa), the UPDI pin becomes the RESET pin.
 
 ```
->avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:w:0xf2:m
+> avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:w:0xf2:m
 Avrdude version 8.1
 Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
 
@@ -561,7 +891,7 @@ Avrdude done.  Thank you.
 Read SYSCFG0 again. Since the UPDI pin has been changed to GPIO, the UPDI link cannot be established, and the read fails.
 
 ```
->avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:r:-:h
+> avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:r:-:h
 Avrdude version 8.1
 Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
 
@@ -592,7 +922,7 @@ With that state, change the RSTPINCFG bits back to 1 and restore the UPDI pin.
 Use `-U fuse5:w:0xf6:m` to set SYSCFG0 back to 0xf6.
 
 ```
->avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:w:0xf6:m
+> avrdude -c serialupdi -p t1604 -P COM8 -b 115200 -v -U fuse5:w:0xf6:m
 Avrdude version 8.1
 Copyright see https://github.com/avrdudes/avrdude/blob/main/AUTHORS
 
@@ -618,6 +948,17 @@ Leaving NVM programming mode
 
 Avrdude done.  Thank you.
 ```
+
+#### Lock / unlock
+
+This is almost the same as AVR64DD28, so it is omitted here. Be careful about the difference in the `-p` option.
+
+#### Lock and GPIO reconfiguration of the UPDI pin
+
+This is almost the same as AVR64DD28, so it is omitted here. Be careful about the difference in the `-p` option and the SYSCFG0 fuse value.
+
+At present, chip erase by holding down the START button does not work reliably on the ATtiny series. You must erase via the avrdude command (`-e`).
+
 
 ## Troubleshooting
 
