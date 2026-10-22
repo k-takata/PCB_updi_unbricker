@@ -951,6 +951,8 @@ Avrdude done.  Thank you.
 
 This is almost the same as AVR64DD28, so it is omitted here. Be careful about the difference in the `-p` option.
 
+Also, the register for lock control is called Key Bits, and it is 1 byte.
+
 #### Lock and GPIO reconfiguration of the UPDI pin
 
 This is almost the same as AVR64DD28, so it is omitted here. Be careful about the difference in the `-p` option and the SYSCFG0 fuse value.
