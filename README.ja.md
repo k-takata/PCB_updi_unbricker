@@ -1149,10 +1149,13 @@ Rev. 2での変更点は以下の通りです。
 ## 完成品
 
 Rev. 1:  
-[![完成品](images/unbricker-thumb.jpg)](images/unbricker.jpg)
+[![完成品 Rev. 1](images/unbricker-thumb.jpg)](images/unbricker.jpg)
 
 Rev. 2:  
-[![完成品](images/unbricker-rev2-thumb.jpg)](images/unbricker-rev2.jpg)
+[![完成品 Rev. 2](images/unbricker-rev2-thumb.jpg)](images/unbricker-rev2.jpg)
+
+Rev. 3:  
+[![完成品 Rev. 3](images/unbricker-rev3-thumb.jpg)](images/unbricker-rev3.jpg)
 
 
 ## License

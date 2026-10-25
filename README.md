@@ -1121,10 +1121,13 @@ The following changes were made in Rev. 2:
 ## Finished product
 
 Rev. 1:  
-[![Finished product](images/unbricker-thumb.jpg)](images/unbricker.jpg)
+[![Finished product Rev. 1](images/unbricker-thumb.jpg)](images/unbricker.jpg)
 
 Rev. 2:  
-[![Finished product](images/unbricker-rev2-thumb.jpg)](images/unbricker-rev2.jpg)
+[![Finished product Rev. 2](images/unbricker-rev2-thumb.jpg)](images/unbricker-rev2.jpg)
+
+Rev. 3:  
+[![Finished product Rev. 3](images/unbricker-rev3-thumb.jpg)](images/unbricker-rev3.jpg)
 
 ## License
 
