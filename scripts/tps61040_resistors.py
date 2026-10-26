@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 
-# Find combinations of up to 3 resistors from E24 series to form R1 and R2 such that R1/R2 is close to 19.
+# Find combinations of up to 3 resistors from E24 series to form R1 and R2 such that R1/R2 is close to 8.732.
 # R1 can be a single resistor or a combination (series/parallel). R2 can be a single resistor or a combination.
 # Alternatively, since we can use up to 3 resistors total, we can do:
 # Case 1: R1 is 2 resistors (series/parallel), R2 is 1 resistor.
 # Case 2: R1 is 1 resistor, R2 is 2 resistors (series/parallel).
 # Case 3: R1 is 1 resistor, R2 is 1 resistor.
-
-import itertools
 
 e24 = [1.0, 1.1, 1.2, 1.3, 1.5, 1.6, 1.8, 2.0, 2.2, 2.4, 2.7, 3.0, 3.3, 3.6, 3.9, 4.3, 4.7, 5.1, 5.6, 6.2, 6.8, 7.5, 8.2, 9.1]
 # E24 multipliers from 100 to 1M for R1, and 10 to 100k for R2.
@@ -17,7 +15,7 @@ all_e24 = sorted(list(set([round(val * m, 2) for val in e24 for m in multipliers
 
 # Filter reasonable ranges to avoid extreme values.
 # Generally, R2 should be between 1k and 50k, R1 between 20k and 1M.
-r_vals = [r for r in all_e24 if 1000 <= r <= 1000000]
+#r_vals = [r for r in all_e24 if 1000 <= r <= 1000000]
 r_vals = [1000, 1200, 1500, 1800, 2000, 2200, 3000, 3300, 4700, 5100, 5600, 7500, 10000, 12000, 15000, 18000, 20000, 22000, 33000, 43000, 47000, 51000, 75000, 100000, 200000, 300000, 390000, 470000, 680000, 1000000, 10000000]
 
 v_ref = 1.233
@@ -75,11 +73,11 @@ for r1_a in r_vals:
 results.sort(key=lambda x: abs(x[0] - 12.0))
 
 # Filter to display best options for each combination count or highly practical options
-# Let's print out the top options that are well within 11.5 - 12.5V and use standard R2 ranges (e.g. 2k-20k).
+# Let's print out the top options that are well within 11.5 - 12.5V and use standard R2 ranges (e.g. 40k-200k).
 practical = []
 for res in results:
     v, r1_t, r2_t = res
-    # Get representative R2 value to check if it's in a good range (say 2k to 30k)
+    # Get representative R2 value to check if it's in a good range (say 40k to 200k)
     r2_eff = r2_t[0] if len(r2_t) == 1 else (r2_t[0]+r2_t[1] if r2_t[2]=='series' else (r2_t[0]*r2_t[1])/(r2_t[0]+r2_t[1]))
     if 40000 <= r2_eff <= 200000:
         practical.append(res)
