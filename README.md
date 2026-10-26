@@ -988,7 +988,7 @@ At present, chip erase by holding down the START button does not work reliably o
 
 A TPS61040 generates the 12 V rail. The IC can switch up to 400 mA, but this design only requires roughly 20 mA, so it is configured accordingly.
 
-In the R10, R11, and R12 divider network, the ratio of the effective resistance of R10 + R11 to R12 is tuned to be close to 8.732 (= 12 / 1.233). We used the 470 kΩ, 10 MΩ, and 51 kΩ combination because it was the closest match among the 1% resistors available.
+In the R10, R11, and R12 divider network, the ratio of the effective resistance of R10∥R11 to R12 is tuned to be close to 8.732 (= 12 / 1.233). We used the 470 kΩ, 10 MΩ, and 51 kΩ combination because it was the closest match among the 1% resistors available.
 
 The output voltage can be estimated with the following equation:
 
