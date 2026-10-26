@@ -106,11 +106,11 @@ constexpr uint8_t chip_erase_key[] = {0x65, 0x73, 0x61, 0x72, 0x45, 0x4d, 0x56, 
 constexpr uint8_t nvmprog_key[]    = {0x20, 0x67, 0x6f, 0x72, 0x50, 0x4d, 0x56, 0x4e}; // 0x4E564D50726F6720 'NVMProg '
 constexpr uint8_t userrow_key[]    = {0x65, 0x74, 0x26, 0x73, 0x55, 0x4d, 0x56, 0x4e}; // 0x4E564D5573267465 'NVMUs&te'
 
-uint8_t updi_send_byte(uint8_t b)
+void updi_send_byte(uint8_t b)
 {
-  // RXD is connected to TXD; we receive the same byte that we sent.
+  // In half-duplex mode, the core ignores the echo of the transmitted byte
+  // (RX is not stored in the RX buffer while transmitting).
   serial_updi.write(b);
-  return serial_updi.read();
 }
 
 // Send a UPDI Instruction
