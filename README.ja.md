@@ -121,9 +121,9 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |SW1-SW3    |   3|[SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/)|スライドスイッチ 1回路2接点 基板用|
 |SW4        |   1|      |プッシュスイッチ|
 |U1         |   1|[CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586)||
-|U2         |   1|[AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186)||
+|U2         |   1|[AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186)|あるいはLM1117GS-3.3|
 |U3         |   1|[74LVC1G3157](https://jlcpcb.com/partdetail/JSMSEMI-SN74LVC1G3157DBVRJSM/C44512789)|アナログスイッチ (SPDT)|
-|U4         |   1|[ATtiny402-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY402SSNR/C616056)|あるいは [ATtiny412-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY412SSNR/C1337190)|
+|U4         |   1|[ATtiny402-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY402SSNR/C616056)|あるいは[ATtiny412-SSNR](https://jlcpcb.com/partdetail/MicrochipTech-ATTINY412SSNR/C1337190)|
 |U5         |   1|[TPS61040DBVR](https://jlcpcb.com/partdetail/TexasInstruments-TPS61040DBVR/C7722)|ステップアップコンバーター|
 
 (\*1) D2またはD11のどちらか一方を実装する。  
