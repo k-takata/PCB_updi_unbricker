@@ -163,13 +163,16 @@ updi_reg_status updi_read_reg(
     if (serial_updi.available()) {
       uint8_t b = serial_updi.read();
       return {true, b};
-      delayMicroseconds(50);
     }
+    delayMicroseconds(50);
   }
   return {false, 0x00};
 }
 
-void reset_target()
+constexpr uint32_t chip_erase_threshold_ms = 5000;
+
+// Returns true if the START button was held down for over the threshold.
+bool reset_target(uint32_t pressed_time)
 {
   // This is required for ATtiny devices to satisfy the POR timing window.
   // It is also acceptable for AVR Dx/Ex devices, where it simply ensures a clean reset
@@ -180,9 +183,15 @@ void reset_target()
   do {
     delay(50);
   } while (digitalReadFast(PIN_INPUT) == LOW);
+
+  // Measure the hold time here. Do not use pushed_time after this point,
+  // because contact bounce on release may overwrite it in the ISR.
+  const bool long_press = (millis() - pressed_time) > chip_erase_threshold_ms;
   openDrainFast(PIN_PWR, LOW);  // On
 
   delay(1);   // < 8.8 ms
+
+  return long_press;
 }
 
 constexpr uint32_t hv_pulse_12_us = 200;
@@ -313,19 +322,21 @@ void enable_updi(bool erase)
   serial_updi.end();
 }
 
-constexpr int chip_erase_threshold_ms = 5000;
-
 void loop()
 {
   if (checkButtonStatus()) {
-    reset_target();
-    bool erase = false;
-    if (millis() - pushed_time > chip_erase_threshold_ms) {
-      // The START button was held down for over the threshold.
-      erase = true;
-    }
+    // Copy with interrupts disabled; pushed_time is 32 bits wide.
+    noInterrupts();
+    const uint32_t pressed_time = pushed_time;
+    interrupts();
+
+    // If the START button was held down for over the threshold, erase the chip.
+    const bool erase = reset_target(pressed_time);
     send_hv_pulse();
     enable_updi(erase);
+
+    // Discard any bounce of the button release detected during the sequence.
+    button_pushed = false;
   }
   delay(10);
 }
