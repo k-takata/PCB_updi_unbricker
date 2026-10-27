@@ -232,14 +232,19 @@ constexpr uint32_t updi_inter_byte_delay_us = 20;   // > 2 bits
 //   AVR32LAxx: 70 ms
 constexpr uint32_t updi_erase_timeout_ms = 1000;
 
-void erase_chip()
+void start_prog()
 {
-  // Send Chip Erase key
-  updi_send_key_64(chip_erase_key);
-  delayMicroseconds(updi_inter_byte_delay_us);
-
   // Send NVMPROG key
   updi_send_key_64(nvmprog_key);
+}
+
+void erase_chip()
+{
+  // Send only the Chip Erase key before the reset, as described in the
+  // ATtiny datasheet. (The AVR Dx datasheet sends the NVMPROG key too, but
+  // that did not work reliably on ATtiny.)
+  // The NVMPROG key is sent after the erase is finished.
+  updi_send_key_64(chip_erase_key);
   delayMicroseconds(updi_inter_byte_delay_us);
 
   // Check key status
@@ -248,8 +253,7 @@ void erase_chip()
     if (!status) {
       return;
     }
-    const uint8_t mask = UPDI_NVMPROG_BIT | UPDI_CHER_BIT;
-    if ((value & mask) != mask) {
+    if ((value & UPDI_CHER_BIT) == 0x00) {
       return;
     }
   }
@@ -269,16 +273,13 @@ void erase_chip()
     }
     if ((value & UPDI_LOCKSTATUS_BIT) == 0x00) {
       // Chip Erase finished.
+      // Leave the device in the same state as the normal (short press) case.
+      delayMicroseconds(updi_inter_byte_delay_us);
+      start_prog();
       break;
     }
     delayMicroseconds(updi_inter_byte_delay_us);
   }
-}
-
-void start_prog()
-{
-  // Send NVMPROG key
-  updi_send_key_64(nvmprog_key);
 }
 
 constexpr uint32_t updi_wait_timeout_us = 2000;
