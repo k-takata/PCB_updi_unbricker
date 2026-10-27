@@ -34,7 +34,9 @@ void setup()
   // UPDI - 8-bit, even parity, 2 stop bits; one-wire
   //serial_updi.begin(UPDI_BAUD_RATE, SERIAL_8E2 | SERIAL_HALF_DUPLEX);
   //serial_updi.end();
-  pinModeFast(PIN_UPDI, INPUT_PULLUP);
+  // Keep the UPDI pin Hi-Z. The internal pull-up (5 V) must not pull up
+  // the UPDI line of a 3.3 V target.
+  pinModeFast(PIN_UPDI, INPUT);
 
   attachInterrupt(digitalPinToInterrupt(PIN_INPUT), buttonPushed, FALLING);
 }
@@ -170,6 +172,7 @@ updi_reg_status updi_read_reg(
 }
 
 constexpr uint32_t chip_erase_threshold_ms = 5000;
+constexpr uint32_t por_release_delay_ms = 2;  // < 8.8 ms
 
 // Returns true if the START button was held down for over the threshold.
 bool reset_target(uint32_t pressed_time)
@@ -189,7 +192,10 @@ bool reset_target(uint32_t pressed_time)
   const bool long_press = (millis() - pressed_time) > chip_erase_threshold_ms;
   openDrainFast(PIN_PWR, LOW);  // On
 
-  delay(1);   // < 8.8 ms
+  // Wait for the target to be released from POR before applying the HV pulse.
+  // A too short delay (1 ms) caused HV failures (AVR64DD28 @ 5 V, ATtiny Chip
+  // Erase). Keep it shorter than 8.8 ms for ATtiny.
+  delay(por_release_delay_ms);
 
   return long_press;
 }
@@ -320,6 +326,9 @@ void enable_updi(bool erase)
   }
 
   serial_updi.end();
+
+  // begin() sets the pin to INPUT_PULLUP and end() doesn't restore it.
+  pinModeFast(PIN_UPDI, INPUT);
 }
 
 void loop()

@@ -959,7 +959,7 @@ Also, the register for lock control is called Key Bits, and it is 1 byte.
 
 This is almost the same as AVR64DD28, so it is omitted here. Be careful about the difference in the `-p` option and the SYSCFG0 fuse value.
 
-At present, chip erase by holding down the START button does not work reliably on the ATtiny series. You must erase via the avrdude command (`-e`).
+On the ATtiny series, chip erase by holding down the START button erases the device, but the first avrdude access after that fails with "device is locked" (the chip erase key remains active, so avrdude's reset starts another chip erase). Running the same avrdude command again succeeds without power-cycling the target. Alternatively, erase via the avrdude command (`-e`).
 
 
 ## Troubleshooting
