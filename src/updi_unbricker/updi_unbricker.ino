@@ -172,6 +172,7 @@ updi_reg_status updi_read_reg(
 }
 
 constexpr uint32_t chip_erase_threshold_ms = 5000;
+constexpr uint32_t por_release_delay_ms = 2;  // < 8.8 ms
 
 // Returns true if the START button was held down for over the threshold.
 bool reset_target(uint32_t pressed_time)
@@ -191,7 +192,10 @@ bool reset_target(uint32_t pressed_time)
   const bool long_press = (millis() - pressed_time) > chip_erase_threshold_ms;
   openDrainFast(PIN_PWR, LOW);  // On
 
-  delay(1);   // < 8.8 ms
+  // Wait for the target to be released from POR before applying the HV pulse.
+  // A too short delay (1 ms) caused HV failures (AVR64DD28 @ 5 V, ATtiny Chip
+  // Erase). Keep it shorter than 8.8 ms for ATtiny.
+  delay(por_release_delay_ms);
 
   return long_press;
 }
