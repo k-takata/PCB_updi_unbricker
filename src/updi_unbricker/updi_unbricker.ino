@@ -223,6 +223,28 @@ void send_hv_pulse()
 
 constexpr uint32_t updi_inter_byte_delay_us = 20;   // > 2 bits
 
+// Error codes. They are notified by blinking the VDD indicator LEDs.
+constexpr uint8_t ERR_NONE = 0;
+constexpr uint8_t ERR_NO_RESPONSE = 1;  // The target doesn't respond
+constexpr uint8_t ERR_KEY_REJECTED = 2; // The Chip Erase key is not accepted
+constexpr uint8_t ERR_ERASE_TIMEOUT = 3;  // Chip Erase doesn't finish in time
+
+// Notify an error by blinking the target power (the VDD indicator LEDs).
+// This resets the target, but it is acceptable because the operation failed.
+// It doesn't blink if the target is powered externally.
+void notify_error(uint8_t code)
+{
+  constexpr uint32_t blink_ms = 150;
+
+  delay(500);
+  for (uint8_t i = 0; i < code; ++i) {
+    openDrainFast(PIN_PWR, FLOATING); // Off
+    delay(blink_ms);
+    openDrainFast(PIN_PWR, LOW);      // On
+    delay(blink_ms);
+  }
+}
+
 // t_P_CE (Chip Erase time)
 //   AVR64DDxx: 11 ms
 //   AVR128DAxx: 11 ms
@@ -232,7 +254,7 @@ constexpr uint32_t updi_inter_byte_delay_us = 20;   // > 2 bits
 //   AVR32LAxx: 70 ms
 constexpr uint32_t updi_erase_timeout_ms = 1000;
 
-void erase_chip()
+uint8_t erase_chip()
 {
   // Send Chip Erase key
   updi_send_key_64(chip_erase_key);
@@ -246,11 +268,11 @@ void erase_chip()
   {
     auto [status, value] = updi_read_reg(UPDI_REG_ASI_KEY_STATUS);
     if (!status) {
-      return;
+      return ERR_NO_RESPONSE;
     }
     const uint8_t mask = UPDI_NVMPROG_BIT | UPDI_CHER_BIT;
     if ((value & mask) != mask) {
-      return;
+      return ERR_KEY_REJECTED;
     }
   }
   delayMicroseconds(updi_inter_byte_delay_us);
@@ -265,14 +287,15 @@ void erase_chip()
 
     auto [status, value] = updi_read_reg(UPDI_REG_ASI_SYS_STATUS);
     if (!status) {
-      return;
+      return ERR_NO_RESPONSE;
     }
     if ((value & UPDI_LOCKSTATUS_BIT) == 0x00) {
       // Chip Erase finished.
-      break;
+      return ERR_NONE;
     }
     delayMicroseconds(updi_inter_byte_delay_us);
   }
+  return ERR_ERASE_TIMEOUT;
 }
 
 void start_prog()
@@ -283,7 +306,7 @@ void start_prog()
 
 constexpr uint32_t updi_wait_timeout_us = 2000;
 
-void enable_updi(bool erase)
+uint8_t enable_updi(bool erase)
 {
   // This is required only for AVR Dx/Ex series.
   // However, it should be harmless for ATtiny.
@@ -296,7 +319,7 @@ void enable_updi(bool erase)
   // Wait t_UPDI (10 - 200 us) and allow a generous timeout for real hardware variation.
 #if 1
   if (!wait_for_pin_state(PIN_UPDI, HIGH, updi_wait_timeout_us)) {
-    return;
+    return ERR_NO_RESPONSE;
   }
 #else
   for (int i = 0; i < 21; ++i) {
@@ -318,8 +341,9 @@ void enable_updi(bool erase)
 
   serial_updi.begin(UPDI_BAUD_RATE, SERIAL_8E2 | SERIAL_HALF_DUPLEX);
 
+  uint8_t err = ERR_NONE;
   if (erase) {
-    erase_chip();
+    err = erase_chip();
   }
   else {
     start_prog();
@@ -329,6 +353,8 @@ void enable_updi(bool erase)
 
   // begin() sets the pin to INPUT_PULLUP and end() doesn't restore it.
   pinModeFast(PIN_UPDI, INPUT);
+
+  return err;
 }
 
 void loop()
@@ -342,7 +368,10 @@ void loop()
     // If the START button was held down for over the threshold, erase the chip.
     const bool erase = reset_target(pressed_time);
     send_hv_pulse();
-    enable_updi(erase);
+    const uint8_t err = enable_updi(erase);
+    if (err != ERR_NONE) {
+      notify_error(err);
+    }
 
     // Discard any bounce of the button release detected during the sequence.
     button_pushed = false;
