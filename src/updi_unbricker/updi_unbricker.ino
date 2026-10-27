@@ -89,10 +89,13 @@ constexpr uint8_t UPDI_STCS = 0xc0;
 constexpr uint8_t UPDI_KEY_64 = 0xe0;
 
 // UPDI registers
+constexpr uint8_t UPDI_REG_CTRLB = 0x03;
 constexpr uint8_t UPDI_REG_ASI_KEY_STATUS = 0x07;
 constexpr uint8_t UPDI_REG_RESET_REQ = 0x08;
 constexpr uint8_t UPDI_REG_ASI_SYS_STATUS = 0x0B;
 
+// Bitmasks for UPDI_REG_CTRLB
+constexpr uint8_t UPDI_UPDIDIS_BIT = 0x04;
 // Bitmasks for UPDI_REG_ASI_KEY_STATUS
 constexpr uint8_t UPDI_UROWWR_BIT = 0x20;
 constexpr uint8_t UPDI_NVMPROG_BIT = 0x10;
@@ -231,7 +234,6 @@ constexpr uint32_t updi_inter_byte_delay_us = 20;   // > 2 bits
 //   AVR16LAxx: 50 ms
 //   AVR32LAxx: 70 ms
 constexpr uint32_t updi_erase_timeout_ms = 1000;
-constexpr uint32_t updi_post_erase_delay_ms = 100;
 
 void start_prog()
 {
@@ -274,17 +276,12 @@ void erase_chip()
     }
     if ((value & UPDI_LOCKSTATUS_BIT) == 0x00) {
       // Chip Erase finished.
-      // Wait for the erase to complete and apply a System Reset again, so
-      // that the lock status is refreshed. Otherwise, the first access from
-      // the host fails with "device is locked" on ATtiny.
-      delay(updi_post_erase_delay_ms);
-      updi_write_reg(UPDI_REG_RESET_REQ, UPDI_RSTREQ_RESET);
+      // The Chip Erase key is not invalidated on ATtiny (the CHER bit of
+      // ASI_KEY_STATUS remains set), so the next reset issued by the host
+      // starts another chip erase and the host fails with "device is locked".
+      // Disable the UPDI to reset all the keys. The host will enable it again.
       delayMicroseconds(updi_inter_byte_delay_us);
-      updi_write_reg(UPDI_REG_RESET_REQ, UPDI_RSTREQ_RUN);
-      delayMicroseconds(updi_inter_byte_delay_us);
-
-      // Leave the device in the same state as the normal (short press) case.
-      start_prog();
+      updi_write_reg(UPDI_REG_CTRLB, UPDI_UPDIDIS_BIT);
       break;
     }
     delayMicroseconds(updi_inter_byte_delay_us);
