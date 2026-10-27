@@ -34,7 +34,9 @@ void setup()
   // UPDI - 8-bit, even parity, 2 stop bits; one-wire
   //serial_updi.begin(UPDI_BAUD_RATE, SERIAL_8E2 | SERIAL_HALF_DUPLEX);
   //serial_updi.end();
-  pinModeFast(PIN_UPDI, INPUT_PULLUP);
+  // Keep the UPDI pin Hi-Z. The internal pull-up (5 V) must not pull up
+  // the UPDI line of a 3.3 V target.
+  pinModeFast(PIN_UPDI, INPUT);
 
   attachInterrupt(digitalPinToInterrupt(PIN_INPUT), buttonPushed, FALLING);
 }
@@ -320,6 +322,9 @@ void enable_updi(bool erase)
   }
 
   serial_updi.end();
+
+  // begin() sets the pin to INPUT_PULLUP and end() doesn't restore it.
+  pinModeFast(PIN_UPDI, INPUT);
 }
 
 void loop()
