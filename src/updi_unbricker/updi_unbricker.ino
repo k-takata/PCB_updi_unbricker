@@ -225,9 +225,11 @@ constexpr uint32_t updi_inter_byte_delay_us = 20;   // > 2 bits
 
 // Error codes. They are notified by blinking the VDD indicator LEDs.
 constexpr uint8_t ERR_NONE = 0;
-constexpr uint8_t ERR_NO_RESPONSE = 1;  // The target doesn't respond
-constexpr uint8_t ERR_KEY_REJECTED = 2; // The Chip Erase key is not accepted
-constexpr uint8_t ERR_ERASE_TIMEOUT = 3;  // Chip Erase doesn't finish in time
+constexpr uint8_t ERR_NO_UPDI = 1;          // UPDI is not enabled (handshake failed)
+constexpr uint8_t ERR_KEY_NO_RESPONSE = 2;  // No response when reading the key status
+constexpr uint8_t ERR_KEY_REJECTED = 3;     // The Chip Erase key is not accepted
+constexpr uint8_t ERR_LOCK_NO_RESPONSE = 4; // No response when reading the lock status
+constexpr uint8_t ERR_ERASE_TIMEOUT = 5;    // Chip Erase doesn't finish in time
 
 // Notify an error by blinking the target power (the VDD indicator LEDs).
 // This resets the target, but it is acceptable because the operation failed.
@@ -268,7 +270,7 @@ uint8_t erase_chip()
   {
     auto [status, value] = updi_read_reg(UPDI_REG_ASI_KEY_STATUS);
     if (!status) {
-      return ERR_NO_RESPONSE;
+      return ERR_KEY_NO_RESPONSE;
     }
     const uint8_t mask = UPDI_NVMPROG_BIT | UPDI_CHER_BIT;
     if ((value & mask) != mask) {
@@ -280,6 +282,7 @@ uint8_t erase_chip()
   updi_write_reg(UPDI_REG_RESET_REQ, UPDI_RSTREQ_RESET);
   delayMicroseconds(updi_inter_byte_delay_us);
 
+  bool responded = false;
   const uint32_t start_erase = millis();
   while ((millis() - start_erase) < updi_erase_timeout_ms) {
     updi_write_reg(UPDI_REG_RESET_REQ, UPDI_RSTREQ_RUN);
@@ -287,15 +290,18 @@ uint8_t erase_chip()
 
     auto [status, value] = updi_read_reg(UPDI_REG_ASI_SYS_STATUS);
     if (!status) {
-      return ERR_NO_RESPONSE;
+      // The target may not respond for a while after the reset. Retry.
+      delay(1);
+      continue;
     }
+    responded = true;
     if ((value & UPDI_LOCKSTATUS_BIT) == 0x00) {
       // Chip Erase finished.
       return ERR_NONE;
     }
     delayMicroseconds(updi_inter_byte_delay_us);
   }
-  return ERR_ERASE_TIMEOUT;
+  return responded ? ERR_ERASE_TIMEOUT : ERR_LOCK_NO_RESPONSE;
 }
 
 void start_prog()
@@ -319,7 +325,7 @@ uint8_t enable_updi(bool erase)
   // Wait t_UPDI (10 - 200 us) and allow a generous timeout for real hardware variation.
 #if 1
   if (!wait_for_pin_state(PIN_UPDI, HIGH, updi_wait_timeout_us)) {
-    return ERR_NO_RESPONSE;
+    return ERR_NO_UPDI;
   }
 #else
   for (int i = 0; i < 21; ++i) {
