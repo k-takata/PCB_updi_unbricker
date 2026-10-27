@@ -309,6 +309,23 @@ With the connection set, press the START button. The board resets the target, se
 
 For a locked AVR Dx/Ex device, keep pressing the START button for over 5 seconds; you can forcibly unlock the target by erasing it.
 
+#### Error notification
+
+If the board fails to enable UPDI or to erase the chip, it notifies the error by blinking the VDD indicator LEDs (D8/D9) after the operation. The number of blinks shows the cause.
+
+| Blinks | Cause |
+|--------|-------|
+| 1 | UPDI could not be enabled. The UPDI line did not return to high after the enable pulse. Check the target connection (J5/J6), SW1, and SW3. |
+| 2 | No response when reading the key status (Chip Erase). |
+| 3 | The target did not accept the Chip Erase key. |
+| 4 | No response when reading the lock status after Chip Erase. |
+| 5 | Chip Erase did not finish in time. |
+
+Notes:
+
+* Blinking is done by switching the target power off and on, so the target is reset. The LEDs do not blink if SW3 is OFF or if the target is powered externally.
+* A normal START press (without erasing) can only report 1 blink. The board cannot check whether the NVMPROG key was accepted.
+
 ### Serial communication
 
 Configure and connect the switches and connectors as follows.
@@ -959,7 +976,7 @@ Also, the register for lock control is called Key Bits, and it is 1 byte.
 
 This is almost the same as AVR64DD28, so it is omitted here. Be careful about the difference in the `-p` option and the SYSCFG0 fuse value.
 
-On the ATtiny series, chip erase by holding down the START button erases the device, but the first avrdude access after that fails with "device is locked" (the chip erase key remains active, so avrdude's reset starts another chip erase). Running the same avrdude command again succeeds without power-cycling the target. Alternatively, erase via the avrdude command (`-e`).
+On the ATtiny series, chip erase by holding down the START button may not work reliably. In some cases, the first avrdude access after it fails with "device is locked". If this happens, run the same avrdude command again, or erase via the avrdude command (`-e`).
 
 
 ## Troubleshooting
@@ -969,6 +986,7 @@ On the ATtiny series, chip erase by holding down the START button erases the dev
 * Confirm that J2 is set to the **Target** side.
 * Confirm that the programmer is set to SerialUPDI.
 * Do not wait too long after pressing START before starting the programming operation.
+* If the VDD indicator LEDs blink after pressing START, see “Error notification”.
 
 ### Target does not start or is unstable
 
