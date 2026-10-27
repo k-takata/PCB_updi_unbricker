@@ -231,6 +231,7 @@ constexpr uint32_t updi_inter_byte_delay_us = 20;   // > 2 bits
 //   AVR16LAxx: 50 ms
 //   AVR32LAxx: 70 ms
 constexpr uint32_t updi_erase_timeout_ms = 1000;
+constexpr uint32_t updi_post_erase_delay_ms = 100;
 
 void start_prog()
 {
@@ -273,8 +274,16 @@ void erase_chip()
     }
     if ((value & UPDI_LOCKSTATUS_BIT) == 0x00) {
       // Chip Erase finished.
-      // Leave the device in the same state as the normal (short press) case.
+      // Wait for the erase to complete and apply a System Reset again, so
+      // that the lock status is refreshed. Otherwise, the first access from
+      // the host fails with "device is locked" on ATtiny.
+      delay(updi_post_erase_delay_ms);
+      updi_write_reg(UPDI_REG_RESET_REQ, UPDI_RSTREQ_RESET);
       delayMicroseconds(updi_inter_byte_delay_us);
+      updi_write_reg(UPDI_REG_RESET_REQ, UPDI_RSTREQ_RUN);
+      delayMicroseconds(updi_inter_byte_delay_us);
+
+      // Leave the device in the same state as the normal (short press) case.
       start_prog();
       break;
     }
