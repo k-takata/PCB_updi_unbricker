@@ -206,7 +206,7 @@ J3 is a standard 6-pin TTL serial connector. You can select pin 6 on J3 as eithe
 
 SW1 selects whether HV programming is enabled. For safety, it is normally recommended to keep it OFF.
 
-SW2 selects the target supply voltage. You can select 5 V or 3.3 V.
+SW2 selects the target supply voltage and the signal levels of J3, J5, and J6 from 5 V or 3.3 V. Even if the target is powered from an external source, set SW2 to match the target's voltage.
 
 SW3 selects whether the board supplies power to the target. If set to ON, it supplies power; if set to OFF, it does not. If the target is already powered by another path, set this to OFF.
 
@@ -1028,6 +1028,10 @@ Example combinations:
 |390 k | -    | 43 k | 12.41 | E24 series |
 |  1 M | 10 M |100 k | 12.44 | |
 
+[`scripts/tps61040_resistors.py`](scripts/tps61040_resistors.py) was used to calculate the resistor values.
+
+(A script for Rev. 2 is also kept for reference: [`scripts/mt3608_resistors.py`](scripts/mt3608_resistors.py))
+
 
 ### CH340K 3.3 V operation
 
@@ -1053,7 +1057,7 @@ If you change the LEDs, adjust the Zener voltage and resistor values to match th
 
 #### ATtiny
 
-The ATtiny (J5) UPDI data line receives a 12 V pulse, so it is necessary to protect the AVR Dx/Ex UPDI data line and the USB-to-serial converter chip (U1) from being exposed to that 12 V spike.
+The ATtiny (J5) UPDI data line receives a 12 V pulse, so it is necessary to protect the AVR Dx/Ex UPDI data line (UPDI_TGT), the ATtiny (U4) on this board, and the USB-to-serial converter chip (U1) from being exposed to that 12 V spike.
 At the same time, because UPDI is a bidirectional interface, the circuit must pass normal communication while blocking only the 12 V pulse.
 
 In this design, an N-ch MOSFET (Q3) protects against the 12 V pulse. This is effectively an application of the logic level shifter using an N-ch MOSFET.
