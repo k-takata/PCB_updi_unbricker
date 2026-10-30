@@ -1087,7 +1087,11 @@ The resistor is pulled up to VDD_TGT, not to VDD, on purpose. The line follows t
 
 AVR Dx/Ex (J6) works without this resistor because the target pulls up the UPDI line by itself.
 
-Do not add a pull-up resistor between TxD (J3 pin 4) and VDD_TGT (J3 pin 3) to support high-speed serial communication. In testing, it prevented writing to U4 (with J2 set to FW) and caused the USB connection to be dropped when START was pressed at 3.3 V.
+Do not add a pull-up resistor between TxD (J3 pin 4) and VDD_TGT (J3 pin 3) to support high-speed serial communication, although the datasheet of the CH340K recommends a 2 kΩ to 22 kΩ pull-up resistor for the RX pin of the MCU for communication above 120 kbps. In testing, it prevented writing to U4 (with J2 set to FW) and caused the USB connection to be dropped when START was pressed at 3.3 V.
+
+The cause of the former is presumably as follows (inferred from the datasheet and the schematic, not verified by measurement). The TXD pin of the CH340K is a weak-high output: its high level is held only by a built-in pull-up resistor of about 75 kΩ (and a built-in diode). TxD is also connected to the UPDI line through D1 and R1. While U4 is being written, VDD_TGT is 0 V because Q4 is off, so the 10 kΩ resistor pulls TxD down to about 0.1 × VCC, which is practically low, and D1 pulls the UPDI line down. The cause of the USB disconnection has not been identified.
+
+If high-speed serial communication is needed, pulling TxD up to VDD (the supply of the CH340K), not to VDD_TGT, may work (not tested). In that case, a current of about 0.3 to 0.4 mA with 10 kΩ flows into the RX pin of the target through its protection diode while the target is not powered. A larger resistance (up to 22 kΩ) reduces it.
 
 
 ## Issues with DxCore 1.6.2
