@@ -89,10 +89,13 @@ constexpr uint8_t UPDI_STCS = 0xc0;
 constexpr uint8_t UPDI_KEY_64 = 0xe0;
 
 // UPDI registers
+constexpr uint8_t UPDI_REG_CTRLB = 0x03;
 constexpr uint8_t UPDI_REG_ASI_KEY_STATUS = 0x07;
 constexpr uint8_t UPDI_REG_RESET_REQ = 0x08;
 constexpr uint8_t UPDI_REG_ASI_SYS_STATUS = 0x0B;
 
+// Bitmasks for UPDI_REG_CTRLB
+constexpr uint8_t UPDI_CCDETDIS_BIT = 0x08;
 // Bitmasks for UPDI_REG_ASI_KEY_STATUS
 constexpr uint8_t UPDI_UROWWR_BIT = 0x20;
 constexpr uint8_t UPDI_NVMPROG_BIT = 0x10;
@@ -160,6 +163,10 @@ updi_reg_status updi_read_reg(
   //   1'000'000 [us] / 115'200 [bps] = 8.681 [us / bit]
   //   8.681 * (128 + 12) = 1215 [us] (Idle bits + 1 frame)
 
+  // write() only queues the data. Wait until the instruction is sent
+  // completely, otherwise the timeout expires before the response arrives
+  // (the queued frames take up to 1 ms, as long as the guard time).
+  serial_updi.flush();
   const uint32_t start = micros();
   while ((micros() - start) < timeoutUs) {
     if (serial_updi.available()) {
@@ -262,6 +269,14 @@ uint8_t erase_chip()
   updi_send_key_64(chip_erase_key);
   delayMicroseconds(updi_inter_byte_delay_us);
 
+  // Disable the contention detection.
+  // Without it, the target aborts its response (the logic analyzer shows a
+  // 2 us low pulse at the end of the guard time) and the following register
+  // reads fail. The key must be the first instruction after the UPDI is
+  // enabled, so write CTRLB after the key.
+  updi_write_reg(UPDI_REG_CTRLB, UPDI_CCDETDIS_BIT);
+  delayMicroseconds(updi_inter_byte_delay_us);
+
   // Send NVMPROG key
   updi_send_key_64(nvmprog_key);
   delayMicroseconds(updi_inter_byte_delay_us);
@@ -346,6 +361,12 @@ uint8_t enable_updi(bool erase)
 #endif
 
   serial_updi.begin(UPDI_BAUD_RATE, SERIAL_8E2 | SERIAL_HALF_DUPLEX);
+
+  // begin() sets the pin to INPUT_PULLUP. Keep the pin Hi-Z during the
+  // communication too, so that the internal pull-up (5 V) does not pull up
+  // the UPDI line of a 3.3 V target. The UPDI line is pulled up by the target
+  // (AVR Dx/Ex) or by the external pull-up resistor (ATtiny).
+  pinModeFast(PIN_UPDI, INPUT);
 
   uint8_t err = ERR_NONE;
   if (erase) {
