@@ -182,6 +182,8 @@ J5 is the connector for ATtiny devices.
 
 The UPDI pin outputs a 12 V HV pulse, so the target circuit must be designed to tolerate this voltage.
 
+On the Rev. 3 board, to communicate with an ATtiny via J5, a 10 kΩ pull-up resistor must be added between UPDI_TGT and VDD_TGT. See "Pull-up resistor for ATtiny (J5)".
+
 J6 is the connector for AVR Dx/Ex devices and matches the UPDI v2 connector used by the [AVR Programming Adapter](https://www.microchip.com/en-us/development-tool/AC31S18A).
 
 | Pin | Function | Color |
@@ -976,8 +978,6 @@ Also, the register for lock control is called Key Bits, and it is 1 byte.
 
 This is almost the same as AVR64DD28, so it is omitted here. Be careful about the difference in the `-p` option and the SYSCFG0 fuse value.
 
-On the ATtiny series, chip erase by holding down the START button may not work reliably. In some cases, the first avrdude access after it fails with "device is locked". If this happens, run the same avrdude command again, or erase via the avrdude command (`-e`).
-
 
 ## Troubleshooting
 
@@ -993,6 +993,11 @@ On the ATtiny series, chip erase by holding down the START button may not work r
 * Check the SW2 and SW3 settings and ensure there is no double-powering from an external source.
 * Check that GND is common.
 * Re-check the orientation and pin mapping of J5 and J6.
+
+### Cannot communicate with an ATtiny (J5)
+
+* Check that the 10 kΩ pull-up resistor between UPDI_TGT and VDD_TGT has been added. See "Pull-up resistor for ATtiny (J5)".
+* Check that SW2 is set to match the target voltage.
 
 ### Concern about the HV voltage
 
@@ -1072,6 +1077,19 @@ The AVR Dx/Ex (J6) RESET line receives a 7.5 V pulse, but outside the pulse peri
 
 The design pulls the line up to VDD with R7 and blocks reverse current with D5.
 
+### Pull-up resistor for ATtiny (J5)
+
+The N-ch MOSFET level shifter (Q3) requires pull-up resistors on both sides. The ATtiny side (UPDI_TINY) is pulled up by the internal pull-up of the UPDI pin of the target. On the Rev. 3 board, however, the UPDI_TGT side has no pull-up resistor. Without it, the high level of UPDI_TGT stops at about VDD - Vth of Q3 (about 4 V at 5 V) and the communication with an ATtiny becomes unreliable. (The internal pull-up of U4 was used for this purpose in the early firmware, but it pulled up the UPDI line of a 3.3 V target to 5 V, so it is no longer used.)
+
+Add a 10 kΩ resistor between UPDI_TGT and VDD_TGT. On the Rev. 3 board, solder it between the anode of D4 (pin 2, the UPDI_TGT side) and pin 3 of Q4 (VDD_TGT).
+
+The resistor is pulled up to VDD_TGT, not to VDD, on purpose. The line follows the voltage of the target, so it works with a 3.3 V target or a target powered from an external source, and it does not back-power the target through its protection diodes while the board does not supply power. (When pulled up to VDD, VDD_TGT was raised to about 2 V while the target power was off.)
+
+AVR Dx/Ex (J6) works without this resistor because the target pulls up the UPDI line by itself.
+
+Do not add a pull-up resistor between TxD (J3 pin 4) and VDD_TGT (J3 pin 3) to support high-speed serial communication. In testing, it prevented writing to U4 (with J2 set to FW) and caused the USB connection to be dropped when START was pressed at 3.3 V.
+
+
 ## Issues with DxCore 1.6.2
 
 ### Critical issue
@@ -1132,6 +1150,8 @@ The following changes were made in Rev. 3:
 
 * Replaced the step-up converter from MT3608L to TPS61040. (JLCPCB's Promotional Extended part)
 * Replaced the analog switch circuit from the discrete parts with the 74LVC1G3157.
+
+Known issue: the UPDI_TGT side of Q3 has no pull-up resistor. Add a 10 kΩ resistor to communicate with an ATtiny. See "Pull-up resistor for ATtiny (J5)".
 
 ### Rev. 2
 
