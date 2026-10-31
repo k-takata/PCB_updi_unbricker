@@ -999,6 +999,16 @@ This is almost the same as AVR64DD28, so it is omitted here. Be careful about th
 * Check that the 10 kΩ pull-up resistor between UPDI_TGT and VDD_TGT has been added. See "Pull-up resistor for ATtiny (J5)".
 * Check that SW2 is set to match the target voltage.
 
+### USB connection is dropped (at 3.3 V)
+
+At 3.3 V, the USB connection may be dropped for a moment when the START button is released, or when a target is connected while the board is powered from USB. The connection recovers immediately and the HV programming is not affected. This is a known limitation.
+
+* The cause is presumably as follows (not verified). When the target power is turned on, an inrush current into the target makes VDD sag, and the CH340K (powered by VDD) is reset (the power-on reset threshold is 2.4 to 2.8 V). The margin is small at 3.3 V.
+* It happened more often when the target had additional circuits such as LEDs.
+* When the target is powered from an external source (SW3 OFF), it did not happen at the release of the START button.
+* Adding a 0.1 μF decoupling capacitor between pin 7 (VCC) and GND of U1 did not make a clear difference.
+* Turning on the target power gradually in the firmware (soft start by PWM) reduced the frequency, but it did not eliminate it.
+
 ### Concern about the HV voltage
 
 * Adjust R10, R11, and R12 so that the TP2 voltage is around 12 V (11.5 V to 12.5 V).
@@ -1087,11 +1097,13 @@ The resistor is pulled up to VDD_TGT, not to VDD, on purpose. The line follows t
 
 AVR Dx/Ex (J6) works without this resistor because the target pulls up the UPDI line by itself.
 
-Do not add a pull-up resistor between TxD (J3 pin 4) and VDD_TGT (J3 pin 3) to support high-speed serial communication, although the datasheet of the CH340K recommends a 2 kΩ to 22 kΩ pull-up resistor for the RX pin of the MCU for communication above 120 kbps. In testing, it prevented writing to U4 (with J2 set to FW) and caused the USB connection to be dropped when START was pressed at 3.3 V.
+### High-speed serial communication (J3)
 
-The cause of the former is presumably as follows (inferred from the datasheet and the schematic, not verified by measurement). The TXD pin of the CH340K is a weak-high output: its high level is held only by a built-in pull-up resistor of about 75 kΩ (and a built-in diode). TxD is also connected to the UPDI line through D1 and R1. While U4 is being written, VDD_TGT is 0 V because Q4 is off, so the 10 kΩ resistor pulls TxD down to about 0.1 × VCC, which is practically low, and D1 pulls the UPDI line down. The cause of the USB disconnection has not been identified.
+The datasheet of the CH340K recommends a 2 kΩ to 22 kΩ pull-up resistor for the RX pin of the MCU for communication above 120 kbps. The TXD pin of the CH340K is a weak-high output: its high level is held only by a built-in pull-up resistor of about 75 kΩ (and a built-in diode).
 
-If high-speed serial communication is needed, pulling TxD up to VDD (the supply of the CH340K), not to VDD_TGT, may work (not tested). In that case, a current of about 0.3 to 0.4 mA with 10 kΩ flows into the RX pin of the target through its protection diode while the target is not powered. A larger resistance (up to 22 kΩ) reduces it.
+On the Rev. 3 board, add a 10 kΩ resistor between pin 1 of Q3 (VDD) and the cathode of D1 (TxD) to pull TxD up to VDD (the supply of the CH340K). With this resistor, serial communication at 2 Mbps worked and writing to U4 was not affected. Note that a current of about 0.3 to 0.4 mA with 10 kΩ flows into the RX pin of the target through its protection diode while the target is not powered. A larger resistance (up to 22 kΩ) reduces it.
+
+Do not pull TxD up to VDD_TGT (e.g., by adding a resistor between J3 pin 4 and pin 3). In testing, it prevented writing to U4 (with J2 set to FW). The cause is presumably as follows (inferred from the datasheet and the schematic, not verified by measurement). TxD is also connected to the UPDI line through D1 and R1. While U4 is being written, VDD_TGT is 0 V because Q4 is off, so the resistor pulls the weak-high TxD down to about 0.1 × VCC, which is practically low, and D1 pulls the UPDI line down.
 
 
 ## Issues with DxCore 1.6.2
@@ -1155,7 +1167,10 @@ The following changes were made in Rev. 3:
 * Replaced the step-up converter from MT3608L to TPS61040. (JLCPCB's Promotional Extended part)
 * Replaced the analog switch circuit from the discrete parts with the 74LVC1G3157.
 
-Known issue: the UPDI_TGT side of Q3 has no pull-up resistor. Add a 10 kΩ resistor to communicate with an ATtiny. See "Pull-up resistor for ATtiny (J5)".
+Known issues:
+
+* The UPDI_TGT side of Q3 has no pull-up resistor. Add a 10 kΩ resistor to communicate with an ATtiny. See "Pull-up resistor for ATtiny (J5)".
+* At 3.3 V, the USB connection may be dropped for a moment when the target power is turned on. This is a limitation. See "USB connection is dropped (at 3.3 V)".
 
 ### Rev. 2
 
