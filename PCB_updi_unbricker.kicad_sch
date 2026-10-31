@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "UPDI Unbricker")
-		(date "2026-10-05")
-		(rev "3")
+		(date "2026-10-31")
+		(rev "4")
 		(company "K.Takata")
 	)
 	(lib_symbols
@@ -7691,6 +7691,12 @@
 		(uuid "02a22248-9e40-46e3-be0d-b02256fc865e")
 	)
 	(junction
+		(at 62.23 161.29)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "093915a4-a76f-4509-b0d2-74411b768f6d")
+	)
+	(junction
 		(at 187.96 73.66)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7721,13 +7727,19 @@
 		(uuid "3bc0c179-2029-4347-8099-760cf5db0d44")
 	)
 	(junction
+		(at 86.36 125.73)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "42b4be17-9dfc-471a-8b0c-a98b3a94e826")
+	)
+	(junction
 		(at 207.01 120.65)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "458f1d6d-acd1-448f-b1f7-ed6545af175b")
 	)
 	(junction
-		(at 82.55 125.73)
+		(at 72.39 125.73)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "45bf7042-a5b1-461f-b650-860f90c89ef0")
@@ -7787,12 +7799,6 @@
 		(uuid "7239473f-ec54-41f6-b2db-bac9dbfeb440")
 	)
 	(junction
-		(at 53.34 128.27)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "72fca294-ff89-45f0-a23e-f1d0c652024d")
-	)
-	(junction
 		(at 187.96 81.28)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7829,6 +7835,12 @@
 		(uuid "92fbf77d-5655-4d5f-931c-cc88af67fd5f")
 	)
 	(junction
+		(at 45.72 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "9960f6b7-59c5-4275-abae-196c37e4bb33")
+	)
+	(junction
 		(at 195.58 34.29)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -7853,7 +7865,7 @@
 		(uuid "abb67b65-1e29-4efe-8e26-eab1337b9cfa")
 	)
 	(junction
-		(at 68.58 120.65)
+		(at 60.96 120.65)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b220a79a-27a6-4279-adeb-71bb74bce0f8")
@@ -7907,7 +7919,7 @@
 		(uuid "cbcb2e6f-8908-455d-b132-12fa36cee189")
 	)
 	(junction
-		(at 29.21 171.45)
+		(at 24.13 171.45)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "d10a9237-89ce-4d04-b392-0d4c13388063")
@@ -7961,7 +7973,7 @@
 		(uuid "f5039455-a281-46b3-8e70-6c708183ff54")
 	)
 	(junction
-		(at 53.34 161.29)
+		(at 45.72 161.29)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "fb944ca8-47c7-4a3e-b228-be50a82a3a18")
@@ -7997,6 +8009,16 @@
 			(type default)
 		)
 		(uuid "007c11d5-569e-4f2e-b5b8-afdcc9db7610")
+	)
+	(wire
+		(pts
+			(xy 44.45 128.27) (xy 45.72 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "00c683c7-46f0-4704-9ebf-42030fd13837")
 	)
 	(wire
 		(pts
@@ -8070,7 +8092,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 138.43) (xy 74.93 138.43)
+			(xy 44.45 138.43) (xy 69.85 138.43)
 		)
 		(stroke
 			(width 0)
@@ -8140,7 +8162,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 143.51) (xy 29.21 176.53)
+			(xy 24.13 143.51) (xy 24.13 176.53)
 		)
 		(stroke
 			(width 0)
@@ -8260,7 +8282,7 @@
 	)
 	(wire
 		(pts
-			(xy 68.58 125.73) (xy 92.71 125.73)
+			(xy 60.96 125.73) (xy 86.36 125.73)
 		)
 		(stroke
 			(width 0)
@@ -8410,7 +8432,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 118.11) (xy 29.21 133.35)
+			(xy 24.13 118.11) (xy 24.13 133.35)
 		)
 		(stroke
 			(width 0)
@@ -8440,7 +8462,7 @@
 	)
 	(wire
 		(pts
-			(xy 53.34 161.29) (xy 53.34 158.75)
+			(xy 45.72 161.29) (xy 45.72 158.75)
 		)
 		(stroke
 			(width 0)
@@ -8530,7 +8552,7 @@
 	)
 	(wire
 		(pts
-			(xy 29.21 171.45) (xy 35.56 171.45)
+			(xy 24.13 171.45) (xy 30.48 171.45)
 		)
 		(stroke
 			(width 0)
@@ -8550,7 +8572,7 @@
 	)
 	(wire
 		(pts
-			(xy 20.32 161.29) (xy 101.6 161.29)
+			(xy 20.32 161.29) (xy 62.23 161.29)
 		)
 		(stroke
 			(width 0)
@@ -8607,16 +8629,6 @@
 			(type default)
 		)
 		(uuid "6cac4776-f4a3-4a66-95c5-e941aeab24cc")
-	)
-	(wire
-		(pts
-			(xy 53.34 143.51) (xy 53.34 128.27)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6cb2b791-495d-4f14-9c89-a65158b2fb8c")
 	)
 	(wire
 		(pts
@@ -8710,7 +8722,7 @@
 	)
 	(wire
 		(pts
-			(xy 67.31 115.57) (xy 68.58 115.57)
+			(xy 59.69 115.57) (xy 60.96 115.57)
 		)
 		(stroke
 			(width 0)
@@ -8730,6 +8742,16 @@
 	)
 	(wire
 		(pts
+			(xy 86.36 125.73) (xy 92.71 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7dcebf8d-4798-470a-9b6b-1b92062decf5")
+	)
+	(wire
+		(pts
 			(xy 106.68 114.3) (xy 106.68 115.57)
 		)
 		(stroke
@@ -8740,7 +8762,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 138.43) (xy 74.93 158.75)
+			(xy 69.85 138.43) (xy 69.85 158.75)
 		)
 		(stroke
 			(width 0)
@@ -8860,6 +8882,16 @@
 	)
 	(wire
 		(pts
+			(xy 45.72 128.27) (xy 45.72 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9055f083-c72e-4bb1-8f51-1754e0e2157e")
+	)
+	(wire
+		(pts
 			(xy 195.58 41.91) (xy 195.58 45.72)
 		)
 		(stroke
@@ -8870,7 +8902,7 @@
 	)
 	(wire
 		(pts
-			(xy 74.93 158.75) (xy 101.6 158.75)
+			(xy 69.85 158.75) (xy 101.6 158.75)
 		)
 		(stroke
 			(width 0)
@@ -8880,7 +8912,7 @@
 	)
 	(wire
 		(pts
-			(xy 53.34 118.11) (xy 68.58 118.11)
+			(xy 45.72 118.11) (xy 60.96 118.11)
 		)
 		(stroke
 			(width 0)
@@ -8960,7 +8992,7 @@
 	)
 	(wire
 		(pts
-			(xy 67.31 120.65) (xy 68.58 120.65)
+			(xy 59.69 120.65) (xy 60.96 120.65)
 		)
 		(stroke
 			(width 0)
@@ -9000,7 +9032,7 @@
 	)
 	(wire
 		(pts
-			(xy 20.32 176.53) (xy 29.21 176.53)
+			(xy 20.32 176.53) (xy 24.13 176.53)
 		)
 		(stroke
 			(width 0)
@@ -9030,7 +9062,7 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 171.45) (xy 43.18 171.45)
+			(xy 39.37 171.45) (xy 38.1 171.45)
 		)
 		(stroke
 			(width 0)
@@ -9060,7 +9092,7 @@
 	)
 	(wire
 		(pts
-			(xy 20.32 118.11) (xy 29.21 118.11)
+			(xy 20.32 118.11) (xy 24.13 118.11)
 		)
 		(stroke
 			(width 0)
@@ -9190,7 +9222,7 @@
 	)
 	(wire
 		(pts
-			(xy 53.34 128.27) (xy 53.34 118.11)
+			(xy 45.72 118.11) (xy 45.72 128.27)
 		)
 		(stroke
 			(width 0)
@@ -9230,17 +9262,7 @@
 	)
 	(wire
 		(pts
-			(xy 49.53 128.27) (xy 53.34 128.27)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c2a3dd0d-504f-49b9-ab29-91f5b1a7ea67")
-	)
-	(wire
-		(pts
-			(xy 68.58 120.65) (xy 68.58 125.73)
+			(xy 60.96 120.65) (xy 60.96 125.73)
 		)
 		(stroke
 			(width 0)
@@ -9267,6 +9289,16 @@
 			(type default)
 		)
 		(uuid "c9d4ebdd-b7ef-4437-a7c2-07d3fc3d900b")
+	)
+	(wire
+		(pts
+			(xy 62.23 161.29) (xy 101.6 161.29)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c9f23feb-f6b5-4195-bf87-27e6392536e3")
 	)
 	(wire
 		(pts
@@ -9519,7 +9551,7 @@
 		(uuid "d7f2a02a-146f-4f29-a63f-4fa0cf9dbb1d")
 	)
 	(label "UPDI"
-		(at 53.34 118.11 180)
+		(at 45.72 118.11 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -9866,7 +9898,7 @@
 	)
 	(global_label "UPDI_TGT"
 		(shape bidirectional)
-		(at 67.31 120.65 180)
+		(at 59.69 120.65 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -9876,7 +9908,7 @@
 		)
 		(uuid "51aff9de-ed1f-4ccb-8bd2-7efbace9dc65")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 54.5654 120.65 0)
+			(at 46.9454 120.65 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -10082,7 +10114,7 @@
 	)
 	(global_label "UPDI_FW"
 		(shape bidirectional)
-		(at 67.31 115.57 180)
+		(at 59.69 115.57 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -10092,7 +10124,7 @@
 		)
 		(uuid "99e10091-de22-4475-80a4-750b74ec47c9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 55.2306 115.57 0)
+			(at 47.6106 115.57 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12050,7 +12082,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 39.37 171.45 90)
+		(at 34.29 171.45 90)
 		(mirror x)
 		(unit 1)
 		(body_style 1)
@@ -12062,7 +12094,7 @@
 		(fields_autoplaced yes)
 		(uuid "26cb0795-788e-48a9-8717-4646c988a80a")
 		(property "Reference" "R4"
-			(at 39.37 165.1 90)
+			(at 34.29 165.1 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12072,7 +12104,7 @@
 			)
 		)
 		(property "Value" "100k"
-			(at 39.37 167.64 90)
+			(at 34.29 167.64 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12082,7 +12114,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 39.37 169.672 90)
+			(at 34.29 169.672 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12093,7 +12125,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 39.37 171.45 0)
+			(at 34.29 171.45 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12104,7 +12136,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 39.37 171.45 0)
+			(at 34.29 171.45 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12115,7 +12147,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 39.37 171.45 90)
+			(at 34.29 171.45 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12306,6 +12338,99 @@
 			(project "PCB_updi_unbricker"
 				(path "/95a806a0-f6bb-4396-ae05-f958d969047b"
 					(reference "#PWR039")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 62.23 157.48 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "2c0fe61f-8a72-4a48-b17a-b7a275e9056d")
+		(property "Reference" "R20"
+			(at 64.77 156.2099 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 64.77 158.7499 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 60.452 157.48 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 62.23 157.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 62.23 157.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 62.23 157.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "a049278b-bfa4-4e8a-9c2e-905a347368cc")
+		)
+		(pin "1"
+			(uuid "2c0207bc-32cf-41dc-9ffd-72020e2e919a")
+		)
+		(instances
+			(project "PCB_updi_unbricker"
+				(path "/95a806a0-f6bb-4396-ae05-f958d969047b"
+					(reference "R20")
 					(unit 1)
 				)
 			)
@@ -12866,7 +12991,7 @@
 	)
 	(symbol
 		(lib_id "74xGxx:74LVC1G3157")
-		(at 39.37 133.35 0)
+		(at 34.29 133.35 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -12877,7 +13002,7 @@
 		(fields_autoplaced yes)
 		(uuid "3d326bac-487c-4d0e-b72f-d4972b464841")
 		(property "Reference" "U3"
-			(at 38.1 120.65 0)
+			(at 33.02 120.65 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12887,7 +13012,7 @@
 			)
 		)
 		(property "Value" "74LVC1G3157"
-			(at 38.1 123.19 0)
+			(at 33.02 123.19 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -12897,7 +13022,7 @@
 			)
 		)
 		(property "Footprint" "Package_TO_SOT_SMD:SOT-23-6"
-			(at 39.37 133.35 0)
+			(at 34.29 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12908,7 +13033,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.ti.com/lit/sg/scyt129e/scyt129e.pdf"
-			(at 39.37 133.35 0)
+			(at 34.29 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -12919,7 +13044,7 @@
 			)
 		)
 		(property "Description" "SPDT Analog Switch, Low-Voltage CMOS"
-			(at 39.37 133.35 0)
+			(at 34.29 133.35 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14402,7 +14527,7 @@
 	)
 	(symbol
 		(lib_id "Diode:BAT43W-V")
-		(at 82.55 121.92 90)
+		(at 72.39 121.92 90)
 		(mirror x)
 		(unit 1)
 		(body_style 1)
@@ -14414,7 +14539,7 @@
 		(fields_autoplaced yes)
 		(uuid "5f0ec164-c43e-4714-8d26-ef85d94cdea6")
 		(property "Reference" "D4"
-			(at 85.09 120.3324 90)
+			(at 74.93 120.3324 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14425,7 +14550,7 @@
 			)
 		)
 		(property "Value" "BAT43WS"
-			(at 85.09 122.8724 90)
+			(at 74.93 122.8724 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -14436,7 +14561,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 86.995 121.92 0)
+			(at 76.835 121.92 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14447,7 +14572,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.vishay.com/docs/85660/bat42.pdf"
-			(at 82.55 121.92 0)
+			(at 72.39 121.92 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14458,7 +14583,7 @@
 			)
 		)
 		(property "Description" "30V 0.2A Small Signal Schottky diode, SOD-123"
-			(at 82.55 121.92 0)
+			(at 72.39 121.92 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14469,7 +14594,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 82.55 121.92 0)
+			(at 72.39 121.92 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -14489,6 +14614,84 @@
 			(project "PCB_updi_unbricker"
 				(path "/95a806a0-f6bb-4396-ae05-f958d969047b"
 					(reference "D4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 62.23 153.67 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "5f701830-c34d-49a4-8811-854fb2ac1306")
+		(property "Reference" "#PWR056"
+			(at 62.23 157.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VDD"
+			(at 62.23 148.59 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 62.23 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 62.23 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 62.23 153.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "78f7dbe6-5636-4837-a47f-133515ac1162")
+		)
+		(instances
+			(project "PCB_updi_unbricker"
+				(path "/95a806a0-f6bb-4396-ae05-f958d969047b"
+					(reference "#PWR056")
 					(unit 1)
 				)
 			)
@@ -15490,7 +15693,7 @@
 	)
 	(symbol
 		(lib_id "power:+5V")
-		(at 82.55 118.11 0)
+		(at 72.39 118.11 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -15501,7 +15704,7 @@
 		(fields_autoplaced yes)
 		(uuid "79242ce8-354e-4c48-a0b3-d238341d503f")
 		(property "Reference" "#PWR011"
-			(at 82.55 121.92 0)
+			(at 72.39 121.92 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15512,7 +15715,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 82.55 113.03 0)
+			(at 72.39 113.03 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -15522,7 +15725,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 82.55 118.11 0)
+			(at 72.39 118.11 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15533,7 +15736,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 82.55 118.11 0)
+			(at 72.39 118.11 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -15544,7 +15747,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+5V\""
-			(at 82.55 118.11 0)
+			(at 72.39 118.11 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17610,7 +17813,7 @@
 	)
 	(symbol
 		(lib_id "Diode:BAT43W-V")
-		(at 53.34 154.94 270)
+		(at 45.72 154.94 270)
 		(mirror x)
 		(unit 1)
 		(body_style 1)
@@ -17622,7 +17825,7 @@
 		(fields_autoplaced yes)
 		(uuid "ad1a5984-b8e3-4f57-99c2-e41f6abd72c5")
 		(property "Reference" "D1"
-			(at 55.88 153.9874 90)
+			(at 48.26 153.9874 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17633,7 +17836,7 @@
 			)
 		)
 		(property "Value" "BAT43WS"
-			(at 55.88 156.5274 90)
+			(at 48.26 156.5274 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -17644,7 +17847,7 @@
 			)
 		)
 		(property "Footprint" "Diode_SMD:D_SOD-323"
-			(at 48.895 154.94 0)
+			(at 41.275 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17655,7 +17858,7 @@
 			)
 		)
 		(property "Datasheet" "http://www.vishay.com/docs/85660/bat42.pdf"
-			(at 53.34 154.94 0)
+			(at 45.72 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17666,7 +17869,7 @@
 			)
 		)
 		(property "Description" "30V 0.2A Small Signal Schottky diode, SOD-123"
-			(at 53.34 154.94 0)
+			(at 45.72 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -17677,7 +17880,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 53.34 154.94 0)
+			(at 45.72 154.94 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -18766,6 +18969,100 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 86.36 121.92 0)
+		(mirror x)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "d277af48-b92c-45bf-bad1-9e8a4dbf1b89")
+		(property "Reference" "R6"
+			(at 88.9 123.1901 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "10k"
+			(at 88.9 120.6501 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 84.582 121.92 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 86.36 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 86.36 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 86.36 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "86d1fdbc-3550-44ae-ae3c-77c7a46f79a3")
+		)
+		(pin "1"
+			(uuid "49c9170f-833a-43e6-950d-916bb0541ecc")
+		)
+		(instances
+			(project "PCB_updi_unbricker"
+				(path "/95a806a0-f6bb-4396-ae05-f958d969047b"
+					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 54.61 50.8 0)
 		(unit 1)
@@ -19088,7 +19385,7 @@
 	)
 	(symbol
 		(lib_id "Device:R")
-		(at 53.34 147.32 0)
+		(at 45.72 147.32 0)
 		(mirror y)
 		(unit 1)
 		(body_style 1)
@@ -19100,7 +19397,7 @@
 		(fields_autoplaced yes)
 		(uuid "de5c1dec-a8d5-4449-98dd-32a982ddb03f")
 		(property "Reference" "R1"
-			(at 55.88 146.0499 0)
+			(at 48.26 146.0499 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19111,7 +19408,7 @@
 			)
 		)
 		(property "Value" "470"
-			(at 55.88 148.5899 0)
+			(at 48.26 148.5899 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19122,7 +19419,7 @@
 			)
 		)
 		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
-			(at 55.118 147.32 90)
+			(at 47.498 147.32 90)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19133,7 +19430,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 53.34 147.32 0)
+			(at 45.72 147.32 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19144,7 +19441,7 @@
 			)
 		)
 		(property "Description" "Resistor"
-			(at 53.34 147.32 0)
+			(at 45.72 147.32 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19155,7 +19452,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 53.34 147.32 0)
+			(at 45.72 147.32 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19814,7 +20111,7 @@
 	)
 	(symbol
 		(lib_id "power:VDD")
-		(at 44.45 171.45 0)
+		(at 39.37 171.45 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -19824,7 +20121,7 @@
 		(dnp no)
 		(uuid "e611f20e-0743-452e-b33d-df048f97fe0b")
 		(property "Reference" "#PWR07"
-			(at 44.45 175.26 0)
+			(at 39.37 175.26 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19835,7 +20132,7 @@
 			)
 		)
 		(property "Value" "+5V"
-			(at 44.196 166.37 0)
+			(at 39.116 166.37 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -19845,7 +20142,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 44.45 171.45 0)
+			(at 39.37 171.45 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19856,7 +20153,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 44.45 171.45 0)
+			(at 39.37 171.45 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19867,7 +20164,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"VDD\""
-			(at 44.45 171.45 0)
+			(at 39.37 171.45 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -19884,6 +20181,84 @@
 			(project "PCB_updi_unbricker"
 				(path "/95a806a0-f6bb-4396-ae05-f958d969047b"
 					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 86.36 118.11 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "e7d9d36f-8cbf-4f90-b0ac-b52f80de57c8")
+		(property "Reference" "#PWR055"
+			(at 86.36 121.92 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "VDD_TGT"
+			(at 86.36 113.03 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 86.36 118.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 86.36 118.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 86.36 118.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "7499d668-78f1-4732-8cdc-148e9b1d339c")
+		)
+		(instances
+			(project "PCB_updi_unbricker"
+				(path "/95a806a0-f6bb-4396-ae05-f958d969047b"
+					(reference "#PWR055")
 					(unit 1)
 				)
 			)
@@ -20394,7 +20769,7 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Pin")
-		(at 73.66 118.11 180)
+		(at 66.04 118.11 180)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -20402,10 +20777,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "f2257341-5a04-4ac9-bcc0-b3c2e590b9f0")
 		(property "Reference" "J2"
-			(at 74.93 116.8399 0)
+			(at 61.468 109.22 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -20416,7 +20790,7 @@
 			)
 		)
 		(property "Value" "Target"
-			(at 74.93 119.3799 0)
+			(at 61.468 111.76 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -20427,7 +20801,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical"
-			(at 73.66 118.11 0)
+			(at 66.04 118.11 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20438,7 +20812,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 73.66 118.11 0)
+			(at 66.04 118.11 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20449,7 +20823,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x03, script generated"
-			(at 73.66 118.11 0)
+			(at 66.04 118.11 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20460,7 +20834,7 @@
 			)
 		)
 		(property "Sim.Pins" ""
-			(at 73.66 118.11 0)
+			(at 66.04 118.11 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
