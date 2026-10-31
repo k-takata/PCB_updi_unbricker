@@ -181,6 +181,26 @@ updi_reg_status updi_read_reg(
 constexpr uint32_t chip_erase_threshold_ms = 5000;
 constexpr uint32_t por_release_delay_ms = 2;  // < 8.8 ms
 
+// Soft start of the target power.
+// Turning on Q4 at once makes an inrush current into the target and VDD sags.
+// With 3.3 V, CH340K (powered by VDD) may be reset by it (power-on reset
+// threshold: 2.4 - 2.8 V) and the USB connection is dropped.
+// Apply the power with a PWM whose duty ratio increases gradually.
+constexpr uint8_t soft_start_steps = 20;
+constexpr uint32_t soft_start_period_us = 100;  // Total: 20 * 100 us = 2 ms
+
+static void power_on_soft_start()
+{
+  for (uint8_t i = 1; i < soft_start_steps; ++i) {
+    const uint32_t on_us = soft_start_period_us * i / soft_start_steps;
+    openDrainFast(PIN_PWR, LOW);  // On
+    delayMicroseconds(on_us);
+    openDrainFast(PIN_PWR, FLOATING); // Off
+    delayMicroseconds(soft_start_period_us - on_us);
+  }
+  openDrainFast(PIN_PWR, LOW);  // On
+}
+
 // Returns true if the START button was held down for over the threshold.
 bool reset_target(uint32_t pressed_time)
 {
@@ -197,7 +217,7 @@ bool reset_target(uint32_t pressed_time)
   // Measure the hold time here. Do not use pushed_time after this point,
   // because contact bounce on release may overwrite it in the ISR.
   const bool long_press = (millis() - pressed_time) > chip_erase_threshold_ms;
-  openDrainFast(PIN_PWR, LOW);  // On
+  power_on_soft_start();
 
   // Wait for the target to be released from POR before applying the HV pulse.
   // A too short delay (1 ms) caused HV failures (AVR64DD28 @ 5 V, ATtiny Chip
