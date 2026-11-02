@@ -71,7 +71,8 @@ See “Usage” for detailed procedures.
 
 | Reference | Quantity | Value | Description |
 |-----------|----------|-------|-------------|
-| C1, C2, C4 | 3 | 10 μF | 1608M |
+| C1, C4 | 2 | 10 μF | 1608M |
+| C2 | 1 | 22 μF | 2012M, ≥ 10 V |
 | C3, C6 | 2 | 0.1 μF | 1608M |
 | C5 | 1 | 10 μF | 2012M, ≥ 25 V |
 | C7 | 1 | 33 pF | 1608M |
@@ -102,8 +103,7 @@ See “Usage” for detailed procedures.
 | R2, R3 | 2 | 5.1 kΩ | 1608M |
 | R4 | 1 | 100 kΩ | 1608M |
 | R5 | 1 | 220 Ω | 1608M |
-| (R6) | - | - | Not used |
-| R7, R8, R16-R19 | 6 | 10 kΩ | 1608M |
+| R6-R8, R16-R20 | 8 | 10 kΩ | 1608M |
 | (R9) | - | - | Not used |
 | R10 | 1 | 470 kΩ 1% | 1608M (\*5) |
 | R11 | 1 | 10 MΩ 1% | 1608M (\*5) |
@@ -1089,9 +1089,7 @@ The design pulls the line up to VDD with R7 and blocks reverse current with D5.
 
 ### Pull-up resistor for ATtiny (J5)
 
-The N-ch MOSFET level shifter (Q3) requires pull-up resistors on both sides. The ATtiny side (UPDI_TINY) is pulled up by the internal pull-up of the UPDI pin of the target. On the Rev. 3 board, however, the UPDI_TGT side has no pull-up resistor. Without it, the high level of UPDI_TGT stops at about VDD - Vth of Q3 (about 4 V at 5 V) and the communication with an ATtiny becomes unreliable. (The internal pull-up of U4 was used for this purpose in the early firmware, but it pulled up the UPDI line of a 3.3 V target to 5 V, so it is no longer used.)
-
-Add a 10 kΩ resistor between UPDI_TGT and VDD_TGT. On the Rev. 3 board, solder it between the anode of D4 (pin 2, the UPDI_TGT side) and pin 3 of Q4 (VDD_TGT).
+The N-ch MOSFET level shifter (Q3) requires pull-up resistors on both sides. The ATtiny side (UPDI_TINY) is pulled up by the internal pull-up of the UPDI pin of the target. On the Rev. 4 board, the R6 resistor pulls up the UPDI_TGT side.
 
 The resistor is pulled up to VDD_TGT, not to VDD, on purpose. The line follows the voltage of the target, so it works with a 3.3 V target or a target powered from an external source, and it does not back-power the target through its protection diodes while the board does not supply power. (When pulled up to VDD, VDD_TGT was raised to about 2 V while the target power was off.)
 
@@ -1101,7 +1099,7 @@ AVR Dx/Ex (J6) works without this resistor because the target pulls up the UPDI 
 
 The datasheet of the CH340K recommends a 2 kΩ to 22 kΩ pull-up resistor for the RX pin of the MCU for communication above 120 kbps. The TXD pin of the CH340K is a weak-high output: its high level is held only by a built-in pull-up resistor of about 75 kΩ (and a built-in diode).
 
-On the Rev. 3 board, add a 10 kΩ resistor between pin 1 of Q3 (VDD) and the cathode of D1 (TxD) to pull TxD up to VDD (the supply of the CH340K). With this resistor, serial communication at 2 Mbps worked and writing to U4 was not affected. Note that a current of about 0.3 to 0.4 mA with 10 kΩ flows into the RX pin of the target through its protection diode while the target is not powered. A larger resistance (up to 22 kΩ) reduces it.
+On the Rev. 4 board, a 10 kΩ resiter has been installed to pull TxD up to VDD (the supply of the CH340K). With this resistor, serial communication at 2 Mbps worked and writing to U4 was not affected. Note that a current of about 0.3 to 0.4 mA with 10 kΩ flows into the RX pin of the target through its protection diode while the target is not powered. A larger resistance (up to 22 kΩ) reduces it.
 
 Do not pull TxD up to VDD_TGT (e.g., by adding a resistor between J3 pin 4 and pin 3). In testing, it prevented writing to U4 (with J2 set to FW). The cause is presumably as follows (inferred from the datasheet and the schematic, not verified by measurement). TxD is also connected to the UPDI line through D1 and R1. While U4 is being written, VDD_TGT is 0 V because Q4 is off, so the resistor pulls the weak-high TxD down to about 0.1 × VCC, which is practically low, and D1 pulls the UPDI line down.
 
@@ -1159,6 +1157,14 @@ One of the most significant appears to be that `analogReference()` does not work
 
 
 ## History
+
+### Rev. 3
+
+The following changes were made in Rev. 3:
+
+* Added a pull-up resistor (R6) to the UPDI_TGT side of Q3. (For ATtiny)
+* Changed C2 from 10 μF to 22 μF. (To fix the issue that the USB connection may be dropped at 3.3 V.)
+* Added R20 to support high-speed serial communication.
 
 ### Rev. 3
 
