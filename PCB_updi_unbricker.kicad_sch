@@ -11151,7 +11151,7 @@
 		(fields_autoplaced yes)
 		(uuid "09d0470d-7209-4589-8206-bd73977d755a")
 		(property "Reference" "C2"
-			(at 106.68 33.0262 0)
+			(at 106.68 33.0199 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11161,8 +11161,8 @@
 				(justify left)
 			)
 		)
-		(property "Value" "10μ"
-			(at 106.68 35.5662 0)
+		(property "Value" "22μ 10V"
+			(at 106.68 35.5599 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -11172,7 +11172,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_0805_2012Metric"
 			(at 104.14 34.29 0)
 			(hide yes)
 			(show_name no)
