@@ -1001,13 +1001,13 @@ This is almost the same as AVR64DD28, so it is omitted here. Be careful about th
 
 ### USB connection is dropped (at 3.3 V)
 
-At 3.3 V, the USB connection may be dropped for a moment when the START button is released, or when a target is connected while the board is powered from USB. The connection recovers immediately and the HV programming is not affected. This is a known limitation.
+At 3.3 V, the USB connection may be dropped for a moment when the target power is turned on (e.g., when the START button is released). On the Rev. 3 board, it is solved by changing C2 (the output capacitor of U2) from 10 μF to 22 μF.
 
-* The cause is presumably as follows (not verified). When the target power is turned on, an inrush current into the target makes VDD sag, and the CH340K (powered by VDD) is reset (the power-on reset threshold is 2.4 to 2.8 V). The margin is small at 3.3 V.
-* It happened more often when the target had additional circuits such as LEDs.
-* When the target is powered from an external source (SW3 OFF), it did not happen at the release of the START button.
-* Adding a 0.1 μF decoupling capacitor between pin 7 (VCC) and GND of U1 did not make a clear difference.
-* Turning on the target power gradually in the firmware (soft start by PWM) reduced the frequency, but it did not eliminate it.
+* The cause is presumably that the output voltage of U2 (the 3.3 V regulator) sags when an inrush current flows into the target, and the CH340K, which is powered by the same VDD, is reset (the power-on reset threshold is 2.4 to 2.8 V). The margin is small at 3.3 V.
+* The datasheet of the LM1117 recommends a 10 μF output capacitor, but the datasheet of the AMS1117 recommends 22 μF (a tantalum capacitor is recommended). The effective capacitance of a ceramic capacitor is reduced by the DC bias.
+* After changing C2 to 22 μF (an MLCC of 1608M size was used), the USB connection was no longer dropped at 3.3 V.
+* It happened more often when the target had additional circuits such as LEDs. When the target was powered from an external source (SW3 OFF), it did not happen at the release of the START button.
+* Adding a 0.1 μF decoupling capacitor between pin 7 (VCC) and GND of U1 did not make a clear difference. Turning on the target power gradually in the firmware (soft start by PWM) reduced the frequency, but it did not eliminate it.
 
 ### Concern about the HV voltage
 
@@ -1170,7 +1170,7 @@ The following changes were made in Rev. 3:
 Known issues:
 
 * The UPDI_TGT side of Q3 has no pull-up resistor. Add a 10 kΩ resistor to communicate with an ATtiny. See "Pull-up resistor for ATtiny (J5)".
-* At 3.3 V, the USB connection may be dropped for a moment when the target power is turned on. This is a limitation. See "USB connection is dropped (at 3.3 V)".
+* At 3.3 V, the USB connection may be dropped for a moment when the target power is turned on. Change C2 from 10 μF to 22 μF. See "USB connection is dropped (at 3.3 V)".
 
 ### Rev. 2
 
