@@ -987,6 +987,7 @@ This is almost the same as AVR64DD28, so it is omitted here. Be careful about th
 * Confirm that the programmer is set to SerialUPDI.
 * Do not wait too long after pressing START before starting the programming operation.
 * If the VDD indicator LEDs blink after pressing START, see “Error notification”.
+* If you open Serial Monitor in the Arduino IDE, retry after closing it.
 
 ### Target does not start or is unstable
 
