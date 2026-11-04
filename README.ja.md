@@ -88,12 +88,13 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |D2         |   1|[BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402)|5.6Vツェナーダイオード、SOD-123、過電圧保護用 (\*1)|
 |D6         |   1|[1N5819WS](https://jlcpcb.com/partdetail/GuangdongHottech-1N5819WS/C191023)|SOD-323, ≧300mA|
 |D7         |   1|[BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C3V6/C19077397)|3.6Vツェナーダイオード、SOD-123、LEDに合わせて値は適宜調整 (3.0 - 3.6V) (\*2)|
-|D8         |   1|[NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256)|2012M、VDD電圧インジケーター|
-|D9         |   1|[KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297)|2012M、VDD電圧インジケーター|
+|D8         |   1|[NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256)|赤色LED、2012M、VDD電圧インジケーター|
+|D9         |   1|[KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297)|緑色LED、2012M、VDD電圧インジケーター|
 |D10        |   1|[BZT52C7V5](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C7V5/C19077405)|7.5Vツェナーダイオード、SOD-123 (\*3)|
 |D11        |   1|任意  |5.6Vツェナーダイオード、DO-41 (\*1)|
 |D12        |   1|任意  |3.6Vツェナーダイオード、DO-35 (\*2)|
 |D13        |   1|任意  |7.5Vツェナーダイオード、DO-41 (\*3)|
+|D14        |   1|[KT-0805Y](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805Y/C2296)|黄色LED、2012M、HVインジケーター|
 |F1         |   1|[SMD1206P050TF](https://jlcpcb.com/partdetail/21511-SMD1206P050TF/C20799)|リセッタブルヒューズ 0.5A|
 |J1         |   1|[TYPE-C16PIN](https://jlcpcb.com/partdetail/SHOUHAN-TYPEC16PIN/C393939)|USB Type-Cレセプタクル|
 |J2         |   1|      |ピンヘッダー 1x3、書き込み先切り替え用|
@@ -118,6 +119,7 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |R12        |   1|51kΩ 1%|1608M (\*5)|
 |R13        |   1|220Ω |1608M、LEDに合わせて値は適宜調整 (47 - 220Ω)|
 |R14        |   1|15kΩ |1608M、LEDに合わせて値は適宜調整|
+|R21        |   1|2.7kΩ|1608M、LEDに合わせて値は適宜調整|
 |SW1-SW3    |   3|[SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/)|スライドスイッチ 1回路2接点 基板用|
 |SW4        |   1|      |プッシュスイッチ|
 |U1         |   1|[CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586)||
@@ -1189,6 +1191,7 @@ Rev. 4での変更点は以下の通りです。
 * Q3のUPDI_TGT側にプルアップ抵抗 (R6) を追加。(ATtiny用)
 * C2を10μFから22μFに変更。(3.3VでUSB接続が切れる問題の修正。)
 * 高速シリアル通信用にR20を追加。
+* HVインジケーター (D14) を追加。
 
 ### Rev. 3
 

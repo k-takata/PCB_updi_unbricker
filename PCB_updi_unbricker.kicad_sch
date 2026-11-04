@@ -7684,6 +7684,16 @@
 		)
 		(uuid "2ce34557-24a6-4ae0-9a7c-2c918aa16589")
 	)
+	(text "Yellow (HV)"
+		(exclude_from_sim no)
+		(at 161.544 108.458 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+		(uuid "c1815996-6eed-490c-940f-3618b9835727")
+	)
 	(junction
 		(at 200.66 66.04)
 		(diameter 0)
@@ -7707,6 +7717,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "0aea40a0-1c7f-4f8b-8de7-ac3ed2166f0d")
+	)
+	(junction
+		(at 146.05 96.52)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "2fe8fbd4-2216-4222-a07c-543d9d672046")
 	)
 	(junction
 		(at 166.37 88.9)
@@ -8309,6 +8325,16 @@
 			(type default)
 		)
 		(uuid "35eadaeb-856f-4047-9827-4b80085b2569")
+	)
+	(wire
+		(pts
+			(xy 146.05 96.52) (xy 153.67 96.52)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36298629-5e04-4ca3-8986-9138424bf1ca")
 	)
 	(wire
 		(pts
@@ -13082,6 +13108,98 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:LED")
+		(at 153.67 107.95 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "3f7ed2b1-e9f6-4461-b7d8-a43b4042c49a")
+		(property "Reference" "D14"
+			(at 147.32 108.204 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "KT-0805Y"
+			(at 141.224 110.744 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" "LED_SMD:LED_0805_2012Metric"
+			(at 153.67 107.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 153.67 107.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Light emitting diode"
+			(at 153.67 107.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" "1=K 2=A"
+			(at 153.67 107.95 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "49e96bd2-8c5f-4585-a0fd-200209cc08ae")
+		)
+		(pin "1"
+			(uuid "50038083-4de1-473f-a8fe-d5657e9b0a95")
+		)
+		(instances
+			(project "PCB_updi_unbricker"
+				(path "/95a806a0-f6bb-4396-ae05-f958d969047b"
+					(reference "D14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Connector:TestPoint")
 		(at 187.96 73.66 0)
 		(unit 1)
@@ -14343,6 +14461,84 @@
 			(project "PCB_updi_unbricker"
 				(path "/95a806a0-f6bb-4396-ae05-f958d969047b"
 					(reference "D12")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 153.67 111.76 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "56e66c1c-8580-4c74-b172-44df27ed4a45")
+		(property "Reference" "#PWR057"
+			(at 153.67 118.11 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 153.67 116.84 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 153.67 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 153.67 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 153.67 111.76 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "1d039a51-b2d7-4216-a7c9-5981d9f3562b")
+		)
+		(instances
+			(project "PCB_updi_unbricker"
+				(path "/95a806a0-f6bb-4396-ae05-f958d969047b"
+					(reference "#PWR057")
 					(unit 1)
 				)
 			)
@@ -19755,6 +19951,98 @@
 			(project "PCB_updi_unbricker"
 				(path "/95a806a0-f6bb-4396-ae05-f958d969047b"
 					(reference "U4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 153.67 100.33 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "e16fd1f2-3eb2-4f9d-8bea-224e031e775b")
+		(property "Reference" "R21"
+			(at 147.574 99.06 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "2.7k"
+			(at 147.574 101.6 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Resistor_SMD:R_0603_1608Metric"
+			(at 151.892 100.33 90)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 153.67 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 153.67 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Sim.Pins" ""
+			(at 153.67 100.33 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "2"
+			(uuid "919da117-ffa5-4a17-8fff-3e4fa90de793")
+		)
+		(pin "1"
+			(uuid "233b35c7-111b-47e6-8b3f-ea3ffa1b5f19")
+		)
+		(instances
+			(project "PCB_updi_unbricker"
+				(path "/95a806a0-f6bb-4396-ae05-f958d969047b"
+					(reference "R21")
 					(unit 1)
 				)
 			)

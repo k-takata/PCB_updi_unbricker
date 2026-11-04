@@ -80,12 +80,13 @@ See “Usage” for detailed procedures.
 | D2 | 1 | [BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402) | 5.6 V Zener diode, SOD-123, for overvoltage protection (\*1) |
 | D6 | 1 | [1N5819WS](https://jlcpcb.com/partdetail/GuangdongHottech-1N5819WS/C191023) | SOD-323, ≥ 300 mA |
 | D7 | 1 | [BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C3V6/C19077397) | 3.6 V Zener diode, SOD-123; adjust value as needed for LED (3.0 V to 3.6 V) (\*2) |
-| D8 | 1 | [NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256) | 2012M, VDD voltage indicator |
-| D9 | 1 | [KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297) | 2012M, VDD voltage indicator |
+| D8 | 1 | [NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256) | Red LED, 2012M, VDD voltage indicator |
+| D9 | 1 | [KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297) | Green LED, 2012M, VDD voltage indicator |
 | D10 | 1 | [BZT52C7V5](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C7V5/C19077405) | 7.5 V Zener diode, SOD-123 (\*3) |
 | D11 | 1 | Optional | 5.6 V Zener diode, DO-41 (\*1) |
 | D12 | 1 | Optional | 3.6 V Zener diode, DO-35 (\*2) |
 | D13 | 1 | Optional | 7.5 V Zener diode, DO-41 (\*3) |
+| D14 | 1 | [KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805Y/C2296) | Yellow LED, 2012M, HV indicator |
 | F1 | 1 | [SMD1206P050TF](https://jlcpcb.com/partdetail/21511-SMD1206P050TF/C20799) | Resettable fuse, 0.5 A |
 | J1 | 1 | [TYPE-C16PIN](https://jlcpcb.com/partdetail/SHOUHAN-TYPEC16PIN/C393939) | USB Type-C receptacle |
 | J2 | 1 |  | 1 × 3 pin header for selecting the programming target |
@@ -110,6 +111,7 @@ See “Usage” for detailed procedures.
 | R12 | 1 | 51 kΩ 1% | 1608M (\*5) |
 | R13 | 1 | 220 Ω | 1608M; adjust according to LED (47 Ω to 220 Ω) |
 | R14 | 1 | 15 kΩ | 1608M; adjust according to LED |
+| R21 | 1 | 2.7 kΩ | 1608M; adjust according to LED |
 | SW1-SW3 | 3 | [SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/) | Slide switch, SPDT, PCB mount |
 | SW4 | 1 |  | Push button switch |
 | U1 | 1 | [CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586) | |
@@ -1155,13 +1157,14 @@ One of the most significant appears to be that `analogReference()` does not work
 
 ## History
 
-### Rev. 3
+### Rev. 4
 
-The following changes were made in Rev. 3:
+The following changes were made in Rev. 4:
 
 * Added a pull-up resistor (R6) to the UPDI_TGT side of Q3. (For ATtiny)
 * Changed C2 from 10 μF to 22 μF. (To fix the issue that the USB connection may be dropped at 3.3 V.)
 * Added R20 to support high-speed serial communication.
+* Added an HV indicator (D14).
 
 ### Rev. 3
 
