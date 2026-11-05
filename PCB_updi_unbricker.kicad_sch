@@ -11187,7 +11187,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "22μ 10V"
+		(property "Value" "22μ 25V"
 			(at 106.68 35.5599 0)
 			(show_name no)
 			(do_not_autoplace no)
