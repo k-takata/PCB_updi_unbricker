@@ -86,7 +86,7 @@ See “Usage” for detailed procedures.
 | D11 | 1 | Optional | 5.6 V Zener diode, DO-41 (\*1) |
 | D12 | 1 | Optional | 3.6 V Zener diode, DO-35 (\*2) |
 | D13 | 1 | Optional | 7.5 V Zener diode, DO-41 (\*3) |
-| D14 | 1 | [KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805Y/C2296) | Yellow LED, 2012M, HV indicator |
+| D14 | 1 | [KT-0805Y](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805Y/C2296) | Yellow LED, 2012M, HV indicator |
 | F1 | 1 | [SMD1206P050TF](https://jlcpcb.com/partdetail/21511-SMD1206P050TF/C20799) | Resettable fuse, 0.5 A |
 | J1 | 1 | [TYPE-C16PIN](https://jlcpcb.com/partdetail/SHOUHAN-TYPEC16PIN/C393939) | USB Type-C receptacle |
 | J2 | 1 |  | 1 × 3 pin header for selecting the programming target |
@@ -208,7 +208,7 @@ J3 is a standard 6-pin TTL serial connector. You can select pin 6 on J3 as eithe
 | 5 | RxD | Yellow |
 | 6 | RTS / DTR | Green |
 
-SW1 selects whether HV programming is enabled. For safety, it is normally recommended to keep it OFF.
+SW1 selects whether HV programming is enabled. For safety, it is normally recommended to keep it OFF. The yellow LED (D14) lights when SW1 is ON (HV is enabled).
 
 SW2 selects the target supply voltage and the signal levels of J3, J5, and J6 from 5 V or 3.3 V. Even if the target is powered from an external source, set SW2 to match the target's voltage.
 
@@ -1092,7 +1092,7 @@ AVR Dx/Ex (J6) works without this resistor because the target pulls up the UPDI 
 
 The datasheet of the CH340K recommends a 2 kΩ to 22 kΩ pull-up resistor for the RX pin of the MCU for communication above 120 kbps. The TXD pin of the CH340K is a weak-high output: its high level is held only by a built-in pull-up resistor of about 75 kΩ (and a built-in diode).
 
-On the Rev. 4 board, a 10 kΩ resiter has been installed to pull TxD up to VDD (the supply of the CH340K). With this resistor, serial communication at 2 Mbps worked and writing to U4 was not affected. Note that a current of about 0.3 to 0.4 mA with 10 kΩ flows into the RX pin of the target through its protection diode while the target is not powered. A larger resistance (up to 22 kΩ) reduces it.
+On the Rev. 4 board, a 10 kΩ resistor has been installed to pull TxD up to VDD (the supply of the CH340K). With this resistor, serial communication at 2 Mbps worked and writing to U4 was not affected. Note that a current of about 0.3 to 0.4 mA with 10 kΩ flows into the RX pin of the target through its protection diode while the target is not powered. A larger resistance (up to 22 kΩ) reduces it.
 
 Do not pull TxD up to VDD_TGT (e.g., by adding a resistor between J3 pin 4 and pin 3). In testing, it prevented writing to U4 (with J2 set to FW). The cause is presumably as follows (inferred from the datasheet and the schematic, not verified by measurement). TxD is also connected to the UPDI line through D1 and R1. While U4 is being written, VDD_TGT is 0 V because Q4 is off, so the resistor pulls the weak-high TxD down to about 0.1 × VCC, which is practically low, and D1 pulls the UPDI line down.
 
@@ -1100,7 +1100,12 @@ Do not pull TxD up to VDD_TGT (e.g., by adding a resistor between J3 pin 4 and p
 
 This board uses an AMS1117 (or LM1117) to generate 3.3 V. The AMS1117 datasheet recommends a 22 μF tantalum capacitor as the output capacitor, but an MLCC is used for the output capacitor (C2) in this design. Since the effective capacitance of an MLCC decreases with DC bias, a part rated for at least 10 V is used.
 
-Because MLCCs have lower ESR than tantalum capacitors, they may cause the AMS1117 to oscillate, although no such behavior was observed in this case. If oscillation occurs, or if the USB connection is briefly dropped when the target power is turned on (e.g., when the START button is released), adding a resistor of about 0.5 Ω in series with C2 or replacing it with a tantalum capacitor may help. Alternatively, a regulator compatible with MLCCs, such as the AP2114, LDL1117, AZ1117C, NCP1117, or TLV1117LV, may be used.
+Because MLCCs have lower ESR than tantalum capacitors, they may cause the AMS1117 to oscillate, although no such behavior was observed in this case. If oscillation occurs, or if the USB connection is briefly dropped when the target power is turned on (e.g., when the START button is released), the following countermeasures may help. None of them has been tried on this board:
+
+* Add a resistor of about 0.5 Ω in series with C2.
+* Replace C2 with a tantalum capacitor.
+* Replace U2 with a regulator that is stable with MLCCs.
+  * Candidates: AP2114, LDL1117, AZ1117C, NCP1117, TLV1117LV
 
 
 ## Issues with DxCore 1.6.2
@@ -1175,8 +1180,10 @@ The following changes were made in Rev. 3:
 
 Known issues:
 
-* The UPDI_TGT side of Q3 has no pull-up resistor. Add a 10 kΩ resistor to communicate with an ATtiny. See "Pull-up resistor for ATtiny (J5)".
-* At 3.3 V, the USB connection may be dropped for a moment when the target power is turned on. See "3.3 V generation circuit" for possible countermeasures.
+* The UPDI_TGT side of Q3 has no pull-up resistor. To communicate with an ATtiny, add a 10 kΩ resistor between UPDI_TGT and VDD_TGT. Solder it between the anode of D4 (pin 2, the UPDI_TGT side) and pin 3 of Q4 (VDD_TGT). See "Pull-up resistor for ATtiny (J5)".
+* At 3.3 V, the USB connection may be dropped for a moment when the target power is turned on. Change C2 from 10 μF to 22 μF (an MLCC of 1608M size rated at 10 V was verified). See "3.3 V generation circuit".
+
+Optional modification: to support high-speed serial communication, add a 10 kΩ resistor between pin 1 of Q3 (VDD) and the cathode of D1 (TxD). See "High-speed serial communication (J3)".
 
 ### Rev. 2
 
