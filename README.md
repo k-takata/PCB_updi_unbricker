@@ -114,6 +114,7 @@ See “Usage” for detailed procedures.
 | R21 | 1 | 2.7 kΩ | 1608M; adjust according to LED |
 | SW1-SW3 | 3 | [SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/) | Slide switch, SPDT, PCB mount |
 | SW4 | 1 |  | Push button switch |
+| SW5 | 1 |  | Slide switch, DP3T |
 | U1 | 1 | [CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586) | |
 | U2 | 1 | [AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186) | Or LM1117GS-3.3 |
 | U3 | 1 | [74LVC1G3157](https://jlcpcb.com/partdetail/JSMSEMI-SN74LVC1G3157DBVRJSM/C44512789) | Analog switch (SPDT) |
@@ -216,6 +217,8 @@ SW3 selects whether the board supplies power to the target. If set to ON, it sup
 
 To power the target with this board, select the supply voltage with SW2 and set SW3 to ON. The illumination of LEDs changes with the supply voltage: green at 3.3 V and green + red at 5 V. If SW3 is OFF and the target is not connected, the LED is turned off. If the target is connected and powered externally, the LED lights from the target supply.
 
+SW5 selects the communication mode from the UPDI programming mode and the serial communication mode. If you set it to Auto, the mode is automatically selected. If you set it to UPDI, the UPDI programming mode is selected. If you set it to UART, the serial communication mode is selected.
+
 ### Firmware programming
 
 #### Normal programming
@@ -227,6 +230,7 @@ To program the firmware to U4, configure and connect the switches and connectors
 | SW1 | Any |
 | SW2 | 5 V |
 | SW3 | Any |
+| SW5 | Auto or UPDI |
 | J1 | Connect PC |
 | J2 | **FW** |
 | J3 | Disconnected |
@@ -255,6 +259,7 @@ If the UPDI pin of U4 has been disabled and you need to re-enable it via HV prog
 | SW1 | Any |
 | SW2 | Any |
 | SW3 | Any |
+| SW5 | Any |
 | J1 | Disconnected |
 | J2 | **Remove jumper** |
 | J3 | Disconnected |
@@ -277,6 +282,7 @@ Configure and connect the switches and connectors as follows.
 | SW1 | OFF for safety |
 | SW2 | Select 5 V or 3.3 V according to the target |
 | SW3 | Normally ON |
+| SW5 | Auto or UPDI |
 | J1 | Connect PC |
 | J2 | **Target** |
 | J3 | Connected or disconnected |
@@ -298,6 +304,7 @@ Configure and connect the switches and connectors as follows.
 | SW1 | **ON** |
 | SW2 | Select 5 V or 3.3 V according to the target |
 | SW3 | Normally ON |
+| SW5 | Auto or UPDI |
 | J1 | Connect PC |
 | J2 | **Target** |
 | J3 | Disconnected |
@@ -339,6 +346,7 @@ Configure and connect the switches and connectors as follows.
 | SW1 | OFF for safety |
 | SW2 | Select 5 V or 3.3 V according to the target |
 | SW3 | Normally ON |
+| SW5 | Auto or UART |
 | J1 | Connect PC |
 | J2 | **Target** |
 | J3 | Connect the target |
@@ -986,10 +994,11 @@ This is almost the same as AVR64DD28, so it is omitted here. Be careful about th
 ### Cannot program even after HV
 
 * Confirm that J2 is set to the **Target** side.
-* Confirm that the programmer is set to SerialUPDI.
+* Confirm that SW5 is set to Auto or UPDI.  
+  If it has been already set to Auto, change it to UPDI. Or, if you open Serial Monitor in the Arduino IDE, retry after closing it.
+* Confirm that the programmer is set to SerialUPDI in the Arduino IDE.
 * Do not wait too long after pressing START before starting the programming operation.
 * If the VDD indicator LEDs blink after pressing START, see “Error notification”.
-* If you open Serial Monitor in the Arduino IDE, retry after closing it.
 
 ### Target does not start or is unstable
 
@@ -1170,6 +1179,7 @@ The following changes were made in Rev. 4:
 * Changed C2 from 10 μF to 22 μF. (To fix the issue that the USB connection may be dropped at 3.3 V.)
 * Added R20 to support high-speed serial communication.
 * Added an HV indicator (D14).
+* Added a communication mode switch (SW5).
 
 ### Rev. 3
 
