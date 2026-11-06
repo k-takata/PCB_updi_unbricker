@@ -114,7 +114,7 @@ See “Usage” for detailed procedures.
 | R21 | 1 | 2.7 kΩ | 1608M; adjust according to LED |
 | SW1-SW3 | 3 | [SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/) | Slide switch, SPDT, PCB mount |
 | SW4 | 1 |  | Push button switch |
-| SW5 | 1 |  | Slide switch, DP3T |
+| SW5 | 1 | MSS23D18 | Slide switch, DP3T |
 | U1 | 1 | [CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586) | |
 | U2 | 1 | [AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186) | Or LM1117GS-3.3 |
 | U3 | 1 | [74LVC1G3157](https://jlcpcb.com/partdetail/JSMSEMI-SN74LVC1G3157DBVRJSM/C44512789) | Analog switch (SPDT) |
@@ -217,7 +217,7 @@ SW3 selects whether the board supplies power to the target. If set to ON, it sup
 
 To power the target with this board, select the supply voltage with SW2 and set SW3 to ON. The illumination of LEDs changes with the supply voltage: green at 3.3 V and green + red at 5 V. If SW3 is OFF and the target is not connected, the LED is turned off. If the target is connected and powered externally, the LED lights from the target supply.
 
-SW5 selects the communication mode from the UPDI programming mode and the serial communication mode. If you set it to Auto, the mode is automatically selected. If you set it to UPDI, the UPDI programming mode is selected. If you set it to UART, the serial communication mode is selected.
+SW5 selects between the UPDI programming mode and the serial communication mode. If you set it to Auto, the mode is automatically selected. If you set it to UPDI, the UPDI programming mode is selected. If you set it to UART, the serial communication mode is selected.
 
 ### Firmware programming
 
@@ -291,7 +291,7 @@ Configure and connect the switches and connectors as follows.
 | J7 | Disconnected |
 
 SW3 is normally set to ON, but if the target is powered from another source, set it to OFF.  
-J3 can remain connected without issue. The UPDI mode and serial communication mode are automatically switched by the RTS signal.
+J3 can remain connected without issue. When SW5 is set to Auto, the UPDI mode and serial communication mode are automatically switched by the RTS signal.
 
 In the Arduino IDE, set the programmer to SerialUPDI, and programming can proceed normally.
 
@@ -354,7 +354,7 @@ Configure and connect the switches and connectors as follows.
 | J5 / J6 | Connected or disconnected |
 | J7 | Disconnected |
 
-J5/J6 may be connected without issue. The UPDI mode and serial communication mode are automatically switched by the RTS signal.  
+J5/J6 may be connected without issue. When SW5 is set to Auto, the UPDI mode and serial communication mode are automatically switched by the RTS signal.  
 You can select pin 6 on J3 as RTS or DTR by inserting a jumper on J4.
 
 ## AVRDUDE usage examples
@@ -995,7 +995,7 @@ This is almost the same as AVR64DD28, so it is omitted here. Be careful about th
 
 * Confirm that J2 is set to the **Target** side.
 * Confirm that SW5 is set to Auto or UPDI.  
-  If it has been already set to Auto, change it to UPDI. Or, if you open Serial Monitor in the Arduino IDE, retry after closing it.
+  If it has already been set to Auto, change it to UPDI. Or, if the Serial Monitor is open in the Arduino IDE, retry after closing it.
 * Confirm that the programmer is set to SerialUPDI in the Arduino IDE.
 * Do not wait too long after pressing START before starting the programming operation.
 * If the VDD indicator LEDs blink after pressing START, see “Error notification”.
@@ -1058,7 +1058,7 @@ Reference: [Non-Compliant Use of CH340 V3 Pin: Deep Dive for Engineers](https://
 
 ### Automatic switching between UPDI mode and serial communication mode
 
-As described above, the UPDI section is based on the circuit from [UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F), which includes automatic mode switching using the RTS signal.
+As described above, the UPDI section is based on the circuit from [UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F), which includes automatic mode switching using the RTS signal. In Rev. 4, SW5 can also fix the mode to UPDI or UART instead of using this automatic switching.
 
 Switching is performed by taking advantage of the fact that RTS is active (low) during serial communication and inactive (high) during UPDI communication.
 
