@@ -7,7 +7,7 @@
 AVR DA, DB, DD, DU, EA, EBシリーズの7.5V高電圧 (HV) プログラミング、およびモダンATtinyシリーズ (tinyAVR 0/1/2シリーズ) の12V HVプログラミングに対応したUPDI (Unified Program and Debug Interface) 書き込み装置です。
 意図的あるいは事故によりUPDIピンの設定を変更してしまい、通常のUPDI書き込み装置で書き込みができなくなってしまったデバイスに対し、HVパルスを注入することで、再度書き込みができるようにします。
 
-UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F)の回路を使用しており、RTS信号による自動切り替え機能を備えています。
+UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F)の回路を基にしており、RTS信号による自動切り替え機能を備えています。
 
 
 ## 対応範囲
