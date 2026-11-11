@@ -26,13 +26,14 @@ The UPDI section of the circuit is based on the design from [UPDI Adapter for AE
 
 ## Switch and jumper roles
 
-This board switches operating modes using three switches and one jumper.
+This board switches operating modes using four switches and one jumper.
 
 | Part | Role | Main setting |
 |------|------|--------------|
 | SW1 | Enables/disables HV pulse generation | OFF = safe mode, ON = HV programming enabled |
 | SW2 | Selects target supply voltage | Choose 5 V or 3.3 V |
 | SW3 | Enables/disables power output from this board to the target | ON = power supplied, OFF = avoids double-powering when externally powered |
+| SW5 | Selects communication mode | UPDI, UART, or Auto |
 | J2 | Selects programming target | FW = firmware write, Target = target programming |
 
 Set J2 to the FW side for firmware programming and the Target side for UPDI programming.
