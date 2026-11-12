@@ -80,7 +80,7 @@ See “Usage” for detailed procedures.
 | D1, D3-D5 | 4 | [BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693) | SOD-323 |
 | D2 | 1 | [BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402) | 5.6 V Zener diode, SOD-123, for overvoltage protection (\*1) |
 | D6 | 1 | [1N5819WS](https://jlcpcb.com/partdetail/GuangdongHottech-1N5819WS/C191023) | SOD-323, ≥ 300 mA |
-| D7 | 1 | [BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C3V6/C19077397) | 3.6 V Zener diode, SOD-123; adjust value as needed for LED (3.0 V to 3.6 V) (\*2) |
+| D7 | 1 | [BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C3V6/C19077397) | (Or [MM1Z3V6](https://jlcpcb.com/partdetail/hongjiacheng-MM1Z3V6/C22379457)) 3.6 V Zener diode, SOD-123; adjust value as needed for LED (3.0 V to 3.6 V) (\*2) |
 | D8 | 1 | [NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256) | Red LED, 2012M, VDD voltage indicator |
 | D9 | 1 | [KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297) | Green LED, 2012M, VDD voltage indicator |
 | D10 | 1 | [BZT52C7V5](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C7V5/C19077405) | 7.5 V Zener diode, SOD-123 (\*3) |

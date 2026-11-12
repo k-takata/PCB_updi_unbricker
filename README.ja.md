@@ -88,7 +88,7 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |D1,D3-D5   |   4|[BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693)|SOD-323|
 |D2         |   1|[BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402)|5.6Vツェナーダイオード、SOD-123、過電圧保護用 (\*1)|
 |D6         |   1|[1N5819WS](https://jlcpcb.com/partdetail/GuangdongHottech-1N5819WS/C191023)|SOD-323, ≧300mA|
-|D7         |   1|[BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C3V6/C19077397)|3.6Vツェナーダイオード、SOD-123、LEDに合わせて値は適宜調整 (3.0 - 3.6V) (\*2)|
+|D7         |   1|[BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C3V6/C19077397)|(あるいは [MM1Z3V6](https://jlcpcb.com/partdetail/hongjiacheng-MM1Z3V6/C22379457)) 3.6Vツェナーダイオード、SOD-123、LEDに合わせて値は適宜調整 (3.0 - 3.6V) (\*2)|
 |D8         |   1|[NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256)|赤色LED、2012M、VDD電圧インジケーター|
 |D9         |   1|[KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297)|緑色LED、2012M、VDD電圧インジケーター|
 |D10        |   1|[BZT52C7V5](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C7V5/C19077405)|7.5Vツェナーダイオード、SOD-123 (\*3)|
