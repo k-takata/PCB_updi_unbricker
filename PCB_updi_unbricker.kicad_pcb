@@ -595,7 +595,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C7502693"
+		(property "LCSC" "C7420360"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -4784,7 +4784,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C7502693"
+		(property "LCSC" "C7420360"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -5089,7 +5089,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C19077397"
+		(property "LCSC" "C22379457"
 			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
@@ -7242,7 +7242,7 @@
 		(at 115.57 85.09)
 		(descr "Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
-		(property "Reference" "R21"
+		(property "Reference" "R9"
 			(at 0.635 1.27 0)
 			(layer "F.SilkS")
 			(uuid "10201747-f2c8-4eb9-9f83-f99ce6ae213d")
@@ -8483,7 +8483,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C7502693"
+		(property "LCSC" "C7420360"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -11783,7 +11783,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C8492"
+		(property "LCSC" "C7420340"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)
@@ -12454,7 +12454,7 @@
 				)
 			)
 		)
-		(property "LCSC" "C8492"
+		(property "LCSC" "C7420340"
 			(at 0 0 0)
 			(layer "F.SilkS")
 			(hide yes)

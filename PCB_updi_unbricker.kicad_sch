@@ -6,7 +6,7 @@
 	(paper "A4")
 	(title_block
 		(title "UPDI Unbricker")
-		(date "2026-10-31")
+		(date "2026-11-16")
 		(rev "4")
 		(company "K.Takata")
 	)
@@ -20591,7 +20591,7 @@
 		(in_pos_files yes)
 		(dnp no)
 		(uuid "e16fd1f2-3eb2-4f9d-8bea-224e031e775b")
-		(property "Reference" "R21"
+		(property "Reference" "R9"
 			(at 147.574 99.06 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -20666,7 +20666,7 @@
 		(instances
 			(project "PCB_updi_unbricker"
 				(path "/95a806a0-f6bb-4396-ae05-f958d969047b"
-					(reference "R21")
+					(reference "R9")
 					(unit 1)
 				)
 			)
@@ -21164,28 +21164,28 @@
 			)
 		)
 		(pin "1"
-			(uuid "a1b88ba7-9461-4d49-a0cd-efa90844a83e")
+			(uuid "a1b88ba7-9461-4d49-a0cd-efa90844a83f")
 		)
 		(pin "3"
-			(uuid "c5145b66-0313-4f03-9d71-0073ad0cf91f")
+			(uuid "c5145b66-0313-4f03-9d71-0073ad0cf920")
 		)
 		(pin "4"
-			(uuid "1a91c654-31a1-418a-bd29-8e08d276d96a")
+			(uuid "1a91c654-31a1-418a-bd29-8e08d276d96b")
 		)
 		(pin "5"
-			(uuid "e8d7c90a-18ac-4c8f-b4ac-347b468afc4f")
+			(uuid "e8d7c90a-18ac-4c8f-b4ac-347b468afc50")
 		)
 		(pin "2"
-			(uuid "53332b15-3de1-42ca-8976-a9f4b6a24b37")
+			(uuid "53332b15-3de1-42ca-8976-a9f4b6a24b38")
 		)
 		(pin "7"
-			(uuid "5b452d4e-1493-43a6-907e-8f5d3d5d2590")
+			(uuid "5b452d4e-1493-43a6-907e-8f5d3d5d2591")
 		)
 		(pin "8"
-			(uuid "1f7cab02-d20d-4692-85dd-d84d96dca4aa")
+			(uuid "1f7cab02-d20d-4692-85dd-d84d96dca4ab")
 		)
 		(pin "6"
-			(uuid "14adfc76-566b-4cec-a343-d2572db51acd")
+			(uuid "14adfc76-566b-4cec-a343-d2572db51ace")
 		)
 		(instances
 			(project "PCB_updi_unbricker"

@@ -107,20 +107,19 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |L1         |   1|[DFE322512F-100M=P2](https://jlcpcb.com/partdetail/1423957-DFE322512F_100MP2/C1333678)|10μH, ≧300mA|
 |(Q1,Q2)    |   -|-    |欠番|
 |Q3,Q6,Q8   |   3|[BSS138](https://jlcpcb.com/partdetail/hongjiacheng-BSS138/C7420339)|Nch MOSFET|
-|Q5,Q7      |   2|[BSS84](https://jlcpcb.com/partdetail/LRC-LBSS84LT1G/C8492) |Pch MOSFET|
+|Q5,Q7      |   2|[BSS84](https://jlcpcb.com/partdetail/hongjiacheng-BSS84/C7420340) |Pch MOSFET|
 |Q4         |   1|[AO3401A](https://jlcpcb.com/partdetail/Alpha_OmegaSemicon-AO3401A/C15127)|Pch MOSFET|
 |R1,R15     |   2|470Ω |1608M|
 |R2,R3      |   2|5.1kΩ|1608M|
 |R4         |   1|100kΩ|1608M|
 |R5         |   1|220Ω|1608M|
 |R6-R8,R16-R20| 8|10kΩ |1608M|
-|(R9)       |   -|-    |欠番|
+|R9         |   1|2.7kΩ|1608M、LEDに合わせて値は適宜調整|
 |R10        |   1|470kΩ 1% |1608M (\*5)|
 |R11        |   1|10MΩ 1% |1608M (\*5)|
 |R12        |   1|51kΩ 1%|1608M (\*5)|
 |R13        |   1|220Ω |1608M、LEDに合わせて値は適宜調整 (47 - 220Ω)|
 |R14        |   1|15kΩ |1608M、LEDに合わせて値は適宜調整|
-|R21        |   1|2.7kΩ|1608M、LEDに合わせて値は適宜調整|
 |SW1-SW3    |   3|[SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/)|スライドスイッチ 1回路2接点 基板用|
 |SW4        |   1|      |プッシュスイッチ|
 |SW5        |   1|MSS23D18|スライドスイッチ DP3T|

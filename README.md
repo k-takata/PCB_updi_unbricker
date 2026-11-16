@@ -99,20 +99,19 @@ See “Usage” for detailed procedures.
 | L1 | 1 | [DFE322512F-100M=P2](https://jlcpcb.com/partdetail/1423957-DFE322512F_100MP2/C1333678) | 10 μH, ≥ 300 mA |
 | (Q1, Q2) | - | - | Not used |
 | Q3, Q6, Q8 | 3 | [BSS138](https://jlcpcb.com/partdetail/hongjiacheng-BSS138/C7420339) | N-ch MOSFET |
-| Q5, Q7 | 2 | [BSS84](https://jlcpcb.com/partdetail/LRC-LBSS84LT1G/C8492) | P-ch MOSFET |
+| Q5, Q7 | 2 | [BSS84](https://jlcpcb.com/partdetail/hongjiacheng-BSS84/C7420340) | P-ch MOSFET |
 | Q4 | 1 | [AO3401A](https://jlcpcb.com/partdetail/Alpha_OmegaSemicon-AO3401A/C15127) | P-ch MOSFET |
 | R1, R15 | 2 | 470 Ω | 1608M |
 | R2, R3 | 2 | 5.1 kΩ | 1608M |
 | R4 | 1 | 100 kΩ | 1608M |
 | R5 | 1 | 220 Ω | 1608M |
 | R6-R8, R16-R20 | 8 | 10 kΩ | 1608M |
-| (R9) | - | - | Not used |
+| R9 | 1 | 2.7 kΩ | 1608M; adjust according to LED |
 | R10 | 1 | 470 kΩ 1% | 1608M (\*5) |
 | R11 | 1 | 10 MΩ 1% | 1608M (\*5) |
 | R12 | 1 | 51 kΩ 1% | 1608M (\*5) |
 | R13 | 1 | 220 Ω | 1608M; adjust according to LED (47 Ω to 220 Ω) |
 | R14 | 1 | 15 kΩ | 1608M; adjust according to LED |
-| R21 | 1 | 2.7 kΩ | 1608M; adjust according to LED |
 | SW1-SW3 | 3 | [SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/) | Slide switch, SPDT, PCB mount |
 | SW4 | 1 |  | Push button switch |
 | SW5 | 1 | MSS23D18 | Slide switch, DP3T |
