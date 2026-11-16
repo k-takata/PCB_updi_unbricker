@@ -85,7 +85,7 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |C3,C6      |   2|0.1μF|1608M|
 |C5         |   1|10μF |2012M, ≧25V|
 |C7         |   1|33pF  |1608M|
-|D1,D3-D5   |   4|[BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693)|SOD-323|
+|D1,D3-D5   |   4|[BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693)|(Or [SD103AWS](https://jlcpcb.com/partdetail/hongjiacheng-SD103AWS/C7420360)) SOD-323|
 |D2         |   1|[BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402)|5.6Vツェナーダイオード、SOD-123、過電圧保護用 (\*1)|
 |D6         |   1|[1N5819WS](https://jlcpcb.com/partdetail/GuangdongHottech-1N5819WS/C191023)|SOD-323, ≧300mA|
 |D7         |   1|[BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C3V6/C19077397)|(あるいは [MM1Z3V6](https://jlcpcb.com/partdetail/hongjiacheng-MM1Z3V6/C22379457)) 3.6Vツェナーダイオード、SOD-123、LEDに合わせて値は適宜調整 (3.0 - 3.6V) (\*2)|

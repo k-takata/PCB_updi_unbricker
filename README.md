@@ -77,7 +77,7 @@ See “Usage” for detailed procedures.
 | C3, C6 | 2 | 0.1 μF | 1608M |
 | C5 | 1 | 10 μF | 2012M, ≥ 25 V |
 | C7 | 1 | 33 pF | 1608M |
-| D1, D3-D5 | 4 | [BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693) | SOD-323 |
+| D1, D3-D5 | 4 | [BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693) | (Or [SD103AWS](https://jlcpcb.com/partdetail/hongjiacheng-SD103AWS/C7420360)) SOD-323 |
 | D2 | 1 | [BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402) | 5.6 V Zener diode, SOD-123, for overvoltage protection (\*1) |
 | D6 | 1 | [1N5819WS](https://jlcpcb.com/partdetail/GuangdongHottech-1N5819WS/C191023) | SOD-323, ≥ 300 mA |
 | D7 | 1 | [BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C3V6/C19077397) | (Or [MM1Z3V6](https://jlcpcb.com/partdetail/hongjiacheng-MM1Z3V6/C22379457)) 3.6 V Zener diode, SOD-123; adjust value as needed for LED (3.0 V to 3.6 V) (\*2) |
