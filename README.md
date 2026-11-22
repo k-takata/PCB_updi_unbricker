@@ -1180,6 +1180,7 @@ The following changes were made in Rev. 4:
 * Added R20 to support high-speed serial communication.
 * Added an HV indicator (D14).
 * Added a communication mode switch (SW5).
+* Revised the GND pattern around TPS61040.
 
 ### Rev. 3
 
