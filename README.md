@@ -4,7 +4,7 @@
 
 ## Overview
 
-This board is a UPDI programmer for AVR DA, DB, DD, DU, EA, and EB-series 7.5 V high-voltage (HV) programming and modern ATtiny-series (tinyAVR 0/1/2) 12 V HV programming.
+This board is a UPDI programmer for AVR DD, DU, EA, and EB-series (and maybe LA-series) 7.5 V high-voltage (HV) programming and modern ATtiny-series (tinyAVR 0/1/2) 12 V HV programming.
 It injects HV pulses to restore programming capability when the UPDI pin has been accidentally or deliberately reconfigured, preventing normal UPDI programming with a standard UPDI tool.
 
 The UPDI section of the circuit is based on the design from [UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F), and it includes an automatic mode switch controlled by the RTS signal.
@@ -148,6 +148,19 @@ For safety, this board uses separate connectors for ATtiny and AVR Dx/Ex devices
 For simplified processing, this board resets both ATtiny and AVR Dx/Ex devices with POR, then applies an HV pulse, and finally sends the NVMPROG key. POR is unnecessary for AVR Dx/Ex, and sending the NVMPROG key is unnecessary for ATtiny, but it should be harmless.
 
 For AVR Dx/Ex series, locked devices may not accept the NVMPROG key in some cases. This board sends the Chip Erase key if you keep pressing the START button for over 5 seconds, and forcibly unlocks the device by erasing it.
+
+**Specification of UPDI / RESET pins**
+
+| Series | UPDI Pin as GPIO | Pins (UPDI / RESET) | Control Fuse | RESET Separation & Recovery (HV Pulse) |
+| :--- | :---: | :--- | :--- | :--- |
+| **AVR DA / DB** | **No** | Dedicated UPDI / PF6 (RESET) | `SYSCFG0` (No `UPDIPINCFG`) | Always operates as UPDI (PF6 configurable as RESET/GPIO) |
+| **AVR DD / DU** | **Yes** | PF7 (UPDI) / PF6 (RESET) | `SYSCFG0.UPDIPINCFG = 0` | Recovery requires **HV pulse (≤ 8.5 V) on PF6 (RESET)** |
+| **AVR EA / EB** | **Yes** | PF7 (UPDI) / PF6 (RESET) | `SYSCFG0.UPDIPINCFG = 0` | Recovery requires **HV pulse (≤ 8.5 V) on PF6 (RESET)** |
+| **AVR LA** | **Yes** | PF7 (UPDI) / PF6 (RESET) | `PINCFG.UPDIPINCFG = 0` | Recovery requires **HV pulse (≤ 8.5 V) on PF6 (RESET)** |
+| **megaAVR 0** | **No** | Dedicated UPDI / PF6 (RESET) | `SYSCFG0` (No `UPDIPINCFG`) | Always operates as UPDI (PF6 configurable as RESET/GPIO) |
+| **tinyAVR 0 / 1**<br>(All packages) | **Yes** | **PA0** (Shared UPDI / RESET / GPIO) | `SYSCFG0.RSTPINCFG[1:0]`<br>- `0x0`: GPIO / `0x1`: UPDI / `0x2`: RESET | **No RESET separation**. Recovery requires **12 V HV pulse on PA0** when set to GPIO/RESET |
+| **tinyAVR 2**<br>(14-pin) | **Yes** | **PA0** (Shared UPDI / RESET / GPIO) | `SYSCFG0.RSTPINCFG[1:0]`<br>- `0x0`: GPIO / `0x1`: UPDI / `0x2`: RESET | **No RESET separation**. Recovery requires **9 – 12 V HV pulse on PA0** when set to GPIO/RESET |
+| **tinyAVR 2**<br>(20 / 24-pin) | **Yes** | **PA0** (Shared UPDI / RESET / GPIO)<br>**PB4** (Alternate RESET pin) | `SYSCFG0.RSTPINCFG[1:0]`<br>- `0x3`: **UPDI (PA0) + RESET (PB4)** | **PB4 can be separated as external RESET**. Recovery requires **9 – 12 V HV pulse on PA0** if PA0 is changed |
 
 **Reference material:**
 

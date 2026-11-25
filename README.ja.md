@@ -4,7 +4,7 @@
 
 ## 概要
 
-AVR DA, DB, DD, DU, EA, EBシリーズの7.5V高電圧 (HV) プログラミング、およびモダンATtinyシリーズ (tinyAVR 0/1/2シリーズ) の12V HVプログラミングに対応したUPDI (Unified Program and Debug Interface) 書き込み装置です。
+AVR DD, DU, EA, EBシリーズ (とおそらくLAシリーズ) の7.5V高電圧 (HV) プログラミング、およびモダンATtinyシリーズ (tinyAVR 0/1/2シリーズ) の12V HVプログラミングに対応したUPDI (Unified Program and Debug Interface) 書き込み装置です。
 意図的あるいは事故によりUPDIピンの設定を変更してしまい、通常のUPDI書き込み装置で書き込みができなくなってしまったデバイスに対し、HVパルスを注入することで、再度書き込みができるようにします。
 
 UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F)の回路を基にしており、RTS信号による自動切り替え機能を備えています。
@@ -157,6 +157,19 @@ HVプログラミングには2種類あり、1つはATtinyシリーズで使用�
 また処理を簡略化するため、ATtinyとAVR Dx/ExのどちらもPORを行ってからHVパルスを与え、その後、NVMPROGキーを送出するようになっています。PORはAVR Dx/Exには不要ですし、NVMPROGキーの送出はATtinyには不要ですが、悪影響はないはずです。
 
 AVR Dx/Exシリーズの場合、デバイスがロックされているとNVMPROGキーを受け付けない場合があるようです。本機では、STARTボタンを5秒以上長押しすると、Chip Eraseキーを送出し、デバイスを消去することで強制的にロックを解除します。
+
+**UPDI/RESETピンの仕様**
+
+| シリーズ | UPDIピンのGPIO変更 | 該当ピン（UPDI / RESET） | 制御ヒューズ | RESET分離・復旧条件（HVパルス） |
+| :--- | :---: | :--- | :--- | :--- |
+| **AVR DA / DB** | **不可** | UPDI専用 / PF6 (RESET) | `SYSCFG0`（`UPDIPINCFG`なし） | 常にUPDIとして動作（PF6はRESET/GPIO切替可） |
+| **AVR DD / DU** | **可能** | PF7 (UPDI) / PF6 (RESET) | `SYSCFG0.UPDIPINCFG = 0` | 復旧には**PF6 (RESET) にHVパルス（≦8.5V）**が必要 |
+| **AVR EA / EB** | **可能** | PF7 (UPDI) / PF6 (RESET) | `SYSCFG0.UPDIPINCFG = 0` | 復旧には**PF6 (RESET) にHVパルス（≦8.5V）**が必要 |
+| **AVR LA** | **可能** | PF7 (UPDI) / PF6 (RESET) | `PINCFG.UPDIPINCFG = 0` | 復旧には**PF6 (RESET) にHVパルス（≦8.5V）**が必要 |
+| **megaAVR 0** | **不可** | UPDI専用 / PF6 (RESET) | `SYSCFG0`（`UPDIPINCFG`なし） | 常にUPDIとして動作（PF6はRESET/GPIO切替可） |
+| **tinyAVR 0 / 1**<br>（全パッケージ） | **可能** | **PA0**（UPDI / RESET / GPIO 共通） | `SYSCFG0.RSTPINCFG[1:0]`<br>・`0x0`: GPIO / `0x1`: UPDI / `0x2`: RESET | **RESET分離不可**。GPIO/RESET設定時は**PA0に12VのHVパルス**で復旧 |
+| **tinyAVR 2**<br>（14ピン品） | **可能** | **PA0**（UPDI / RESET / GPIO 共通） | `SYSCFG0.RSTPINCFG[1:0]`<br>・`0x0`: GPIO / `0x1`: UPDI / `0x2`: RESET | **RESET分離不可**。GPIO/RESET設定時は**PA0に9V〜12VのHVパルス**で復旧 |
+| **tinyAVR 2**<br>（20・24ピン品） | **可能** | **PA0**（UPDI / RESET / GPIO 共通）<br>**PB4**（代替RESETピン） | `SYSCFG0.RSTPINCFG[1:0]`<br>・`0x3`: **UPDI(PA0)＋RESET(PB4)** | **PB4を外部RESETとして分離可能**。PA0変更時はPA0へ9V〜12VのHVパルス印加で復旧 |
 
 **参考資料:**
 
