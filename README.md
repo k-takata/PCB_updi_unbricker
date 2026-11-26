@@ -1229,10 +1229,8 @@ Rev. 2:
 Rev. 3:  
 [![Finished product Rev. 3](images/unbricker-rev3-thumb.jpg)](images/unbricker-rev3.jpg)
 
-<!--
 Rev. 4:  
 [![Finished product Rev. 4](images/unbricker-rev4-thumb.jpg)](images/unbricker-rev4.jpg)
--->
 
 ## License
 

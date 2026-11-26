@@ -1257,10 +1257,8 @@ Rev. 2:
 Rev. 3:  
 [![完成品 Rev. 3](images/unbricker-rev3-thumb.jpg)](images/unbricker-rev3.jpg)
 
-<!--
 Rev. 4:  
 [![完成品 Rev. 4](images/unbricker-rev4-thumb.jpg)](images/unbricker-rev4.jpg)
--->
 
 
 ## License
