@@ -1,13 +1,13 @@
 [English](README.md) | [日本語](README.ja.md)
 
-# UPDI Unbricker (Rev. 3)
+# UPDI Unbricker (Rev. 4)
 
 ## 概要
 
-AVR DA, DB, DD, DU, EA, EBシリーズの7.5V高電圧 (HV) プログラミング、およびモダンATtinyシリーズ (tinyAVR 0/1/2シリーズ) の12V HVプログラミングに対応したUPDI (Unified Program and Debug Interface) 書き込み装置です。
+AVR DD, DU, EA, EBシリーズ (とおそらくLAシリーズ) の7.5V高電圧 (HV) プログラミング、およびモダンATtinyシリーズ (tinyAVR 0/1/2シリーズ) の12V HVプログラミングに対応したUPDI (Unified Program and Debug Interface) 書き込み装置です。
 意図的あるいは事故によりUPDIピンの設定を変更してしまい、通常のUPDI書き込み装置で書き込みができなくなってしまったデバイスに対し、HVパルスを注入することで、再度書き込みができるようにします。
 
-UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F)の回路を使用しており、RTS信号による自動切り替え機能を備えています。
+UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F)の回路を基にしており、RTS信号による自動切り替え機能を備えています。
 
 
 ## 対応範囲
@@ -29,13 +29,14 @@ UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/
 
 ## スイッチとジャンパーの役割
 
-本基板では、3つのスイッチと1つのジャンパーで動作モードを切り替えます。
+本基板では、4つのスイッチと1つのジャンパーで動作モードを切り替えます。
 
 | 部品 | 役割 | 主要設定 |
 |------|------|----------|
 | SW1 | HVパルス発生の有効/無効 | OFF = 安全モード, ON = HVプログラミング実行 |
 | SW2 | ターゲットへの供給電圧選択 | 5V / 3.3V を選択 |
 | SW3 | 本機からターゲットへの給電有無 | ON = 給電, OFF = 外部給電時の重複回避 |
+| SW5 | 通信モード選択 | UPDI, UART, または Auto |
 | J2 | 書き込み先切替え | FW = ファームウェア書込み, Target = ターゲット書込み |
 
 J2は、ファームウェア書き込み時には FW 側、UPDI書込み時には Target 側に設定します。
@@ -67,32 +68,34 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 
 ## 回路図
 
-[![schema](images/schema-rev3.png)](images/schema-rev3.pdf)
+[![schema](images/schema-rev4.png)](images/schema-rev4.pdf)
 
 
 ## 基板パターン図
 
-![PCB pattern](images/pcb-pattern-rev3.png)
+![PCB pattern](images/pcb-pattern-rev4.png)
 
 
 ## 部品表
 
 | Reference |個数|値    | 説明 |
 |-----------|----|------|------|
-|C1,C2,C4   |   3|10μF |1608M|
+|C1,C4      |   2|10μF |1608M|
+|C2         |   1|22μF |2012M, ≧10V|
 |C3,C6      |   2|0.1μF|1608M|
 |C5         |   1|10μF |2012M, ≧25V|
 |C7         |   1|33pF  |1608M|
-|D1,D3-D5   |   4|[BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693)|SOD-323|
+|D1,D3-D5   |   4|[BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693)|(あるいは [SD103AWS](https://jlcpcb.com/partdetail/hongjiacheng-SD103AWS/C7420360)) SOD-323|
 |D2         |   1|[BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402)|5.6Vツェナーダイオード、SOD-123、過電圧保護用 (\*1)|
 |D6         |   1|[1N5819WS](https://jlcpcb.com/partdetail/GuangdongHottech-1N5819WS/C191023)|SOD-323, ≧300mA|
-|D7         |   1|[BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C3V6/C19077397)|3.6Vツェナーダイオード、SOD-123、LEDに合わせて値は適宜調整 (3.0 - 3.6V) (\*2)|
-|D8         |   1|[NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256)|2012M、VDD電圧インジケーター|
-|D9         |   1|[KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297)|2012M、VDD電圧インジケーター|
+|D7         |   1|[BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C3V6/C19077397)|(あるいは [MM1Z3V6](https://jlcpcb.com/partdetail/hongjiacheng-MM1Z3V6/C22379457)) 3.6Vツェナーダイオード、SOD-123、LEDに合わせて値は適宜調整 (3.0 - 3.6V) (\*2)|
+|D8         |   1|[NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256)|赤色LED、2012M、VDD電圧インジケーター|
+|D9         |   1|[KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297)|緑色LED、2012M、VDD電圧インジケーター|
 |D10        |   1|[BZT52C7V5](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C7V5/C19077405)|7.5Vツェナーダイオード、SOD-123 (\*3)|
 |D11        |   1|任意  |5.6Vツェナーダイオード、DO-41 (\*1)|
 |D12        |   1|任意  |3.6Vツェナーダイオード、DO-35 (\*2)|
 |D13        |   1|任意  |7.5Vツェナーダイオード、DO-41 (\*3)|
+|D14        |   1|[KT-0805Y](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805Y/C2296)|黄色LED、2012M、HVインジケーター|
 |F1         |   1|[SMD1206P050TF](https://jlcpcb.com/partdetail/21511-SMD1206P050TF/C20799)|リセッタブルヒューズ 0.5A|
 |J1         |   1|[TYPE-C16PIN](https://jlcpcb.com/partdetail/SHOUHAN-TYPEC16PIN/C393939)|USB Type-Cレセプタクル|
 |J2         |   1|      |ピンヘッダー 1x3、書き込み先切り替え用|
@@ -104,15 +107,14 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |L1         |   1|[DFE322512F-100M=P2](https://jlcpcb.com/partdetail/1423957-DFE322512F_100MP2/C1333678)|10μH, ≧300mA|
 |(Q1,Q2)    |   -|-    |欠番|
 |Q3,Q6,Q8   |   3|[BSS138](https://jlcpcb.com/partdetail/hongjiacheng-BSS138/C7420339)|Nch MOSFET|
-|Q5,Q7      |   2|[BSS84](https://jlcpcb.com/partdetail/LRC-LBSS84LT1G/C8492) |Pch MOSFET|
+|Q5,Q7      |   2|[BSS84](https://jlcpcb.com/partdetail/hongjiacheng-BSS84/C7420340) |Pch MOSFET|
 |Q4         |   1|[AO3401A](https://jlcpcb.com/partdetail/Alpha_OmegaSemicon-AO3401A/C15127)|Pch MOSFET|
 |R1,R15     |   2|470Ω |1608M|
 |R2,R3      |   2|5.1kΩ|1608M|
 |R4         |   1|100kΩ|1608M|
 |R5         |   1|220Ω|1608M|
-|(R6)       |   -|-    |欠番|
-|R7,R8,R16-R19| 6|10kΩ |1608M|
-|(R9)       |   -|-    |欠番|
+|R6-R8,R16-R20| 8|10kΩ |1608M|
+|R9         |   1|2.7kΩ|1608M、LEDに合わせて値は適宜調整|
 |R10        |   1|470kΩ 1% |1608M (\*5)|
 |R11        |   1|10MΩ 1% |1608M (\*5)|
 |R12        |   1|51kΩ 1%|1608M (\*5)|
@@ -120,6 +122,7 @@ J2は、ファームウェア書き込み時には FW 側、UPDI書込み時に�
 |R14        |   1|15kΩ |1608M、LEDに合わせて値は適宜調整|
 |SW1-SW3    |   3|[SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/)|スライドスイッチ 1回路2接点 基板用|
 |SW4        |   1|      |プッシュスイッチ|
+|SW5        |   1|MSS23D18|スライドスイッチ DP3T|
 |U1         |   1|[CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586)||
 |U2         |   1|[AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186)|あるいはLM1117GS-3.3|
 |U3         |   1|[74LVC1G3157](https://jlcpcb.com/partdetail/JSMSEMI-SN74LVC1G3157DBVRJSM/C44512789)|アナログスイッチ (SPDT)|
@@ -154,6 +157,19 @@ HVプログラミングには2種類あり、1つはATtinyシリーズで使用�
 また処理を簡略化するため、ATtinyとAVR Dx/ExのどちらもPORを行ってからHVパルスを与え、その後、NVMPROGキーを送出するようになっています。PORはAVR Dx/Exには不要ですし、NVMPROGキーの送出はATtinyには不要ですが、悪影響はないはずです。
 
 AVR Dx/Exシリーズの場合、デバイスがロックされているとNVMPROGキーを受け付けない場合があるようです。本機では、STARTボタンを5秒以上長押しすると、Chip Eraseキーを送出し、デバイスを消去することで強制的にロックを解除します。
+
+**UPDI/RESETピンの仕様**
+
+| シリーズ | UPDIピンのGPIO変更 | 該当ピン（UPDI / RESET） | 制御ヒューズ | RESET分離・復旧条件（HVパルス） |
+| :--- | :---: | :--- | :--- | :--- |
+| **AVR DA / DB** | **不可** | UPDI専用 / PF6 (RESET) | `SYSCFG0`（`UPDIPINCFG`なし） | 常にUPDIとして動作（PF6はRESET/GPIO切替可） |
+| **AVR DD / DU** | **可能** | PF7 (UPDI) / PF6 (RESET) | `SYSCFG0.UPDIPINCFG = 0` | 復旧には**PF6 (RESET) にHVパルス（≦8.5V）**が必要 |
+| **AVR EA / EB** | **可能** | PF7 (UPDI) / PF6 (RESET) | `SYSCFG0.UPDIPINCFG = 0` | 復旧には**PF6 (RESET) にHVパルス（≦8.5V）**が必要 |
+| **AVR LA** | **可能** | PF7 (UPDI) / PF6 (RESET) | `PINCFG.UPDIPINCFG = 0` | 復旧には**PF6 (RESET) にHVパルス（≦8.5V）**が必要 |
+| **megaAVR 0** | **不可** | UPDI専用 / PF6 (RESET) | `SYSCFG0`（`UPDIPINCFG`なし） | 常にUPDIとして動作（PF6はRESET/GPIO切替可） |
+| **tinyAVR 0 / 1**<br>（全パッケージ） | **可能** | **PA0**（UPDI / RESET / GPIO 共通） | `SYSCFG0.RSTPINCFG[1:0]`<br>・`0x0`: GPIO / `0x1`: UPDI / `0x2`: RESET | **RESET分離不可**。GPIO/RESET設定時は**PA0に12VのHVパルス**で復旧 |
+| **tinyAVR 2**<br>（14ピン品） | **可能** | **PA0**（UPDI / RESET / GPIO 共通） | `SYSCFG0.RSTPINCFG[1:0]`<br>・`0x0`: GPIO / `0x1`: UPDI / `0x2`: RESET | **RESET分離不可**。GPIO/RESET設定時は**PA0に9V〜12VのHVパルス**で復旧 |
+| **tinyAVR 2**<br>（20・24ピン品） | **可能** | **PA0**（UPDI / RESET / GPIO 共通）<br>**PB4**（代替RESETピン） | `SYSCFG0.RSTPINCFG[1:0]`<br>・`0x3`: **UPDI(PA0)＋RESET(PB4)** | **PB4を外部RESETとして分離可能**。PA0変更時はPA0へ9V〜12VのHVパルス印加で復旧 |
 
 **参考資料:**
 
@@ -217,13 +233,15 @@ J3は一般的な6ピンTTLシリアルコネクターです。J3の6番ピン�
 |   5 | RxD           | 黄 |
 |   6 | RTS / DTR     | 緑 |
 
-SW1はHVプログラミングを実行するかどうかを選択します。安全のため、通常はOFFにしておくことを推奨します。
+SW1はHVプログラミングを実行するかどうかを選択します。安全のため、通常はOFFにしておくことを推奨します。SW1がON (HVが有効) のとき、黄色のLED (D14) が点灯します。
 
 SW2はターゲットへ供給する電圧と、J3、J5、J6の信号レベルを、5Vまたは3.3Vから選択します。ターゲットが外部電源で動作している場合でも、SW2はターゲットの電圧に合わせて設定してください。
 
 SW3は本機からターゲットへ電源を供給するかどうかを選択します。シルクのON側に倒すと給電し、OFF側に倒すと給電しません。別経路からターゲットへ電源供給中の場合はOFFにしてください。
 
 ターゲットに対して本機から電源を供給する場合は、SW2で供給電圧を選択し、SW3をONにします。供給電圧によってLEDの点灯状況が変わります。3.3Vで緑色、5Vで緑色 + 赤色です。SW3がOFFでターゲットを接続していない場合はLEDは消灯しますが、ターゲットを接続した場合はターゲットからの電源でLEDが点灯します。
+
+SW5は、UPDI書き込みモードとシリアル通信モードを選択します。Autoにするとモードが自動的に選択されます。UPDIにするとUPDI書き込みモード、UARTにするとシリアル通信モードになります。
 
 
 ### ファームウェアの書き込み
@@ -237,6 +255,7 @@ SW3は本機からターゲットへ電源を供給するかどうかを選択�
 | SW1 | 任意           |
 | SW2 | 5V             |
 | SW3 | 任意           |
+| SW5 | Auto または UPDI |
 | J1  | PCを接続       |
 | J2  | **FW**         |
 | J3  | 未接続         |
@@ -266,6 +285,7 @@ U4のUPDIピンを無効化してしまい、HVプログラミングによる再
 | SW1 | 任意           |
 | SW2 | 任意           |
 | SW3 | 任意           |
+| SW5 | 任意           |
 | J1  | 未接続         |
 | J2  | **ジャンパーを外す** |
 | J3  | 未接続         |
@@ -289,6 +309,7 @@ U4のUPDIピンを無効化してしまい、HVプログラミングによる再
 | SW1 | 安全のためOFF  |
 | SW2 | ターゲットに合わせて5Vか3.3Vを選択 |
 | SW3 | 通常はON       |
+| SW5 | Auto または UPDI |
 | J1  | PCを接続       |
 | J2  | **Target**     |
 | J3  | 未接続/接続    |
@@ -297,7 +318,7 @@ U4のUPDIピンを無効化してしまい、HVプログラミングによる再
 | J7  | 未接続         |
 
 SW3は通常はONにしますが、ターゲットに別経路から電源が供給されている場合はOFFにします。  
-J3は接続されていても問題ありません。UPDIモードとシリアル通信モードはRTS信号により自動的に切り替えられます。
+J3は接続されていても問題ありません。SW5がAutoのとき、UPDIモードとシリアル通信モードはRTS信号により自動的に切り替えられます。
 
 Arduino IDEから、書き込み装置をSerialUPDIに設定すれば書き込みができます。
 
@@ -311,6 +332,7 @@ Arduino IDEから、書き込み装置をSerialUPDIに設定すれば書き込�
 | SW1 | **ON**         |
 | SW2 | ターゲットに合わせて5Vか3.3Vを選択 |
 | SW3 | 通常はON       |
+| SW5 | Auto または UPDI |
 | J1  | PCを接続       |
 | J2  | **Target**     |
 | J3  | 未接続         |
@@ -353,6 +375,7 @@ UPDIの有効化やチップ消去に失敗すると、処理の終了後にVDD�
 | SW1 | 安全のためOFF  |
 | SW2 | ターゲットに合わせて5Vか3.3Vを選択 |
 | SW3 | 通常はON       |
+| SW5 | Auto または UART |
 | J1  | PCを接続       |
 | J2  | **Target**     |
 | J3  | ターゲットを接続 |
@@ -360,7 +383,7 @@ UPDIの有効化やチップ消去に失敗すると、処理の終了後にVDD�
 |J5/J6| 未接続/接続    |
 | J7  | 未接続         |
 
-J5/J6は接続されていても問題ありません。UPDIモードとシリアル通信モードはRTS信号により自動的に切り替えられます。  
+J5/J6は接続されていても問題ありません。SW5がAutoのとき、UPDIモードとシリアル通信モードはRTS信号により自動的に切り替えられます。  
 J3の6番ピンの機能はJ4にジャンパーピンを挿すことでRTSかDTRのどちらかを選択できます。
 
 
@@ -1005,7 +1028,9 @@ AVR64DD28とほぼ同じため省略します。`-p` オプションとSYSCFG0�
 ### HV後も書き込みできない
 
 * J2が**Target**側になっているか確認する。
-* 書き込み装置がSerialUPDIになっているか確認する。
+* SW5がAutoまたはUPDIになっているか確認する。  
+  もし既にAutoになっているならば、UPDIに変えてみる。あるいは、Arduino IDEでシリアルモニタを開いている場合は閉じてみる。
+* Arduino IDEで書き込み装置がSerialUPDIになっているか確認する。
 * STARTボタン押下後、時間を空けすぎずに書き込み操作を行う。
 * STARTボタン押下後にVDD電圧インジケーターのLEDが点滅する場合は、「エラー通知」を参照する。
 
@@ -1019,16 +1044,6 @@ AVR64DD28とほぼ同じため省略します。`-p` オプションとSYSCFG0�
 
 * UPDI_TGTとVDD_TGTの間の10kΩのプルアップ抵抗が追加されているか確認する。「ATtiny (J5) 用のプルアップ抵抗」を参照。
 * SW2がターゲットの電圧に合っているか確認する。
-
-### USB接続が切れる (3.3V時)
-
-3.3Vのとき、ターゲットの電源を入れた瞬間 (STARTボタンを離したときなど) に、USB接続が一瞬切れることがあります。Rev. 3の基板では、C2 (U2の出力コンデンサ) を10μFから22μFに変更することで解決します。
-
-* 原因は、おそらく次のとおりです。ターゲットへの突入電流でU2 (3.3Vのレギュレーター) の出力電圧が一瞬沈み、同じVDDで動作しているCH340Kがリセットされます (パワーオンリセットのしきい値は2.4〜2.8V)。3.3Vでは余裕が小さくなります。
-* LM1117のデータシートでは出力コンデンサは10μFが推奨されていますが、AMS1117のデータシートでは22μF (タンタルコンデンサを推奨) とされています。セラミックコンデンサは、DCバイアスによって実効容量が低下します。
-* C2を22μF (1608MのMLCCを使用) に変更した後は、3.3VでUSB接続が切れなくなりました。
-* ターゲットにLEDなどの回路がつながっているときに、起きやすい傾向がありました。ターゲットを外部給電にしている (SW3をOFF) ときは、STARTボタンを離したときには起きませんでした。
-* U1の7番ピン (VCC) とGNDの間に0.1μFのデカップリングコンデンサを追加しても、明確な変化はありませんでした。ファームウェアで、ターゲットの電源をPWMで徐々に入れる (ソフトスタート) と、頻度は減りましたが、なくなりませんでした。
 
 ### HV電圧が心配
 
@@ -1079,7 +1094,7 @@ CH340Kを3.3V動作させる場合は、データシートではV3ピンをVCC�
 
 ### UPDIモードとシリアル通信モードの自動切り替え
 
-前述の通り、UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F)の回路を使用しており、RTS信号による自動切り替え機能を備えています。
+前述の通り、UPDI部分の回路は[UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F)の回路を使用しており、RTS信号による自動切り替え機能を備えています。Rev. 4では、SW5により、自動切り替えを使わずにUPDIまたはUARTに固定することもできます。
 
 シリアル通信中はRTSがアクティブ (low) になり、UPDI通信中はRTSが非アクティブ (high) になることを利用して切り替えを行っています。
 
@@ -1115,9 +1130,7 @@ R7でVDDにプルアップし、D5で逆流を阻止しているだけです。
 
 ### ATtiny (J5) 用のプルアップ抵抗
 
-Nch MOSFETを使ったレベルシフター (Q3) は、両側にプルアップ抵抗が必要です。ATtiny側 (UPDI_TINY) は、ターゲットのUPDIピンの内部プルアップでプルアップされます。しかし、Rev. 3の基板ではUPDI_TGT側にプルアップ抵抗がありません。このままだと、UPDI_TGTのHighレベルがQ3のVDD - Vth程度 (5Vのとき約4V) で止まってしまい、ATtinyとの通信が不安定になります。(初期のファームウェアではU4の内部プルアップを使っていましたが、3.3VのターゲットのUPDI線を5Vにプルアップしてしまうため、使用をやめました。)
-
-UPDI_TGTとVDD_TGTの間に10kΩの抵抗を追加してください。Rev. 3の基板では、D4のアノード (2番ピン、UPDI_TGT側) とQ4の3番ピン (VDD_TGT) の間にはんだ付けします。
+Nch MOSFETを使ったレベルシフター (Q3) は、両側にプルアップ抵抗が必要です。ATtiny側 (UPDI_TINY) は、ターゲットのUPDIピンの内部プルアップでプルアップされます。Rev. 4の基板ではUPDI_TGT側は、R6でVDD_TGTにプルアップしています。
 
 VDDではなくVDD_TGTにプルアップしているのは意図的です。ターゲットの電圧に追従するため、3.3Vのターゲットや外部給電のターゲットでも動作し、本機が給電していないときに、ターゲットの保護ダイオードを経由してターゲットに電流が回り込むこともありません。(VDDにプルアップした場合、ターゲットの電源が切れているときにVDD_TGTが約2Vまで持ち上がりました。)
 
@@ -1127,9 +1140,20 @@ AVR Dx/Ex (J6) は、ターゲット自身がUPDI線をプルアップするた�
 
 CH340Kのデータシートには、120kbpsを超える通信では、MCUのRXピンに2kΩ〜22kΩのプルアップ抵抗を付けることを推奨する記述があります。CH340KのTXDピンは弱いHigh出力で、Highレベルは、内蔵の約75kΩのプルアップ抵抗 (と内蔵ダイオード) だけで保たれているためです。
 
-Rev. 3の基板では、Q3の1番ピン (VDD) とD1のカソード (TxD) の間に10kΩの抵抗を追加して、TxDをVDD (CH340Kの電源) にプルアップしてください。この抵抗を追加した状態で、2Mbpsのシリアル通信が動作し、U4への書き込みにも影響がないことを確認しました。ただし、ターゲットの電源が切れている間に、ターゲットのRXピンの保護ダイオードを通って、10kΩで約0.3〜0.4mAの電流が流れます。抵抗値を大きくする (最大22kΩ) と、減らせます。
+Rev. 4の基板では、R20でTxDをVDD (CH340Kの電源) にプルアップしてあります。この状態で、2Mbpsのシリアル通信が動作し、U4への書き込みにも影響がないことを確認しました。ただし、ターゲットの電源が切れている間に、ターゲットのRXピンの保護ダイオードを通って、10kΩで約0.3〜0.4mAの電流が流れます。抵抗値を大きくする (最大22kΩ) と、減らせます。
 
 TxDをVDD_TGTにプルアップ (例えば、J3の4番ピンと3番ピンの間に抵抗を追加) しないでください。試したところ、U4への書き込み (J2をFWに設定) ができなくなりました。この原因は、おそらく次のとおりです (データシートと回路図からの推測で、測定による確認はしていません)。TxDはD1とR1を介してUPDI線にもつながっています。U4への書き込み中は、Q4が切れてVDD_TGTが0Vになるため、抵抗によって弱いHigh出力のTxDが約0.1 × VCCまで引き下げられて、実質的にLowになり、D1を介してUPDI線が引き下げられます。
+
+### 3.3V生成回路
+
+本基板では AMS1117 (あるいは LM1117) を使用して3.3Vを生成しています。AMS1117のデータシートでは、出力コンデンサとして22μFのタンタルコンデンサが推奨されていますが、今回は出力コンデンサ (C2) にはMLCCを使用しています。MLCCは、DCバイアスによって実効容量が低下することから、今回は耐圧10V以上のものを使用しています。
+
+MLCCはタンタルコンデンサに比べてESRが低いため、AMS1117が発振する場合もあるようですが、今回はそのような現象は確認できませんでした。もし発振したり、ターゲットの電源を入れた瞬間 (STARTボタンを離したときなど) に、USB接続が一瞬切れるようであれば、次の対策で改善するかもしれません。いずれもこの基板では試していません。
+
+* C2と直列に0.5Ω程度の抵抗を入れる。
+* C2をタンタルコンデンサに交換する。
+* U2をMLCCで安定して動作するレギュレーターに交換する。
+  * 候補: AP2114, LDL1117, AZ1117C, NCP1117, TLV1117LV
 
 
 ## DxCore 1.6.2に関する問題
@@ -1187,6 +1211,17 @@ DxCore 1.6.2には、書き込みができない致命的な問題の他にも�
 
 ## 変更差分
 
+### Rev. 4
+
+Rev. 4での変更点は以下の通りです。
+
+* Q3のUPDI_TGT側にプルアップ抵抗 (R6) を追加。(ATtiny用)
+* C2を10μFから22μFに変更。(3.3VでUSB接続が切れる問題の修正。)
+* 高速シリアル通信用にR20を追加。
+* HVインジケーター (D14) を追加。
+* 通信モード選択スイッチ (SW5) を追加。
+* TPS61040周辺のGNDパターンを改善。
+
 ### Rev. 3
 
 Rev. 3での変更点は以下の通りです。
@@ -1196,8 +1231,10 @@ Rev. 3での変更点は以下の通りです。
 
 既知の問題:
 
-* Q3のUPDI_TGT側にプルアップ抵抗がありません。ATtinyと通信するには10kΩの抵抗を追加してください。「ATtiny (J5) 用のプルアップ抵抗」を参照。
-* 3.3Vのとき、ターゲットの電源を入れた瞬間にUSB接続が切れることがあります。C2を10μFから22μFに変更してください。「USB接続が切れる (3.3V時)」を参照。
+* Q3のUPDI_TGT側にプルアップ抵抗がありません。ATtinyと通信するには、UPDI_TGTとVDD_TGTの間に10kΩの抵抗を追加してください。D4のアノード (2番ピン、UPDI_TGT側) とQ4の3番ピン (VDD_TGT) の間にはんだ付けします。「ATtiny (J5) 用のプルアップ抵抗」を参照。
+* 3.3Vのとき、ターゲットの電源を入れた瞬間にUSB接続が切れることがあります。C2を10μFから22μFに変更してください (耐圧10Vの1608MサイズのMLCCで確認しました)。「3.3V生成回路」を参照。
+
+任意の改造: 高速なシリアル通信に対応するには、Q3の1番ピン (VDD) とD1のカソード (TxD) の間に10kΩの抵抗を追加してください。「高速シリアル通信 (J3)」を参照。
 
 ### Rev. 2
 
@@ -1219,6 +1256,9 @@ Rev. 2:
 
 Rev. 3:  
 [![完成品 Rev. 3](images/unbricker-rev3-thumb.jpg)](images/unbricker-rev3.jpg)
+
+Rev. 4:  
+[![完成品 Rev. 4](images/unbricker-rev4-thumb.jpg)](images/unbricker-rev4.jpg)
 
 
 ## License

@@ -1,10 +1,10 @@
 [English](README.md) | [日本語](README.ja.md)
 
-# UPDI Unbricker (Rev. 3)
+# UPDI Unbricker (Rev. 4)
 
 ## Overview
 
-This board is a UPDI programmer for AVR DA, DB, DD, DU, EA, and EB-series 7.5 V high-voltage (HV) programming and modern ATtiny-series (tinyAVR 0/1/2) 12 V HV programming.
+This board is a UPDI programmer for AVR DD, DU, EA, and EB-series (and maybe LA-series) 7.5 V high-voltage (HV) programming and modern ATtiny-series (tinyAVR 0/1/2) 12 V HV programming.
 It injects HV pulses to restore programming capability when the UPDI pin has been accidentally or deliberately reconfigured, preventing normal UPDI programming with a standard UPDI tool.
 
 The UPDI section of the circuit is based on the design from [UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F), and it includes an automatic mode switch controlled by the RTS signal.
@@ -26,13 +26,14 @@ The UPDI section of the circuit is based on the design from [UPDI Adapter for AE
 
 ## Switch and jumper roles
 
-This board switches operating modes using three switches and one jumper.
+This board switches operating modes using four switches and one jumper.
 
 | Part | Role | Main setting |
 |------|------|--------------|
 | SW1 | Enables/disables HV pulse generation | OFF = safe mode, ON = HV programming enabled |
 | SW2 | Selects target supply voltage | Choose 5 V or 3.3 V |
 | SW3 | Enables/disables power output from this board to the target | ON = power supplied, OFF = avoids double-powering when externally powered |
+| SW5 | Selects communication mode | UPDI, UART, or Auto |
 | J2 | Selects programming target | FW = firmware write, Target = target programming |
 
 Set J2 to the FW side for firmware programming and the Target side for UPDI programming.
@@ -61,30 +62,32 @@ See “Usage” for detailed procedures.
 
 ## Schematic
 
-[![schema](images/schema-rev3.png)](images/schema-rev3.pdf)
+[![schema](images/schema-rev4.png)](images/schema-rev4.pdf)
 
 ## PCB layout
 
-![PCB pattern](images/pcb-pattern-rev3.png)
+![PCB pattern](images/pcb-pattern-rev4.png)
 
 ## BOM
 
 | Reference | Quantity | Value | Description |
 |-----------|----------|-------|-------------|
-| C1, C2, C4 | 3 | 10 μF | 1608M |
+| C1, C4 | 2 | 10 μF | 1608M |
+| C2 | 1 | 22 μF | 2012M, ≥ 10 V |
 | C3, C6 | 2 | 0.1 μF | 1608M |
 | C5 | 1 | 10 μF | 2012M, ≥ 25 V |
 | C7 | 1 | 33 pF | 1608M |
-| D1, D3-D5 | 4 | [BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693) | SOD-323 |
+| D1, D3-D5 | 4 | [BAT43WS](https://jlcpcb.com/partdetail/hongjiacheng-BAT43WS/C7502693) | (Or [SD103AWS](https://jlcpcb.com/partdetail/hongjiacheng-SD103AWS/C7420360)) SOD-323 |
 | D2 | 1 | [BZT52C5V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C5V6/C19077402) | 5.6 V Zener diode, SOD-123, for overvoltage protection (\*1) |
 | D6 | 1 | [1N5819WS](https://jlcpcb.com/partdetail/GuangdongHottech-1N5819WS/C191023) | SOD-323, ≥ 300 mA |
-| D7 | 1 | [BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C3V6/C19077397) | 3.6 V Zener diode, SOD-123; adjust value as needed for LED (3.0 V to 3.6 V) (\*2) |
-| D8 | 1 | [NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256) | 2012M, VDD voltage indicator |
-| D9 | 1 | [KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297) | 2012M, VDD voltage indicator |
+| D7 | 1 | [BZT52C3V6](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C3V6/C19077397) | (Or [MM1Z3V6](https://jlcpcb.com/partdetail/hongjiacheng-MM1Z3V6/C22379457)) 3.6 V Zener diode, SOD-123; adjust value as needed for LED (3.0 V to 3.6 V) (\*2) |
+| D8 | 1 | [NCD0805R1](https://jlcpcb.com/partdetail/85425-NCD0805R1/C84256) | Red LED, 2012M, VDD voltage indicator |
+| D9 | 1 | [KT-0805G](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805G/C2297) | Green LED, 2012M, VDD voltage indicator |
 | D10 | 1 | [BZT52C7V5](https://jlcpcb.com/partdetail/hongjiacheng-BZT52C7V5/C19077405) | 7.5 V Zener diode, SOD-123 (\*3) |
 | D11 | 1 | Optional | 5.6 V Zener diode, DO-41 (\*1) |
 | D12 | 1 | Optional | 3.6 V Zener diode, DO-35 (\*2) |
 | D13 | 1 | Optional | 7.5 V Zener diode, DO-41 (\*3) |
+| D14 | 1 | [KT-0805Y](https://jlcpcb.com/partdetail/Hubei_KENTOElec-KT0805Y/C2296) | Yellow LED, 2012M, HV indicator |
 | F1 | 1 | [SMD1206P050TF](https://jlcpcb.com/partdetail/21511-SMD1206P050TF/C20799) | Resettable fuse, 0.5 A |
 | J1 | 1 | [TYPE-C16PIN](https://jlcpcb.com/partdetail/SHOUHAN-TYPEC16PIN/C393939) | USB Type-C receptacle |
 | J2 | 1 |  | 1 × 3 pin header for selecting the programming target |
@@ -96,15 +99,14 @@ See “Usage” for detailed procedures.
 | L1 | 1 | [DFE322512F-100M=P2](https://jlcpcb.com/partdetail/1423957-DFE322512F_100MP2/C1333678) | 10 μH, ≥ 300 mA |
 | (Q1, Q2) | - | - | Not used |
 | Q3, Q6, Q8 | 3 | [BSS138](https://jlcpcb.com/partdetail/hongjiacheng-BSS138/C7420339) | N-ch MOSFET |
-| Q5, Q7 | 2 | [BSS84](https://jlcpcb.com/partdetail/LRC-LBSS84LT1G/C8492) | P-ch MOSFET |
+| Q5, Q7 | 2 | [BSS84](https://jlcpcb.com/partdetail/hongjiacheng-BSS84/C7420340) | P-ch MOSFET |
 | Q4 | 1 | [AO3401A](https://jlcpcb.com/partdetail/Alpha_OmegaSemicon-AO3401A/C15127) | P-ch MOSFET |
 | R1, R15 | 2 | 470 Ω | 1608M |
 | R2, R3 | 2 | 5.1 kΩ | 1608M |
 | R4 | 1 | 100 kΩ | 1608M |
 | R5 | 1 | 220 Ω | 1608M |
-| (R6) | - | - | Not used |
-| R7, R8, R16-R19 | 6 | 10 kΩ | 1608M |
-| (R9) | - | - | Not used |
+| R6-R8, R16-R20 | 8 | 10 kΩ | 1608M |
+| R9 | 1 | 2.7 kΩ | 1608M; adjust according to LED |
 | R10 | 1 | 470 kΩ 1% | 1608M (\*5) |
 | R11 | 1 | 10 MΩ 1% | 1608M (\*5) |
 | R12 | 1 | 51 kΩ 1% | 1608M (\*5) |
@@ -112,6 +114,7 @@ See “Usage” for detailed procedures.
 | R14 | 1 | 15 kΩ | 1608M; adjust according to LED |
 | SW1-SW3 | 3 | [SS-12D00G3](https://akizukidenshi.com/catalog/g/g115707/) | Slide switch, SPDT, PCB mount |
 | SW4 | 1 |  | Push button switch |
+| SW5 | 1 | MSS23D18 | Slide switch, DP3T |
 | U1 | 1 | [CH340K](https://jlcpcb.com/partdetail/WCH_Jiangsu_Qin_Heng-CH340K/C968586) | |
 | U2 | 1 | [AMS1117-3.3](https://jlcpcb.com/partdetail/Advanced_MonolithicSystems-AMS1117_33/C6186) | Or LM1117GS-3.3 |
 | U3 | 1 | [74LVC1G3157](https://jlcpcb.com/partdetail/JSMSEMI-SN74LVC1G3157DBVRJSM/C44512789) | Analog switch (SPDT) |
@@ -145,6 +148,19 @@ For safety, this board uses separate connectors for ATtiny and AVR Dx/Ex devices
 For simplified processing, this board resets both ATtiny and AVR Dx/Ex devices with POR, then applies an HV pulse, and finally sends the NVMPROG key. POR is unnecessary for AVR Dx/Ex, and sending the NVMPROG key is unnecessary for ATtiny, but it should be harmless.
 
 For AVR Dx/Ex series, locked devices may not accept the NVMPROG key in some cases. This board sends the Chip Erase key if you keep pressing the START button for over 5 seconds, and forcibly unlocks the device by erasing it.
+
+**Specification of UPDI / RESET pins**
+
+| Series | UPDI Pin as GPIO | Pins (UPDI / RESET) | Control Fuse | RESET Separation & Recovery (HV Pulse) |
+| :--- | :---: | :--- | :--- | :--- |
+| **AVR DA / DB** | **No** | Dedicated UPDI / PF6 (RESET) | `SYSCFG0` (No `UPDIPINCFG`) | Always operates as UPDI (PF6 configurable as RESET/GPIO) |
+| **AVR DD / DU** | **Yes** | PF7 (UPDI) / PF6 (RESET) | `SYSCFG0.UPDIPINCFG = 0` | Recovery requires **HV pulse (≤ 8.5 V) on PF6 (RESET)** |
+| **AVR EA / EB** | **Yes** | PF7 (UPDI) / PF6 (RESET) | `SYSCFG0.UPDIPINCFG = 0` | Recovery requires **HV pulse (≤ 8.5 V) on PF6 (RESET)** |
+| **AVR LA** | **Yes** | PF7 (UPDI) / PF6 (RESET) | `PINCFG.UPDIPINCFG = 0` | Recovery requires **HV pulse (≤ 8.5 V) on PF6 (RESET)** |
+| **megaAVR 0** | **No** | Dedicated UPDI / PF6 (RESET) | `SYSCFG0` (No `UPDIPINCFG`) | Always operates as UPDI (PF6 configurable as RESET/GPIO) |
+| **tinyAVR 0 / 1**<br>(All packages) | **Yes** | **PA0** (Shared UPDI / RESET / GPIO) | `SYSCFG0.RSTPINCFG[1:0]`<br>- `0x0`: GPIO / `0x1`: UPDI / `0x2`: RESET | **No RESET separation**. Recovery requires **12 V HV pulse on PA0** when set to GPIO/RESET |
+| **tinyAVR 2**<br>(14-pin) | **Yes** | **PA0** (Shared UPDI / RESET / GPIO) | `SYSCFG0.RSTPINCFG[1:0]`<br>- `0x0`: GPIO / `0x1`: UPDI / `0x2`: RESET | **No RESET separation**. Recovery requires **9 – 12 V HV pulse on PA0** when set to GPIO/RESET |
+| **tinyAVR 2**<br>(20 / 24-pin) | **Yes** | **PA0** (Shared UPDI / RESET / GPIO)<br>**PB4** (Alternate RESET pin) | `SYSCFG0.RSTPINCFG[1:0]`<br>- `0x3`: **UPDI (PA0) + RESET (PB4)** | **PB4 can be separated as external RESET**. Recovery requires **9 – 12 V HV pulse on PA0** if PA0 is changed |
 
 **Reference material:**
 
@@ -206,13 +222,15 @@ J3 is a standard 6-pin TTL serial connector. You can select pin 6 on J3 as eithe
 | 5 | RxD | Yellow |
 | 6 | RTS / DTR | Green |
 
-SW1 selects whether HV programming is enabled. For safety, it is normally recommended to keep it OFF.
+SW1 selects whether HV programming is enabled. For safety, it is normally recommended to keep it OFF. The yellow LED (D14) lights when SW1 is ON (HV is enabled).
 
 SW2 selects the target supply voltage and the signal levels of J3, J5, and J6 from 5 V or 3.3 V. Even if the target is powered from an external source, set SW2 to match the target's voltage.
 
 SW3 selects whether the board supplies power to the target. If set to ON, it supplies power; if set to OFF, it does not. If the target is already powered by another path, set this to OFF.
 
 To power the target with this board, select the supply voltage with SW2 and set SW3 to ON. The illumination of LEDs changes with the supply voltage: green at 3.3 V and green + red at 5 V. If SW3 is OFF and the target is not connected, the LED is turned off. If the target is connected and powered externally, the LED lights from the target supply.
+
+SW5 selects between the UPDI programming mode and the serial communication mode. If you set it to Auto, the mode is automatically selected. If you set it to UPDI, the UPDI programming mode is selected. If you set it to UART, the serial communication mode is selected.
 
 ### Firmware programming
 
@@ -225,6 +243,7 @@ To program the firmware to U4, configure and connect the switches and connectors
 | SW1 | Any |
 | SW2 | 5 V |
 | SW3 | Any |
+| SW5 | Auto or UPDI |
 | J1 | Connect PC |
 | J2 | **FW** |
 | J3 | Disconnected |
@@ -253,6 +272,7 @@ If the UPDI pin of U4 has been disabled and you need to re-enable it via HV prog
 | SW1 | Any |
 | SW2 | Any |
 | SW3 | Any |
+| SW5 | Any |
 | J1 | Disconnected |
 | J2 | **Remove jumper** |
 | J3 | Disconnected |
@@ -275,6 +295,7 @@ Configure and connect the switches and connectors as follows.
 | SW1 | OFF for safety |
 | SW2 | Select 5 V or 3.3 V according to the target |
 | SW3 | Normally ON |
+| SW5 | Auto or UPDI |
 | J1 | Connect PC |
 | J2 | **Target** |
 | J3 | Connected or disconnected |
@@ -283,7 +304,7 @@ Configure and connect the switches and connectors as follows.
 | J7 | Disconnected |
 
 SW3 is normally set to ON, but if the target is powered from another source, set it to OFF.  
-J3 can remain connected without issue. The UPDI mode and serial communication mode are automatically switched by the RTS signal.
+J3 can remain connected without issue. When SW5 is set to Auto, the UPDI mode and serial communication mode are automatically switched by the RTS signal.
 
 In the Arduino IDE, set the programmer to SerialUPDI, and programming can proceed normally.
 
@@ -296,6 +317,7 @@ Configure and connect the switches and connectors as follows.
 | SW1 | **ON** |
 | SW2 | Select 5 V or 3.3 V according to the target |
 | SW3 | Normally ON |
+| SW5 | Auto or UPDI |
 | J1 | Connect PC |
 | J2 | **Target** |
 | J3 | Disconnected |
@@ -337,6 +359,7 @@ Configure and connect the switches and connectors as follows.
 | SW1 | OFF for safety |
 | SW2 | Select 5 V or 3.3 V according to the target |
 | SW3 | Normally ON |
+| SW5 | Auto or UART |
 | J1 | Connect PC |
 | J2 | **Target** |
 | J3 | Connect the target |
@@ -344,7 +367,7 @@ Configure and connect the switches and connectors as follows.
 | J5 / J6 | Connected or disconnected |
 | J7 | Disconnected |
 
-J5/J6 may be connected without issue. The UPDI mode and serial communication mode are automatically switched by the RTS signal.  
+J5/J6 may be connected without issue. When SW5 is set to Auto, the UPDI mode and serial communication mode are automatically switched by the RTS signal.  
 You can select pin 6 on J3 as RTS or DTR by inserting a jumper on J4.
 
 ## AVRDUDE usage examples
@@ -984,7 +1007,9 @@ This is almost the same as AVR64DD28, so it is omitted here. Be careful about th
 ### Cannot program even after HV
 
 * Confirm that J2 is set to the **Target** side.
-* Confirm that the programmer is set to SerialUPDI.
+* Confirm that SW5 is set to Auto or UPDI.  
+  If it has already been set to Auto, change it to UPDI. Or, if the Serial Monitor is open in the Arduino IDE, retry after closing it.
+* Confirm that the programmer is set to SerialUPDI in the Arduino IDE.
 * Do not wait too long after pressing START before starting the programming operation.
 * If the VDD indicator LEDs blink after pressing START, see “Error notification”.
 
@@ -998,16 +1023,6 @@ This is almost the same as AVR64DD28, so it is omitted here. Be careful about th
 
 * Check that the 10 kΩ pull-up resistor between UPDI_TGT and VDD_TGT has been added. See "Pull-up resistor for ATtiny (J5)".
 * Check that SW2 is set to match the target voltage.
-
-### USB connection is dropped (at 3.3 V)
-
-At 3.3 V, the USB connection may be dropped for a moment when the target power is turned on (e.g., when the START button is released). On the Rev. 3 board, it is solved by changing C2 (the output capacitor of U2) from 10 μF to 22 μF.
-
-* The cause is presumably that the output voltage of U2 (the 3.3 V regulator) sags when an inrush current flows into the target, and the CH340K, which is powered by the same VDD, is reset (the power-on reset threshold is 2.4 to 2.8 V). The margin is small at 3.3 V.
-* The datasheet of the LM1117 recommends a 10 μF output capacitor, but the datasheet of the AMS1117 recommends 22 μF (a tantalum capacitor is recommended). The effective capacitance of a ceramic capacitor is reduced by the DC bias.
-* After changing C2 to 22 μF (an MLCC of 1608M size was used), the USB connection was no longer dropped at 3.3 V.
-* It happened more often when the target had additional circuits such as LEDs. When the target was powered from an external source (SW3 OFF), it did not happen at the release of the START button.
-* Adding a 0.1 μF decoupling capacitor between pin 7 (VCC) and GND of U1 did not make a clear difference. Turning on the target power gradually in the firmware (soft start by PWM) reduced the frequency, but it did not eliminate it.
 
 ### Concern about the HV voltage
 
@@ -1056,7 +1071,7 @@ Reference: [Non-Compliant Use of CH340 V3 Pin: Deep Dive for Engineers](https://
 
 ### Automatic switching between UPDI mode and serial communication mode
 
-As described above, the UPDI section is based on the circuit from [UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F), which includes automatic mode switching using the RTS signal.
+As described above, the UPDI section is based on the circuit from [UPDI Adapter for AE-CH9102F (Rev. 3)](https://github.com/k-takata/PCB_UPDI_for_AE-CH9102F), which includes automatic mode switching using the RTS signal. In Rev. 4, SW5 can also fix the mode to UPDI or UART instead of using this automatic switching.
 
 Switching is performed by taking advantage of the fact that RTS is active (low) during serial communication and inactive (high) during UPDI communication.
 
@@ -1089,9 +1104,7 @@ The design pulls the line up to VDD with R7 and blocks reverse current with D5.
 
 ### Pull-up resistor for ATtiny (J5)
 
-The N-ch MOSFET level shifter (Q3) requires pull-up resistors on both sides. The ATtiny side (UPDI_TINY) is pulled up by the internal pull-up of the UPDI pin of the target. On the Rev. 3 board, however, the UPDI_TGT side has no pull-up resistor. Without it, the high level of UPDI_TGT stops at about VDD - Vth of Q3 (about 4 V at 5 V) and the communication with an ATtiny becomes unreliable. (The internal pull-up of U4 was used for this purpose in the early firmware, but it pulled up the UPDI line of a 3.3 V target to 5 V, so it is no longer used.)
-
-Add a 10 kΩ resistor between UPDI_TGT and VDD_TGT. On the Rev. 3 board, solder it between the anode of D4 (pin 2, the UPDI_TGT side) and pin 3 of Q4 (VDD_TGT).
+The N-ch MOSFET level shifter (Q3) requires pull-up resistors on both sides. The ATtiny side (UPDI_TINY) is pulled up by the internal pull-up of the UPDI pin of the target. On the Rev. 4 board, the R6 resistor pulls up the UPDI_TGT side.
 
 The resistor is pulled up to VDD_TGT, not to VDD, on purpose. The line follows the voltage of the target, so it works with a 3.3 V target or a target powered from an external source, and it does not back-power the target through its protection diodes while the board does not supply power. (When pulled up to VDD, VDD_TGT was raised to about 2 V while the target power was off.)
 
@@ -1101,9 +1114,20 @@ AVR Dx/Ex (J6) works without this resistor because the target pulls up the UPDI 
 
 The datasheet of the CH340K recommends a 2 kΩ to 22 kΩ pull-up resistor for the RX pin of the MCU for communication above 120 kbps. The TXD pin of the CH340K is a weak-high output: its high level is held only by a built-in pull-up resistor of about 75 kΩ (and a built-in diode).
 
-On the Rev. 3 board, add a 10 kΩ resistor between pin 1 of Q3 (VDD) and the cathode of D1 (TxD) to pull TxD up to VDD (the supply of the CH340K). With this resistor, serial communication at 2 Mbps worked and writing to U4 was not affected. Note that a current of about 0.3 to 0.4 mA with 10 kΩ flows into the RX pin of the target through its protection diode while the target is not powered. A larger resistance (up to 22 kΩ) reduces it.
+On the Rev. 4 board, a 10 kΩ resistor has been installed to pull TxD up to VDD (the supply of the CH340K). With this resistor, serial communication at 2 Mbps worked and writing to U4 was not affected. Note that a current of about 0.3 to 0.4 mA with 10 kΩ flows into the RX pin of the target through its protection diode while the target is not powered. A larger resistance (up to 22 kΩ) reduces it.
 
 Do not pull TxD up to VDD_TGT (e.g., by adding a resistor between J3 pin 4 and pin 3). In testing, it prevented writing to U4 (with J2 set to FW). The cause is presumably as follows (inferred from the datasheet and the schematic, not verified by measurement). TxD is also connected to the UPDI line through D1 and R1. While U4 is being written, VDD_TGT is 0 V because Q4 is off, so the resistor pulls the weak-high TxD down to about 0.1 × VCC, which is practically low, and D1 pulls the UPDI line down.
+
+### 3.3 V generation circuit
+
+This board uses an AMS1117 (or LM1117) to generate 3.3 V. The AMS1117 datasheet recommends a 22 μF tantalum capacitor as the output capacitor, but an MLCC is used for the output capacitor (C2) in this design. Since the effective capacitance of an MLCC decreases with DC bias, a part rated for at least 10 V is used.
+
+Because MLCCs have lower ESR than tantalum capacitors, they may cause the AMS1117 to oscillate, although no such behavior was observed in this case. If oscillation occurs, or if the USB connection is briefly dropped when the target power is turned on (e.g., when the START button is released), the following countermeasures may help. None of them has been tried on this board:
+
+* Add a resistor of about 0.5 Ω in series with C2.
+* Replace C2 with a tantalum capacitor.
+* Replace U2 with a regulator that is stable with MLCCs.
+  * Candidates: AP2114, LDL1117, AZ1117C, NCP1117, TLV1117LV
 
 
 ## Issues with DxCore 1.6.2
@@ -1160,6 +1184,17 @@ One of the most significant appears to be that `analogReference()` does not work
 
 ## History
 
+### Rev. 4
+
+The following changes were made in Rev. 4:
+
+* Added a pull-up resistor (R6) to the UPDI_TGT side of Q3. (For ATtiny)
+* Changed C2 from 10 μF to 22 μF. (To fix the issue that the USB connection may be dropped at 3.3 V.)
+* Added R20 to support high-speed serial communication.
+* Added an HV indicator (D14).
+* Added a communication mode switch (SW5).
+* Revised the GND pattern around TPS61040.
+
 ### Rev. 3
 
 The following changes were made in Rev. 3:
@@ -1169,8 +1204,10 @@ The following changes were made in Rev. 3:
 
 Known issues:
 
-* The UPDI_TGT side of Q3 has no pull-up resistor. Add a 10 kΩ resistor to communicate with an ATtiny. See "Pull-up resistor for ATtiny (J5)".
-* At 3.3 V, the USB connection may be dropped for a moment when the target power is turned on. Change C2 from 10 μF to 22 μF. See "USB connection is dropped (at 3.3 V)".
+* The UPDI_TGT side of Q3 has no pull-up resistor. To communicate with an ATtiny, add a 10 kΩ resistor between UPDI_TGT and VDD_TGT. Solder it between the anode of D4 (pin 2, the UPDI_TGT side) and pin 3 of Q4 (VDD_TGT). See "Pull-up resistor for ATtiny (J5)".
+* At 3.3 V, the USB connection may be dropped for a moment when the target power is turned on. Change C2 from 10 μF to 22 μF (an MLCC of 1608M size rated at 10 V was verified). See "3.3 V generation circuit".
+
+Optional modification: to support high-speed serial communication, add a 10 kΩ resistor between pin 1 of Q3 (VDD) and the cathode of D1 (TxD). See "High-speed serial communication (J3)".
 
 ### Rev. 2
 
@@ -1191,6 +1228,9 @@ Rev. 2:
 
 Rev. 3:  
 [![Finished product Rev. 3](images/unbricker-rev3-thumb.jpg)](images/unbricker-rev3.jpg)
+
+Rev. 4:  
+[![Finished product Rev. 4](images/unbricker-rev4-thumb.jpg)](images/unbricker-rev4.jpg)
 
 ## License
 
